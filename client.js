@@ -27,6 +27,7 @@ btnGoRoom.onclick = function () {
         alert("Please type a room number")
     } else {
         roomNumber = inputRoomNumber.value;
+        console.log("Room number " + roomNumber + " gathered") 
         socket.emit('create or join', roomNumber);
         divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";

@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-var https = require('https').Server(app);
+var https = require('http').Server(app);
 var io = require('socket.io')(https);
-
+const path = require('path');
+// const router = Router();
 
 const options = {
   key: fs.readFileSync('key.pem'),
@@ -13,7 +14,17 @@ const options = {
 const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
+// app.use(router)
 
+app.get('/', function(req, res) {
+    // res.set('Content-Type', 'text/html')
+    // res.status(200).send("<h1>Hello GFG Learner!</h1>");
+    res.sendFile(path.join(__dirname, 'webrtcpage.html'))
+})
+
+app.get('/client.js', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client.js'));
+  });
 
 io.on('connection', function (socket) {
     console.log('a user connected');
@@ -56,6 +67,9 @@ io.on('connection', function (socket) {
 });
 
 
-https.listen(port || 3000, function () {
-    console.log('listening on', port);
+https.listen(port, function (error) {
+    if(!error)
+        console.log('listening on', port)
+    else 
+    console.log("Error occurred.", error);
 });
