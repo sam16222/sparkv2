@@ -19,16 +19,22 @@ var iceServers = {
 var streamConstraints = { audio: true, video: true };
 var isCaller;
 
+var socket = io();
 
-var socket = io("/");
+socket.on('connect', function() {
+    console.log("Connection acheived.");
+    console.log(socket.id);
+});
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
         alert("Please type a room number")
     } else {
         roomNumber = inputRoomNumber.value;
-        console.log("Room number " + roomNumber + " gathered") 
-        socket.emit('create or join', roomNumber);
+        console.log("Room number " + roomNumber + " gathered");
+        console.log('connect socket id:' + `${socket.id}`);
+        socket.emit("create or join", roomNumber);
+        console.log("EMITTIED");
         divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
     }
@@ -109,8 +115,11 @@ socket.on('offer', function (event) {
 
 socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-})
+});
 
+socket.on( 'disconnect', function () {
+    console.log( 'disconnected to server' );
+});
 
 function onIceCandidate(event) {
     if (event.candidate) {

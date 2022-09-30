@@ -1,26 +1,22 @@
 const express = require('express');
 const app = express();
-const fs = require('fs');
+// const fs = require('fs');
 var https = require('http').Server(app);
 var io = require('socket.io')(https);
 const path = require('path');
-// const router = Router();
 
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
+// const options = {
+//   key: fs.readFileSync('key.pem'),
+//   cert: fs.readFileSync('cert.pem')
+// };
 
 const port = process.env.PORT || 3000;
 
-app.use(express.static('public'));
-// app.use(router)
+// app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-    // res.set('Content-Type', 'text/html')
-    // res.status(200).send("<h1>Hello GFG Learner!</h1>");
-    res.sendFile(path.join(__dirname, 'webrtcpage.html'))
-})
+    res.sendFile(path.join(__dirname, 'webrtcpage.html'));
+});
 
 app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));
@@ -28,6 +24,7 @@ app.get('/client.js', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('a user connected');
+    console.log('connect socket id:'  + `${socket.id}`);
 
     socket.on('create or join', function (room) {
         console.log('create or join to room ', room);
@@ -38,9 +35,11 @@ io.on('connection', function (socket) {
         console.log(room, ' has ', numClients, ' clients');
 
         if (numClients == 0) {
+            console.log("a room has been created. no participants to join.")
             socket.join(room);
             socket.emit('created', room);
         } else if (numClients == 1) {
+            console.log("a participants to join available room")
             socket.join(room);
             socket.emit('joined', room);
         } else {
@@ -64,12 +63,14 @@ io.on('connection', function (socket) {
         socket.broadcast.to(event.room).emit('answer',event.sdp);
     });
 
+    socket.on('disconnect', function () {
+        console.log('a user disconnected');
+    });
 });
-
 
 https.listen(port, function (error) {
     if(!error)
-        console.log('listening on', port)
+        console.log('listening on', port);
     else 
     console.log("Error occurred.", error);
 });
