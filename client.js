@@ -29,7 +29,7 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        divSelectRoom.style = "display: none;";
+        // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
     }
 };
