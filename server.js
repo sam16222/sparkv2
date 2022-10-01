@@ -29,22 +29,21 @@ io.on('connection', function (socket) {
     socket.on('create or join', function (room) {
         console.log('create or join to room ', room);
         
-        var myRoom = io.sockets.adapter.rooms[room] || { length: 0 };
-        var numClients = myRoom.length;
+        var myRoom = io.of("/").adapter.rooms.get(room)
 
-        console.log(room, ' has ', numClients, ' clients');
-
-        if (numClients == 0) {
-            console.log("a room has been created. no participants to join.")
+        if(myRoom === undefined || myRoom.size == 0) {
+            console.log("a room has been created. no participants to join.");
             socket.join(room);
             socket.emit('created', room);
-        } else if (numClients == 1) {
+            console.log(io.of("/").adapter.rooms.get(room).size)
+        } else if (myRoom.size == 1) {
             console.log("a participants to join available room")
             socket.join(room);
             socket.emit('joined', room);
         } else {
             socket.emit('full', room);
         }
+
     });
 
     socket.on('ready', function (room){

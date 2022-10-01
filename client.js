@@ -21,11 +21,6 @@ var isCaller;
 
 var socket = io();
 
-socket.on('connect', function() {
-    console.log("Connection acheived.");
-    console.log(socket.id);
-});
-
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
         alert("Please type a room number")
@@ -34,13 +29,18 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        console.log("EMITTIED");
         divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
     }
 };
 
+socket.on('connect', function() {
+    console.log("Connection acheived.");
+    console.log(socket.id);
+});
+
 socket.on('created', function (room) {
+    console.log("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -51,6 +51,7 @@ socket.on('created', function (room) {
 });
 
 socket.on('joined', function (room) {
+    console.log("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -70,6 +71,7 @@ socket.on('candidate', function (event) {
 
 socket.on('ready', function () {
     if (isCaller) {
+        console.log("Attempting to access video log of joined user.")
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
@@ -122,6 +124,7 @@ socket.on( 'disconnect', function () {
 });
 
 function onIceCandidate(event) {
+    console.log(event)
     if (event.candidate) {
         console.log('sending ice candidate');
         socket.emit('candidate', {
