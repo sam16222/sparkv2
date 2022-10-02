@@ -4,6 +4,8 @@ var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
+var toggleButton = document.getElementById('toggle-cam');
+var toggleMic = document.getElementById('toggle-mic');
 
 
 var roomNumber;
@@ -48,6 +50,28 @@ socket.on('created', function (room) {
     }).catch(function (err) {
         console.log('An error ocurred when accessing media devices', err);
     });
+});
+
+toggleButton.addEventListener('click', () =>{
+    const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
+    if(videoTrack.enabled){
+        videoTrack.enabled = false;
+        toggleButton.innerHTML = "Show cam"
+    } else{
+        videoTrack.enabled = true;
+        toggleButton.innerHTML = "Hide cam"
+    }
+});
+
+toggleMic.addEventListener('click', () =>{
+    const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
+    if(audioTrack.enabled){
+        audioTrack.enabled = false;
+        toggleButton.innerHTML = "Unmute microphone"
+    } else{
+        audioTrack.enabled = true;
+        toggleMic.innerHTML = "Mute microphone"
+    }
 });
 
 socket.on('joined', function (room) {
