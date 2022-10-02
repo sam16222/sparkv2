@@ -7,7 +7,6 @@ var remoteVideo = document.getElementById("remoteVideo");
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 
-
 var roomNumber;
 var localStream;
 var remoteStream;
@@ -67,7 +66,7 @@ toggleMic.addEventListener('click', () =>{
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
     if(audioTrack.enabled){
         audioTrack.enabled = false;
-        toggleButton.innerHTML = "Unmute microphone"
+        toggleMic.innerHTML = "Unmute microphone"
     } else{
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
