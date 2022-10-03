@@ -33,6 +33,27 @@ btnGoRoom.onclick = function () {
         socket.emit("create or join", roomNumber);
         divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
+
+        //Hand Gesture
+        const hands = new Hands({locateFile: (file) => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+          }});
+          hands.setOptions({
+          maxNumHands: 1,
+          modelComplexity: 1,
+          minDetectionConfidence: 0.8,
+          minTrackingConfidence: 0.7
+        });
+        hands.onResults(onResults);
+  
+          const camera = new Camera(localVideo, {
+            onFrame: async () => {
+              await hands.send({image: localVideo});
+            },
+            width: 640,
+            height: 320
+          });
+          camera.start();
     }
 };
 
