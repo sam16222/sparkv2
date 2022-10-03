@@ -20,6 +20,10 @@ var iceServers = {
 }
 var streamConstraints = { audio: true, video: true };
 var isCaller;
+var start_tracking = false;
+var x1 = 0;
+var x2 = 0;
+
 
 var socket = io();
 
