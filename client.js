@@ -193,7 +193,7 @@ function onResults(results) {
 
     if (lsit.length != 0) {
 
-      var fings = numberfingersup(lsit);
+      var fings = detect_fingersup(lsit);
      
       console.log(fings);
       
@@ -257,7 +257,7 @@ function findhandpos(landmarks) {
   return [lmlist, bbox];  
 }
 
-function numberfingersup(lmlist) {
+function detect_fingersup(lmlist) {
   var fingers = [];
   var ids = [4,8,12,16,20];
   if (lmlist[ids[0]][1] < lmlist[ids[0] - 2][1]) {
