@@ -1,5 +1,6 @@
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
@@ -32,6 +33,7 @@ btnGoRoom.onclick = function () {
         socket.emit("create or join", roomNumber);
         // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
+        divConsultingControls.style = "display: block;";
     }
 };
 

@@ -45,6 +45,7 @@ body {
     border-radius: 5px;
     padding: 20px;
     font-size: 150%;
+    /* position: relative; */
 }
 
 .header {
@@ -115,4 +116,22 @@ input[type=submit] {
 
 .button {
     padding: 5px;
+}
+
+.video-small {
+    border: 2px solid #333; 
+    border-radius: 5px; 
+    width: 20%; 
+    position: relative;
+    top: 8; 
+    left: 8; 
+}
+
+.video-large {
+    border: 2px solid #333; 
+    border-radius: 5px; 
+    width: 80%; 
+    position: relative;
+    top: 3; 
+    left: 8; 
 }
