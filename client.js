@@ -178,6 +178,7 @@ function onResults(results) {
     else {
         var lsit = [];
         if (start_tracking == true) {
+            //Stop Tracking
           start_tracking = false;
           if (x1[0] > x2[0]) {
               //Gesture 1
@@ -200,7 +201,6 @@ function onResults(results) {
      if (fings[1] == true  && fings[3] == false && fings[4] == false) {
         if (start_tracking == false) {
           //start tracking
-          console.log("Start tracking")
           start_tracking = true;
           x1 = lsit[8].slice(1,2);
           console.log(x1)
