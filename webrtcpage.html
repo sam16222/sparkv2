@@ -24,24 +24,28 @@
             <h1>Videocall Application</h1>
         </nav>
 
-        <div class="row justify-content-center">
-            <button class="btn btn-dark" id="toggle-cam">Hide cam</button>
-            <button class="btn btn-dark" id="toggle-mic">Mute microphone</button>
-        </div>
-
         <div class="box sidebar">
         <!-- use SIDEBAR to specify all comparitive charts, statments, query/export, widgets, etc. -->
             <div id="selectRoom">
-                <label>Type the room number</label>
-                <input id="roomNumber" type="text" />
-                <button id="goRoom">Go</button>
+                <label title="switch rooms by entering a new number">Choose a room number to enter:</label>
+                <span><input id="roomNumber" type="text" placeholder="1"></input></span>
+                <button id="goRoom" class="btn btn-dark btn-sm" type="submit">Enter Room</button>
+            </div>
+
+            <hr> 
+
+            <div  id="consultingControls" style="display:none">
+                <label>Control your web sharing capabilities here: </label>
+                <button type="submit" class="btn btn-dark btn-sm" id="toggle-cam">Hide cam</button>
+                <button type="submit" class="btn btn-dark btn-sm" id="toggle-mic">Mute microphone</button>
             </div>
         </div>
 
         <div class="box content">
             <div  id="consultingRoom" style="display:none">
-                <video id="localVideo" autoplay></video>
-                <video id="remoteVideo" autoplay></video>
+                <video class="video-small" id="localVideo" autoplay></video>
+                <br>
+                <video class="video-large" id="remoteVideo" autoplay></video>
             </div>
         </div>
     </div>

@@ -14,7 +14,6 @@ body {
 
 .sidebar {
     grid-area: sidebar;
-    align-items: left;
 }
 
 .content {
@@ -46,12 +45,12 @@ body {
     border-radius: 5px;
     padding: 20px;
     font-size: 150%;
+    /* position: relative; */
 }
 
 .header {
     background-color: #999;
     color: #333;
-    align-items: center;
 }
 
 .headerButton {
@@ -62,21 +61,77 @@ body {
     margin-left: 5px;
 }
 
+.button {
+    background-color : #999; 
+    border-radius: 12px;
+    font-size: 50%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 input {
     display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0 auto;
+    align-items: left;
+    justify-content: left;
   }
 
 label {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     margin: 0 auto;
+    color: #333; 
+    font-size: 75%;
+    padding: 2px;
   }
 
 select {
     margin-bottom: 10px;
     margin-top: 10px;
   }
+
+input[type=text] {
+    padding:2px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 80%;
+    justify-items: left;
+    float: left;
+}
+
+input[type=text]:focus {
+    border-color:#333;
+}
+
+input[type=submit] {
+    padding:10px 10px; 
+    background:#ccc; 
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+.button {
+    padding: 5px;
+}
+
+.video-small {
+    border: 2px solid #333; 
+    border-radius: 5px; 
+    width: 20%; 
+    position: relative;
+    top: 8; 
+    left: 8; 
+}
+
+.video-large {
+    border: 2px solid #333; 
+    border-radius: 5px; 
+    width: 80%; 
+    position: relative;
+    top: 3; 
+    left: 8; 
+}
