@@ -7,6 +7,7 @@ var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
+var screenShare = document.getElementById('screen-share');
 
 var roomNumber;
 var localStream;
@@ -73,6 +74,10 @@ toggleMic.addEventListener('click', () =>{
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
     }
+});
+
+screenShare.addEventListener('click', () =>{
+    // Add in update to HTML page after screen share enable
 });
 
 socket.on('joined', function (room) {
