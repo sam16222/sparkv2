@@ -32,7 +32,7 @@ var socket = io("http://localhost:3000");
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
-        alert("Please type a room number")
+        console.log("Please type a room number")
     } else {
         roomNumber = inputRoomNumber.value;
         console.log("Room number " + roomNumber + " gathered");
@@ -69,12 +69,12 @@ btnGoRoom.onclick = function () {
 };
 
 socket.on('connect', function () {
-    alert("Connection acheived.");
+    console.log("Connection acheived.");
     console.log(socket.id);
 });
 
 socket.on('created', function (room) {
-    alert("You are the first one in the room. Room created.")
+    console.log("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -111,7 +111,7 @@ screenShare.addEventListener('click', () => {
 });
 
 socket.on('joined', function (room) {
-    alert("You are joining an existing room. Room joined.")
+    console.log("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -131,7 +131,7 @@ socket.on('candidate', function (event) {
 
 socket.on('ready', function () {
     if (isCaller) {
-        alert("Attempting to access video log of joined user.")
+        console.log("Attempting to access video log of joined user.")
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
@@ -180,11 +180,11 @@ socket.on('answer', function (event) {
 });
 
 socket.on('disconnect', function () {
-    alert('disconnected to server');
+    console.log('disconnected to server');
 });
 
 socket.on('full', function () {
-    alert('Room is full. You can not enter this room right now.');
+    console.log('Room is full. You can not enter this room right now.');
 });
 
 function onIceCandidate(event) {
