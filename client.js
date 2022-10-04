@@ -24,6 +24,7 @@ var iceServers = {
 }
 var streamConstraints = { audio: true, video: true };
 var isCaller;
+var startedStream;
 var start_tracking = false;
 var x1 = 0;
 var x2 = 0;
@@ -70,33 +71,6 @@ btnGoRoom.onclick = function () {
     }
 };
 
-screenShare.addEventListener('click', () =>{
-    console.log("HERE")
-    console.log(document.getElementById('consultingRoomwSharing').style.cssText)
-    console.log("HERE")
-    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
-        screenShare.innerHTML = "Share Screen";
-        divConsultingRoomwSharing.style = "display: none";
-        remoteVideo.className = "video-large";
-
-    } else {
-
-        screenShare.innerHTML = "Stop Sharing";
-
-        console.log("screen sharing chain enabled");
-
-        Flashphoner.init({});
-        //Connect to WCS server over websockets
-        session = Flashphoner.createSession({
-            urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
-        }).on(SESSION_STATUS.ESTABLISHED, function(session) {
-            console.log("ESTABLISHED");
-            shareClick();
-            socket.emit('screen-shared', roomNumber);
-        });
-    }
-});
-
 socket.on('connect', function() {
     alert("Connection acheived.");
     console.log(socket.id);
@@ -132,6 +106,33 @@ toggleMic.addEventListener('click', () =>{
     } else{
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
+    }
+});
+
+screenShare.addEventListener('click', () =>{
+
+    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+        screenShare.innerHTML = "Share Screen";
+        divConsultingRoomwSharing.style = "display: none";
+        remoteVideo.className = "video-large";
+        startedStream = false;
+
+    } else {
+
+        screenShare.innerHTML = "Stop Sharing";
+
+        console.log("screen sharing chain enabled");
+
+        Flashphoner.init({});
+        //Connect to WCS server over websockets
+        session = Flashphoner.createSession({
+            urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
+        }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+            console.log("ESTABLISHED");
+            shareClick();
+            startedStream = true;
+            socket.emit('screen-shared', roomNumber);
+        });
     }
 });
 
@@ -178,7 +179,7 @@ socket.on('ready', function () {
 });
 
 socket.on('screen-shared', function () {
-    if (isCaller) {
+    if (!startedStream) {
         console.log("Attempting to access Screen Share of other user.")
         alert("Attempting to access Screen Share of other user.")
         // rtcPeerConnection = new RTCPeerConnection(iceServers);
