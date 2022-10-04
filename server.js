@@ -1,18 +1,12 @@
 const express = require('express');
 const app = express();
-// const fs = require('fs');
-var https = require('http').Server(app);
-var io = require('socket.io')(https, {
+var http = require('http').Server(app);
+var io = require('socket.io')(http, {
     cors: {
         origin: '*',
     }
 });
 const path = require('path');
-
-// const options = {
-//   key: fs.readFileSync('key.pem'),
-//   cert: fs.readFileSync('cert.pem')
-// };
 
 const port = process.env.PORT || 3000;
 
@@ -22,6 +16,12 @@ app.use(express.static(path.join(__dirname, '/static')));
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'webrtcpage.html'));
 });
+
+app.get('/close', (req, res) => {
+    ser.close()
+    res.send("Http closed")
+})
+
 app.get('/share', function (req, res) {
     res.sendFile(path.join(__dirname, 'screen-sharing-min.html'));
 });
@@ -75,9 +75,11 @@ io.on('connection', function (socket) {
     });
 });
 
-https.listen(port, function (error) {
+const ser = http.listen(port, function (error) {
     if (!error)
         console.log('listening on', port, "\nTap on http://localhost:3000/");
     else
         console.log("Error occurred.", error);
 });
+
+module.exports = app;

@@ -289,6 +289,7 @@ function findhandpos(landmarks) {
     var ymin = Math.min(ylist);
     var ymax = Math.max(ylist);
     bbox = [xmin, ymin, xmax, xmin];
+
     return [lmlist, bbox];
 }
 
