@@ -38,12 +38,12 @@ btnGoRoom.onclick = function () {
 };
 
 socket.on('connect', function() {
-    console.log("Connection acheived.");
+    alert("Connection acheived.");
     console.log(socket.id);
 });
 
 socket.on('created', function (room) {
-    console.log("You are the first one in the room. Room created.")
+    alert("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -76,7 +76,7 @@ toggleMic.addEventListener('click', () =>{
 });
 
 socket.on('joined', function (room) {
-    console.log("You are joining an existing room. Room joined.")
+   alert("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -96,7 +96,7 @@ socket.on('candidate', function (event) {
 
 socket.on('ready', function () {
     if (isCaller) {
-        console.log("Attempting to access video log of joined user.")
+        alert("Attempting to access video log of joined user.")
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
@@ -145,7 +145,11 @@ socket.on('answer', function (event) {
 });
 
 socket.on( 'disconnect', function () {
-    console.log( 'disconnected to server' );
+    alert( 'disconnected to server' );
+});
+
+socket.on('full', function(){
+    alert('Room is full. You can not enter this room right now.');
 });
 
 function onIceCandidate(event) {
