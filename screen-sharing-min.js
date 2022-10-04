@@ -9,22 +9,23 @@ function init_api() {
     //Connect to WCS server over websockets
     session = Flashphoner.createSession({
         urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
-    }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+    }).on(SESSION_STATUS.ESTABLISHED, function (session) {
         console.log("ESTABLISHED");
     });
 
     shareBtn.onclick = shareClick;
 }
+
 //Detect browser
 var Browser = {
-    isSafari: function() {
+    isSafari: function () {
         return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     },
 }
 
 function shareClick() {
     if (Browser.isSafari()) {
-        Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
+        Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function () {
             startStreaming();
         });
     } else {
