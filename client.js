@@ -116,6 +116,7 @@ screenShare.addEventListener('click', () =>{
         divConsultingRoomwSharing.style = "display: none";
         remoteVideo.className = "video-large";
         startedStream = false;
+        session.disconnect();
 
     } else {
 
