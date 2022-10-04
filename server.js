@@ -55,6 +55,10 @@ io.on('connection', function (socket) {
         socket.broadcast.to(room).emit('ready');
     });
 
+    socket.on('screen-shared', function (room){
+        socket.broadcast.to(room).emit('screen-shared');
+    });
+
     socket.on('candidate', function (event){
         socket.broadcast.to(event.room).emit('candidate', event);
     });
