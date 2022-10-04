@@ -232,8 +232,7 @@ function onResults(results) {
 
         var fings = detect_fingersup(lsit);
 
-        console.log(fings);
-
+        // console.log(fings);
 
         if (fings[1] == true && fings[3] == false && fings[4] == false) {
             if (start_tracking == false) {
@@ -290,7 +289,6 @@ function findhandpos(landmarks) {
     var ymin = Math.min(ylist);
     var ymax = Math.max(ylist);
     bbox = [xmin, ymin, xmax, xmin];
-
     return [lmlist, bbox];
 }
 
