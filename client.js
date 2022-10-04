@@ -25,7 +25,7 @@ var x1 = 0;
 var x2 = 0;
 
 
-var socket = io();
+var socket = io("http://localhost:3000");
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
