@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "coverage": "coverage-node client.js",
+    "coverage": "coverage-node client.js --env=jsdom",
     "lint": "eslint '*.js?(x)'"
   },
   "author": "",
