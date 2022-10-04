@@ -18,9 +18,6 @@ app.use(express.static(path.join(__dirname, '/static')));
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'webrtcpage.html'));
 });
-app.get('/share', function(req, res) {
-    res.sendFile(path.join(__dirname, 'screen-sharing-min.html'));
-});
 
 app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));

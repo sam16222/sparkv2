@@ -1,5 +1,6 @@
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingRoomwSharing = document.getElementById("consultingRoomwSharing");
 var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
@@ -22,6 +23,11 @@ var iceServers = {
 var streamConstraints = { audio: true, video: true };
 var isCaller;
 
+var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+var session;
+var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
+
 var socket = io();
 
 btnGoRoom.onclick = function () {
@@ -36,6 +42,21 @@ btnGoRoom.onclick = function () {
         divConsultingRoom.style = "display: block;";
         divConsultingControls.style = "display: block;";
     }
+};
+
+screenShare.onclick = function () {
+    
+    console.log("screen sharing chain enabled");
+
+    Flashphoner.init({});
+    //Connect to WCS server over websockets
+    session = Flashphoner.createSession({
+        urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
+    }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+        console.log("ESTABLISHED");
+        shareClick();
+    });
+
 };
 
 socket.on('connect', function() {
@@ -74,10 +95,6 @@ toggleMic.addEventListener('click', () =>{
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
     }
-});
-
-screenShare.addEventListener('click', () =>{
-    // Add in update to HTML page after screen share enable
 });
 
 socket.on('joined', function (room) {
@@ -174,4 +191,45 @@ function onIceCandidate(event) {
 function onAddStream(event) {
     remoteVideo.srcObject = event.streams[0];
     remoteStream = event.stream;
+}
+
+//Detect browser
+var Browser = {
+    isSafari: function() {
+        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    },
+}
+
+function shareClick() {
+    if (Browser.isSafari()) {
+        console.log("brower detected as safari")
+        Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
+            startStreaming();
+        });
+    } else {
+        console.log("brower detected as not safari")
+        startStreaming();
+    }
+}
+
+//Publishing Share Screen 
+function startStreaming() {
+
+    console.log("screen sharing has begun");
+
+    remoteVideo.className = "video-small";
+
+    divConsultingRoomwSharing.style = "display: block;";
+
+    var constraints = {
+        video: {}
+    };
+    constraints.video.type = "screen";
+    constraints.video.withoutExtension = true;
+    session.createStream({
+        name: "mystream",
+        display: document.getElementById("screen-sharing"),
+        constraints: constraints
+    }).publish();
+
 }
