@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 // const fs = require('fs');
 var https = require('http').Server(app);
-var io = require('socket.io')(https);
+var io = require('socket.io')(https, {
+    cors: {
+      origin: '*',
+    }
+  });
 const path = require('path');
 
 // const options = {
@@ -17,9 +21,6 @@ app.use(express.static(path.join(__dirname, '/static')));
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'webrtcpage.html'));
-});
-app.get('/share', function(req, res) {
-    res.sendFile(path.join(__dirname, 'screen-sharing-min.html'));
 });
 
 app.get('/client.js', function (req, res) {
@@ -52,6 +53,10 @@ io.on('connection', function (socket) {
 
     socket.on('ready', function (room){
         socket.broadcast.to(room).emit('ready');
+    });
+
+    socket.on('screen-shared', function (room){
+        socket.broadcast.to(room).emit('screen-shared');
     });
 
     socket.on('candidate', function (event){

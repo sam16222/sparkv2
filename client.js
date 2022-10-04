@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
+
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingRoomwSharing = document.getElementById("consultingRoomwSharing");
 var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
@@ -7,6 +10,7 @@ var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
+var screenShare = document.getElementById('screen-share');
 
 var roomNumber;
 var localStream;
@@ -20,6 +24,16 @@ var iceServers = {
 }
 var streamConstraints = { audio: true, video: true };
 var isCaller;
+var startedStream;
+var start_tracking = false;
+var x1 = 0;
+var x2 = 0;
+
+
+var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+var session;
+var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
 
 var socket = io();
 
@@ -31,9 +45,29 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
-        divConsultingControls.style = "display: block;";
+        divConsultingControls.style = "display: block;"
+
+        //Hand Gesture
+        // const hands = new Hands({locateFile: (file) => {
+        //     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+        //   }});
+        //   hands.setOptions({
+        //   maxNumHands: 1,
+        //   modelComplexity: 1,
+        //   minDetectionConfidence: 0.8,
+        //   minTrackingConfidence: 0.7
+        // });
+        // hands.onResults(onResults);
+  
+        //   const camera = new Camera(localVideo, {
+        //     onFrame: async () => {
+        //       await hands.send({image: localVideo});
+        //     },
+        //     width: 640,
+        //     height: 320
+        //   });
+        //   camera.start();
     }
 };
 
@@ -72,6 +106,34 @@ toggleMic.addEventListener('click', () =>{
     } else{
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
+    }
+});
+
+screenShare.addEventListener('click', () =>{
+
+    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+        screenShare.innerHTML = "Share Screen";
+        divConsultingRoomwSharing.style = "display: none";
+        remoteVideo.className = "video-large";
+        startedStream = false;
+        session.disconnect();
+
+    } else {
+
+        screenShare.innerHTML = "Stop Sharing";
+
+        console.log("screen sharing chain enabled");
+
+        Flashphoner.init({});
+        //Connect to WCS server over websockets
+        session = Flashphoner.createSession({
+            urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
+        }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+            console.log("ESTABLISHED");
+            shareClick();
+            startedStream = true;
+            socket.emit('screen-shared', roomNumber);
+        });
     }
 });
 
@@ -114,6 +176,30 @@ socket.on('ready', function () {
             .catch(error => {
                 console.log(error)
             })
+    }
+});
+
+socket.on('screen-shared', function () {
+    if (!startedStream) {
+        console.log("Attempting to access Screen Share of other user.")
+        alert("Attempting to access Screen Share of other user.")
+        // rtcPeerConnection = new RTCPeerConnection(iceServers);
+        // rtcPeerConnection.onicecandidate = onIceCandidate;
+        // rtcPeerConnection.ontrack = onAddStream;
+        // rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
+        // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+        // rtcPeerConnection.createOffer()
+        //     .then(sessionDescription => {
+        //         rtcPeerConnection.setLocalDescription(sessionDescription);
+        //         socket.emit('offer', {
+        //             type: 'offer',
+        //             sdp: sessionDescription,
+        //             room: roomNumber
+        //         });
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
     }
 });
 
@@ -170,3 +256,151 @@ function onAddStream(event) {
     remoteVideo.srcObject = event.streams[0];
     remoteStream = event.stream;
 }
+
+//Detect browser
+var Browser = {
+    isSafari: function() {
+        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    },
+}
+
+function shareClick() {
+    if (Browser.isSafari()) {
+        console.log("brower detected as safari")
+        Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
+            startStreaming();
+        });
+    } else {
+        console.log("brower detected as not safari")
+        startStreaming();
+    }
+}
+
+//Publishing Share Screen 
+function startStreaming() {
+
+    console.log("screen sharing has begun");
+
+    remoteVideo.className = "video-small";
+
+    divConsultingRoomwSharing.style = "display: block;";
+
+    var constraints = {
+        video: {}
+    };
+    constraints.video.type = "screen";
+    constraints.video.withoutExtension = true;
+    session.createStream({
+        name: "mystream",
+        display: document.getElementById("screen-sharing"),
+        constraints: constraints
+    }).publish();
+
+}
+// function onResults(results) {
+
+//     if (results.multiHandLandmarks.length != 0) {
+    
+//         var [lsit, box] = findhandpos(results.multiHandLandmarks[0]);
+//         }
+//     else {
+//         var lsit = [];
+//         if (start_tracking == true) {
+//             //Stop Tracking
+//           start_tracking = false;
+//           if (x1[0] > x2[0]) {
+//               //Gesture 1
+//               console.log("right swipe")
+//           }
+//           else {
+//               //Gesture 2
+//               console.log("left swipe")
+//           }
+//         }
+//     }
+
+//     if (lsit.length != 0) {
+
+//       var fings = detect_fingersup(lsit);
+     
+//       console.log(fings);
+      
+
+//      if (fings[1] == true  && fings[3] == false && fings[4] == false) {
+//         if (start_tracking == false) {
+//           //start tracking
+//           start_tracking = true;
+//           x1 = lsit[8].slice(1,2);
+//           console.log(x1)
+//         }
+//         else {
+//           x2 = lsit[8].slice(1,2);
+//         }
+//       }
+//       else {
+
+//         start_tracking = false;
+
+//         if (fings[0] == true &&  fings[1] == true && fings[2] == true && fings[3] == true && fings[4] == true) {
+//           //Gesture 3
+//           console.log("all five fingers")
+          
+//         }
+
+//         else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
+//           var y1 = lsit[4].slice(2,3);
+//           var y2 = lsit[2].slice(2,3);
+//           if (y1[0] > y2[0]) {
+//             //Gesture 4
+//             console.log("Thumbs Down")
+//           }
+//           else {
+//             //Gesture 5
+//             console.log("Thumbs Up")
+//           }
+//         }
+//       }
+//     }
+// }
+
+// function findhandpos(landmarks) {
+//   var xlist = [];
+//   var ylist = [];
+//   var lmlist = [];
+//   var bbox = [];
+//   for (const [index,element] of landmarks.entries()) {
+//     var [h,w,c] = [900,1600, 3];
+//     var cx = parseInt(element.x*w);
+//     var cy = parseInt(element.y*h);
+//     xlist.push(cx);
+//     ylist.push(cy);
+//     lmlist.push([index, cx,cy]);
+//   }
+//   var xmin = Math.min(xlist);
+//   var xmax = Math.max(xlist);
+//   var ymin = Math.min(ylist);
+//   var ymax = Math.max(ylist);
+//   bbox = [xmin, ymin, xmax, xmin];
+
+//   return [lmlist, bbox];  
+// }
+
+// function detect_fingersup(lmlist) {
+//   var fingers = [];
+//   var ids = [4,8,12,16,20];
+//   if (lmlist[ids[0]][1] < lmlist[ids[0] - 2][1]) {
+//     fingers.push(1);
+//   }
+//   else {
+//     fingers.push(0);
+//   }
+//   for (let i = 1 ; i < 5; i++) {
+//     if (lmlist[ids[i]][2] < lmlist[ids[i] - 2][2]) {
+//       fingers.push(1);
+//     }
+//     else {
+//       fingers.push(0);
+//     }
+//   }
+//   return fingers;
+// }
