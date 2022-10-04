@@ -2,11 +2,14 @@
 
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
-
+var toggleButton = document.getElementById('toggle-cam');
+var toggleMic = document.getElementById('toggle-mic');
+var screenShare = document.getElementById('screen-share');
 
 var roomNumber;
 var localStream;
@@ -35,8 +38,9 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        divSelectRoom.style = "display: none;";
+        // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
+        divConsultingControls.style = "display: block;"
 
         //Hand Gesture
         const hands = new Hands({locateFile: (file) => {
@@ -62,12 +66,12 @@ btnGoRoom.onclick = function () {
 };
 
 socket.on('connect', function() {
-    console.log("Connection acheived.");
+    alert("Connection acheived.");
     console.log(socket.id);
 });
 
 socket.on('created', function (room) {
-    console.log("You are the first one in the room. Room created.")
+    alert("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -77,8 +81,34 @@ socket.on('created', function (room) {
     });
 });
 
+toggleButton.addEventListener('click', () =>{
+    const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
+    if(videoTrack.enabled){
+        videoTrack.enabled = false;
+        toggleButton.innerHTML = "Show cam"
+    } else{
+        videoTrack.enabled = true;
+        toggleButton.innerHTML = "Hide cam"
+    }
+});
+
+toggleMic.addEventListener('click', () =>{
+    const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
+    if(audioTrack.enabled){
+        audioTrack.enabled = false;
+        toggleMic.innerHTML = "Unmute microphone"
+    } else{
+        audioTrack.enabled = true;
+        toggleMic.innerHTML = "Mute microphone"
+    }
+});
+
+screenShare.addEventListener('click', () =>{
+    // Add in update to HTML page after screen share enable
+});
+
 socket.on('joined', function (room) {
-    console.log("You are joining an existing room. Room joined.")
+   alert("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -98,7 +128,7 @@ socket.on('candidate', function (event) {
 
 socket.on('ready', function () {
     if (isCaller) {
-        console.log("Attempting to access video log of joined user.")
+        alert("Attempting to access video log of joined user.")
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
@@ -147,7 +177,11 @@ socket.on('answer', function (event) {
 });
 
 socket.on( 'disconnect', function () {
-    console.log( 'disconnected to server' );
+    alert( 'disconnected to server' );
+});
+
+socket.on('full', function(){
+    alert('Room is full. You can not enter this room right now.');
 });
 
 function onIceCandidate(event) {
