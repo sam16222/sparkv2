@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 // const fs = require('fs');
 var https = require('http').Server(app);
-var io = require('socket.io')(https);
+var io = require('socket.io')(https, {
+    cors: {
+      origin: '*',
+    }
+  });
 const path = require('path');
 
 // const options = {
