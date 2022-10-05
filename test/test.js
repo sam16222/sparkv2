@@ -68,6 +68,10 @@ describe("Spark", () => {
                 socket.emit('offer', 100)
                 done();
             });
+            it('answer emit function', function (done) {
+                socket.emit('answer', 100)
+                done();
+            });
         });
     })
 
