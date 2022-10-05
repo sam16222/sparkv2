@@ -48,6 +48,15 @@ describe("Spark", () => {
         });
 
 
+        describe('First (hopefully useful) test', function () {
+
+            it('Doing some things with indexOf()', function (done) {
+
+                done();
+            });
+
+        });
+
         after(function (done) {
 
             chai.request(app).get('/close').end((err, res) => {
