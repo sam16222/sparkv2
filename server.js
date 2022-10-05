@@ -55,9 +55,9 @@ io.on('connection', function (socket) {
         socket.broadcast.to(room).emit('ready');
     });
 
-    socket.on('screen-shared', function (room){
+    socket.on('screen-shared', function(room){
         socket.broadcast.to(room).emit('screen-shared');
-    });
+    })
 
     socket.on('candidate', function (event){
         socket.broadcast.to(event.room).emit('candidate', event);
@@ -67,8 +67,16 @@ io.on('connection', function (socket) {
         socket.broadcast.to(event.room).emit('offer',event.sdp);
     });
 
+    socket.on('offer-screen', function(event){
+        socket.broadcast.to(event.room).emit('offer-screen',event.sdp);
+    });
+
     socket.on('answer', function(event){
         socket.broadcast.to(event.room).emit('answer',event.sdp);
+    });
+
+    socket.on('answer-screen', function(event){
+        socket.broadcast.to(event.room).emit('answer-screen',event.sdp);
     });
 
     socket.on('disconnect', function () {

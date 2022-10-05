@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <head>
+
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <link type="text/css" rel="stylesheet" href='/css/style.css'>
+
+
     <title>Videocall Application</title>
     
     <meta charset="utf-8">
@@ -9,8 +19,6 @@
       <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Videocall Application</h1>
-
     <!-- used to create a header, sidebar and main section  -->
     <div class="wrapper">
         <nav class="box header navbar navbar-expand-md navbar-light bg-light">
@@ -47,8 +55,9 @@
                 <video class="video-large" id="remoteVideo" autoplay></video>
             </div>
             <div  id="consultingRoomwSharing" style="display:none">
-                <div class="video-large" id="screen-sharing" class="display"></div>
-                <iframe id='fp_embed_player' src='https://demo.flashphoner.com:8888/embed_player?urlServer=wss://demo.flashphoner.com&streamName=mystream&mediaProviders=WebRTC,MSE,WSPlayer' marginwidth='0' marginheight='0' frameborder='0' width='100%' height='100%' scrolling='no' allowfullscreen='allowfullscreen' fps="30"></iframe>
+                <video class="video-large" id="screen-sharing" class="display" ></video>
+                    <!-- <iframe id='fp_embed_player' src='https://demo.flashphoner.com:8888/embed_player?urlServer=wss://demo.flashphoner.com&streamName=mystream&mediaProviders=WebRTC,MSE,WSPlayer' marginwidth='0' marginheight='0' frameborder='0' width='100%' height='100%' scrolling='no' allowfullscreen='allowfullscreen' fps="30"></iframe>
+                <video> -->
             </div>
             <section>
 

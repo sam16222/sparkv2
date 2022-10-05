@@ -8,6 +8,7 @@ var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
+var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var screenShare = document.getElementById('screen-share');
@@ -15,7 +16,9 @@ var screenShare = document.getElementById('screen-share');
 var roomNumber;
 var localStream;
 var remoteStream;
+var screenStream;
 var rtcPeerConnection;
+var peerScreenConnection;
 var iceServers = {
     'iceServers': [
         { 'urls': 'stun:stun.services.mozilla.com' },
@@ -115,8 +118,8 @@ screenShare.addEventListener('click', () =>{
         screenShare.innerHTML = "Share Screen";
         divConsultingRoomwSharing.style = "display: none";
         remoteVideo.className = "video-large";
+        rtcPeerConnection.removeTrack(share);
         startedStream = false;
-        session.disconnect();
 
     } else {
 
@@ -124,16 +127,50 @@ screenShare.addEventListener('click', () =>{
 
         console.log("screen sharing chain enabled");
 
-        Flashphoner.init({});
-        //Connect to WCS server over websockets
-        session = Flashphoner.createSession({
-            urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
-        }).on(SESSION_STATUS.ESTABLISHED, function(session) {
-            console.log("ESTABLISHED");
-            shareClick();
+        remoteVideo.className = "video-small";
+        divConsultingRoomwSharing.style = "display: block;";
+
+        navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
+        .then(function (stream) {
+            screenStream = stream;
+            screenVideo.srcObject = stream;
             startedStream = true;
-            socket.emit('screen-shared', roomNumber);
+        }).catch(function (err) {
+            console.log('An error ocurred when accessing media devices', err);
         });
+
+        // socket.emit("screen-shared", roomNumber);
+
+        // console.log(screenStream);
+        // rtcPeerConnection.ontrack = onAddScreenStream;
+        // share = rtcPeerConnection.addTrack(screenStream.getTracks()[0], screenStream);
+        // rtcPeerConnection.createOffer()
+        //     .then(sessionDescription => {
+        //         rtcPeerConnection.setLocalDescription(sessionDescription);
+        //         socket.emit('offer-screen', {
+        //             type: 'offer',
+        //             sdp: sessionDescription,
+        //             room: roomNumber
+        //         });
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
+
+        console.log("screen sharing has begun");
+
+
+
+        // Flashphoner.init({});
+        // //Connect to WCS server over websockets
+        // session = Flashphoner.createSession({
+        //     urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
+        // }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+        //     console.log("ESTABLISHED");
+        //     shareClick();
+        //     startedStream = true;
+        //     socket.emit('screen-shared', roomNumber);
+        // });
     }
 });
 
@@ -183,23 +220,10 @@ socket.on('screen-shared', function () {
     if (!startedStream) {
         console.log("Attempting to access Screen Share of other user.")
         alert("Attempting to access Screen Share of other user.")
-        // rtcPeerConnection = new RTCPeerConnection(iceServers);
-        // rtcPeerConnection.onicecandidate = onIceCandidate;
-        // rtcPeerConnection.ontrack = onAddStream;
-        // rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-        // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
-        // rtcPeerConnection.createOffer()
-        //     .then(sessionDescription => {
-        //         rtcPeerConnection.setLocalDescription(sessionDescription);
-        //         socket.emit('offer', {
-        //             type: 'offer',
-        //             sdp: sessionDescription,
-        //             room: roomNumber
-        //         });
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
+
+        remoteVideo.className = "video-small";
+        divConsultingRoomwSharing.style = "display: block;";
+
     }
 });
 
@@ -226,7 +250,40 @@ socket.on('offer', function (event) {
     }
 });
 
+socket.on('offer-screen', function (event) {
+    if (!screenStream) {
+
+        console.log("Attempting to access Screen Share of other user.")
+        alert("Attempting to access Screen Share of other user.")
+
+        remoteVideo.className = "video-small";
+        divConsultingRoomwSharing.style = "display: block;";
+
+        rtcPeerConnection.ontrack = onAddScreenStream;
+        rtcPeerConnection.addTrack(screenStream.getTracks()[0], screenStream);
+        rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+        rtcPeerConnection.createAnswer()
+            .then(sessionDescription => {
+                rtcPeerConnection.setLocalDescription(sessionDescription);
+                socket.emit('answer-screen', {
+                    type: 'answer',
+                    sdp: sessionDescription,
+                    room: roomNumber
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+});
+
+
 socket.on('answer', function (event) {
+    rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+});
+
+socket.on('answer-screen', function (event) {
+    console.log("answering screen share")
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
@@ -257,46 +314,56 @@ function onAddStream(event) {
     remoteStream = event.stream;
 }
 
+function onAddScreenStream(event) {
+    screenVideo.srcObject = event.streams[0];
+    screenStream = event.stream;
+}
+
+// TO DELETE
+
 //Detect browser
-var Browser = {
-    isSafari: function() {
-        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    },
-}
+// var Browser = {
+//     isSafari: function() {
+//         return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+//     },
+// }
 
-function shareClick() {
-    if (Browser.isSafari()) {
-        console.log("brower detected as safari")
-        Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
-            startStreaming();
-        });
-    } else {
-        console.log("brower detected as not safari")
-        startStreaming();
-    }
-}
 
-//Publishing Share Screen 
-function startStreaming() {
+// function shareClick() {
+//     if (Browser.isSafari()) {
+//         console.log("brower detected as safari")
+//         Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
+//             startStreaming();
+//         });
+//     } else {
+//         console.log("brower detected as not safari")
+//         startStreaming();
+//     }
+// }
 
-    console.log("screen sharing has begun");
+// //Publishing Share Screen 
+// function startStreaming() {
 
-    remoteVideo.className = "video-small";
+//     console.log("screen sharing has begun");
 
-    divConsultingRoomwSharing.style = "display: block;";
+//     remoteVideo.className = "video-small";
 
-    var constraints = {
-        video: {}
-    };
-    constraints.video.type = "screen";
-    constraints.video.withoutExtension = true;
-    session.createStream({
-        name: "mystream",
-        display: document.getElementById("screen-sharing"),
-        constraints: constraints
-    }).publish();
+//     divConsultingRoomwSharing.style = "display: block;";
 
-}
+//     var constraints = {
+//         video: {}
+//     };
+//     constraints.video.type = "screen";
+//     constraints.video.withoutExtension = true;
+//     session.createStream({
+//         name: "mystream",
+//         display: document.getElementById("screen-sharing"),
+//         constraints: constraints
+//     }).publish();
+
+// }
+
+// TO UNCOMMENT FOR SIDDARthS FEATURES
 // function onResults(results) {
 
 //     if (results.multiHandLandmarks.length != 0) {
