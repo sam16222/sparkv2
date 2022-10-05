@@ -32,4 +32,12 @@ describe("Spark", () => {
             })
         })
     })
+    describe("HTTP request", () => {
+        it("Should close the connection", (done) => {
+            chai.request(app).get('/close').end((err, res) => {
+                res.should.have.status(200);
+                done();
+            })
+        })
+    })
 })
