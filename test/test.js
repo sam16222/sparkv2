@@ -47,6 +47,17 @@ describe("Spark", () => {
             })
         });
 
+        afterEach(function (done) {
+            // Cleanup
+            if (socket.connected) {
+                console.log('disconnecting...');
+                socket.disconnect();
+            } else {
+                // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
+                console.log('no connection to break...');
+            }
+            done();
+        });
 
         describe('First (hopefully useful) test', function () {
 
