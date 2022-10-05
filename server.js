@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/close', (req, res) => {
-    ser.close()
+    server.close()
     res.send("Http closed")
 })
 
@@ -75,11 +75,11 @@ io.on('connection', function (socket) {
     });
 });
 
-const ser = http.listen(port, function (error) {
+const server = http.listen(port, function (error) {
     if (!error)
         console.log('listening on', port, "\nTap on http://localhost:3000/");
     else
         console.log("Error occurred.", error);
 });
 
-module.exports = app;
+module.exports = { app, io };
