@@ -29,5 +29,8 @@ describe("Spark", () => {
         })
     })
 
+    describe("Testing sockets", () => {
+        var socket = null;
 
+    })
 })
