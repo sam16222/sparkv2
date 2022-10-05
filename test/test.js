@@ -39,37 +39,27 @@ describe("Spark", () => {
                 , 'force new connection': true
             });
             socket.on('connect', function () {
-                console.log('worked...');
                 done();
             });
-            socket.on('disconnect', function () {
-                console.log('disconnected...');
-            })
         });
 
         afterEach(function (done) {
             // Cleanup
             if (socket.connected) {
-                console.log('disconnecting...');
                 socket.disconnect();
-            } else {
-                // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
-                console.log('no connection to break...');
             }
             done();
         });
 
         describe('First (hopefully useful) test', function () {
-
             it('Doing some things with indexOf()', function (done) {
-
                 done();
             });
-
         });
+    })
 
-        after(function (done) {
-
+    describe("Closing spark server", () => {
+        it("Should close server socket", (done) => {
             chai.request(app).get('/close').end((err, res) => {
                 res.should.have.status(200);
                 done();
