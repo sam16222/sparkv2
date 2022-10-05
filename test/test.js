@@ -60,6 +60,10 @@ describe("Spark", () => {
                 socket.emit('ready', 100)
                 done();
             });
+            it('candidate emit function', function (done) {
+                socket.emit('candidate', 100)
+                done();
+            });
         });
     })
 
