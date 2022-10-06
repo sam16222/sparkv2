@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
 var divConsultingControls = document.getElementById("consultingControls");

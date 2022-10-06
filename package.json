@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "coverage": "coverage-node client.js",
+    "lint": "eslint '*.js?(x)'"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +17,10 @@
   },
   "devDependencies": {
     "jsdoc": "^3.6.11"
+    "socket.io": "^4.5.2"
+  },
+  "devDependencies": {
+    "coverage-node": "^8.0.0",
+    "eslint": "^8.24.0"
   }
 }
