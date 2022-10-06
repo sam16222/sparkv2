@@ -12,6 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
+    "socket.io": "^4.5.2",
+    "sphinx-js": "^0.0.9"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.11"
     "socket.io": "^4.5.2"
   },
   "devDependencies": {
