@@ -1,21 +1,29 @@
 {
-  "name": "spark_test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "coverage": "coverage-node client.js --env=jsdom",
-    "lint": "eslint '*.js?(x)'"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.1",
-    "socket.io": "^4.5.2"
-  },
-  "devDependencies": {
-    "coverage-node": "^8.0.0",
-    "eslint": "^8.24.0"
-  }
+    "name": "spark_test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "coverage": "coverage-node client.js --env=jsdom",
+        "lint": "eslint '*.js?(x)'",
+        "start": "node server.js",
+        "test": "mocha",
+        "test-coverage": "nyc mocha"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/socket.io-client": "^3.0.0",
+        "express": "^4.18.1",
+        "socket.io": "^4.5.2",
+        "socket.io-client": "^4.5.2"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "chai-http": "^4.3.0",
+        "coverage-node": "^8.0.0",
+        "eslint": "^8.24.0",
+        "mocha": "^10.0.0",
+        "nyc": "^15.1.0"
+    }
 }

@@ -42,7 +42,7 @@ var socket = io();
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
-        alert("Please type a room number")
+        console.log("Please type a room number")
     } else {
         roomNumber = inputRoomNumber.value;
         console.log("Room number " + roomNumber + " gathered");
@@ -52,35 +52,38 @@ btnGoRoom.onclick = function () {
         divConsultingControls.style = "display: block;"
 
         //Hand Gesture
-        // const hands = new Hands({locateFile: (file) => {
-        //     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-        //   }});
-        //   hands.setOptions({
-        //   maxNumHands: 1,
-        //   modelComplexity: 1,
-        //   minDetectionConfidence: 0.8,
-        //   minTrackingConfidence: 0.7
-        // });
-        // hands.onResults(onResults);
-  
-        //   const camera = new Camera(localVideo, {
-        //     onFrame: async () => {
-        //       await hands.send({image: localVideo});
-        //     },
-        //     width: 640,
-        //     height: 320
-        //   });
-        //   camera.start();
+        const hands = new Hands({
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+            }
+        });
+        hands.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.8,
+            minTrackingConfidence: 0.7
+        });
+
+        hands.onResults(onResults);
+
+        const camera = new Camera(localVideo, {
+            onFrame: async () => {
+                await hands.send({ image: localVideo });
+            },
+            width: 640,
+            height: 320
+        });
+        camera.start();
     }
 };
 
-socket.on('connect', function() {
-    alert("Connection acheived.");
+socket.on('connect', function () {
+    console.log("Connection acheived.");
     console.log(socket.id);
 });
 
 socket.on('created', function (room) {
-    alert("You are the first one in the room. Room created.")
+    console.log("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -90,23 +93,23 @@ socket.on('created', function (room) {
     });
 });
 
-toggleButton.addEventListener('click', () =>{
+toggleButton.addEventListener('click', () => {
     const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
-    if(videoTrack.enabled){
+    if (videoTrack.enabled) {
         videoTrack.enabled = false;
         toggleButton.innerHTML = "Show cam"
-    } else{
+    } else {
         videoTrack.enabled = true;
         toggleButton.innerHTML = "Hide cam"
     }
 });
 
-toggleMic.addEventListener('click', () =>{
+toggleMic.addEventListener('click', () => {
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
-    if(audioTrack.enabled){
+    if (audioTrack.enabled) {
         audioTrack.enabled = false;
         toggleMic.innerHTML = "Unmute microphone"
-    } else{
+    } else {
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
     }
@@ -146,7 +149,7 @@ screenShare.addEventListener('click', () =>{
 });
 
 socket.on('joined', function (room) {
-   alert("You are joining an existing room. Room joined.")
+    console.log("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
         localStream = stream;
         localVideo.srcObject = stream;
@@ -166,7 +169,7 @@ socket.on('candidate', function (event) {
 
 socket.on('ready', function () {
     if (isCaller) {
-        alert("Attempting to access video log of joined user.")
+        console.log("Attempting to access video log of joined user.")
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
@@ -213,12 +216,12 @@ socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
-socket.on( 'disconnect', function () {
-    alert( 'disconnected to server' );
+socket.on('disconnect', function () {
+    console.log('disconnected to server');
 });
 
-socket.on('full', function(){
-    alert('Room is full. You can not enter this room right now.');
+socket.on('full', function () {
+    console.log('Room is full. You can not enter this room right now.');
 });
 
 function onIceCandidate(event) {
@@ -240,155 +243,109 @@ function onAddStream(event) {
     remoteStream = event.stream;
 }
 
-// TO DELETE
+function onResults(results) {
 
-//Detect browser
-// var Browser = {
-//     isSafari: function() {
-//         return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-//     },
-// }
+    if (results.multiHandLandmarks.length != 0) {
 
+        var [lsit, box] = findhandpos(results.multiHandLandmarks[0]);
+    }
+    else {
+        var lsit = [];
+        if (start_tracking == true) {
+            //Stop Tracking
+            start_tracking = false;
+            if (x1[0] > x2[0]) {
+                //Gesture 1
+                console.log("right swipe")
+            }
+            else {
+                //Gesture 2
+                console.log("left swipe")
+            }
+        }
+    }
 
-// function shareClick() {
-//     if (Browser.isSafari()) {
-//         console.log("brower detected as safari")
-//         Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function() {
-//             startStreaming();
-//         });
-//     } else {
-//         console.log("brower detected as not safari")
-//         startStreaming();
-//     }
-// }
+    if (lsit.length != 0) {
 
-// //Publishing Share Screen 
-// function startStreaming() {
+        var fings = detect_fingersup(lsit);
 
-//     console.log("screen sharing has begun");
+        // console.log(fings);
 
-//     remoteVideo.className = "video-small";
+        if (fings[1] == true && fings[3] == false && fings[4] == false) {
+            if (start_tracking == false) {
+                //start tracking
+                start_tracking = true;
+                x1 = lsit[8].slice(1, 2);
+                console.log(x1)
+            }
+            else {
+                x2 = lsit[8].slice(1, 2);
+            }
+        }
+        else {
 
-//     divConsultingRoomwSharing.style = "display: block;";
+            start_tracking = false;
 
-//     var constraints = {
-//         video: {}
-//     };
-//     constraints.video.type = "screen";
-//     constraints.video.withoutExtension = true;
-//     session.createStream({
-//         name: "mystream",
-//         display: document.getElementById("screen-sharing"),
-//         constraints: constraints
-//     }).publish();
+            if (fings[0] == true && fings[1] == true && fings[2] == true && fings[3] == true && fings[4] == true) {
+                //Gesture 3
+                console.log("all five fingers")
 
-// }
+            }
 
-// TO UNCOMMENT FOR SIDDARthS FEATURES
-// function onResults(results) {
+            else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
+                var y1 = lsit[4].slice(2, 3);
+                var y2 = lsit[2].slice(2, 3);
+                if (y1[0] > y2[0]) {
+                    //Gesture 4
+                    console.log("Thumbs Down")
+                }
+                else {
+                    //Gesture 5
+                    console.log("Thumbs Up")
+                }
+            }
+        }
+    }
+}
 
-//     if (results.multiHandLandmarks.length != 0) {
-    
-//         var [lsit, box] = findhandpos(results.multiHandLandmarks[0]);
-//         }
-//     else {
-//         var lsit = [];
-//         if (start_tracking == true) {
-//             //Stop Tracking
-//           start_tracking = false;
-//           if (x1[0] > x2[0]) {
-//               //Gesture 1
-//               console.log("right swipe")
-//           }
-//           else {
-//               //Gesture 2
-//               console.log("left swipe")
-//           }
-//         }
-//     }
+function findhandpos(landmarks) {
+    var xlist = [];
+    var ylist = [];
+    var lmlist = [];
+    var bbox = [];
+    for (const [index, element] of landmarks.entries()) {
+        var [h, w, c] = [900, 1600, 3];
+        var cx = parseInt(element.x * w);
+        var cy = parseInt(element.y * h);
+        xlist.push(cx);
+        ylist.push(cy);
+        lmlist.push([index, cx, cy]);
+    }
+    var xmin = Math.min(xlist);
+    var xmax = Math.max(xlist);
+    var ymin = Math.min(ylist);
+    var ymax = Math.max(ylist);
+    bbox = [xmin, ymin, xmax, xmin];
 
-//     if (lsit.length != 0) {
+    return [lmlist, bbox];
+}
 
-//       var fings = detect_fingersup(lsit);
-     
-//       console.log(fings);
-      
-
-//      if (fings[1] == true  && fings[3] == false && fings[4] == false) {
-//         if (start_tracking == false) {
-//           //start tracking
-//           start_tracking = true;
-//           x1 = lsit[8].slice(1,2);
-//           console.log(x1)
-//         }
-//         else {
-//           x2 = lsit[8].slice(1,2);
-//         }
-//       }
-//       else {
-
-//         start_tracking = false;
-
-//         if (fings[0] == true &&  fings[1] == true && fings[2] == true && fings[3] == true && fings[4] == true) {
-//           //Gesture 3
-//           console.log("all five fingers")
-          
-//         }
-
-//         else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
-//           var y1 = lsit[4].slice(2,3);
-//           var y2 = lsit[2].slice(2,3);
-//           if (y1[0] > y2[0]) {
-//             //Gesture 4
-//             console.log("Thumbs Down")
-//           }
-//           else {
-//             //Gesture 5
-//             console.log("Thumbs Up")
-//           }
-//         }
-//       }
-//     }
-// }
-
-// function findhandpos(landmarks) {
-//   var xlist = [];
-//   var ylist = [];
-//   var lmlist = [];
-//   var bbox = [];
-//   for (const [index,element] of landmarks.entries()) {
-//     var [h,w,c] = [900,1600, 3];
-//     var cx = parseInt(element.x*w);
-//     var cy = parseInt(element.y*h);
-//     xlist.push(cx);
-//     ylist.push(cy);
-//     lmlist.push([index, cx,cy]);
-//   }
-//   var xmin = Math.min(xlist);
-//   var xmax = Math.max(xlist);
-//   var ymin = Math.min(ylist);
-//   var ymax = Math.max(ylist);
-//   bbox = [xmin, ymin, xmax, xmin];
-
-//   return [lmlist, bbox];  
-// }
-
-// function detect_fingersup(lmlist) {
-//   var fingers = [];
-//   var ids = [4,8,12,16,20];
-//   if (lmlist[ids[0]][1] < lmlist[ids[0] - 2][1]) {
-//     fingers.push(1);
-//   }
-//   else {
-//     fingers.push(0);
-//   }
-//   for (let i = 1 ; i < 5; i++) {
-//     if (lmlist[ids[i]][2] < lmlist[ids[i] - 2][2]) {
-//       fingers.push(1);
-//     }
-//     else {
-//       fingers.push(0);
-//     }
-//   }
-//   return fingers;
-// }
+function detect_fingersup(lmlist) {
+    var fingers = [];
+    var ids = [4, 8, 12, 16, 20];
+    if (lmlist[ids[0]][1] < lmlist[ids[0] - 2][1]) {
+        fingers.push(1);
+    }
+    else {
+        fingers.push(0);
+    }
+    for (let i = 1; i < 5; i++) {
+        if (lmlist[ids[i]][2] < lmlist[ids[i] - 2][2]) {
+            fingers.push(1);
+        }
+        else {
+            fingers.push(0);
+        }
+    }
+    return fingers;
+}
