@@ -2,11 +2,13 @@
 
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingRoomwSharing = document.getElementById("consultingRoomwSharing");
 var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
+var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var screenShare = document.getElementById('screen-share');
@@ -14,7 +16,9 @@ var screenShare = document.getElementById('screen-share');
 var roomNumber;
 var localStream;
 var remoteStream;
+var screenStream;
 var rtcPeerConnection;
+var peerScreenConnection;
 var iceServers = {
     'iceServers': [
         { 'urls': 'stun:stun.services.mozilla.com' },
@@ -23,12 +27,18 @@ var iceServers = {
 }
 var streamConstraints = { audio: true, video: true };
 var isCaller;
+var startedStream;
 var start_tracking = false;
 var x1 = 0;
 var x2 = 0;
+const senders = [];
 
+var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+var session;
+var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
 
-var socket = io("http://localhost:3000");
+var socket = io();
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
@@ -38,7 +48,6 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
         divConsultingControls.style = "display: block;"
 
@@ -106,8 +115,37 @@ toggleMic.addEventListener('click', () => {
     }
 });
 
-screenShare.addEventListener('click', () => {
-    // Add in update to HTML page after screen share enable
+screenShare.addEventListener('click', () =>{
+
+    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+        screenShare.innerHTML = "Share Screen";
+        divConsultingRoomwSharing.style = "display: none";
+        remoteVideo.className = "video-large";
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
+        startedStream = false;
+
+    } else {
+
+        screenShare.innerHTML = "Stop Sharing";
+
+        console.log("screen sharing chain enabled");
+
+        remoteVideo.className = "video-small";
+        divConsultingRoomwSharing.style = "display: block;";
+
+        navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
+        .then(function (stream) {
+            const screenTrack = stream.getTracks()[0];
+            screenVideo.srcObject = stream;
+            startedStream = true;
+            senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
+        }).catch(function (err) {
+            console.log('An error ocurred when accessing media devices', err);
+        });
+
+        console.log("screen sharing has begun");
+    }
 });
 
 socket.on('joined', function (room) {
@@ -135,8 +173,7 @@ socket.on('ready', function () {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+        localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.createOffer()
             .then(sessionDescription => {
                 rtcPeerConnection.setLocalDescription(sessionDescription);
