@@ -103,6 +103,8 @@ Are you interested in contributing to this project? Visit [our contribution](CON
   
 Need some ideas on what to contribute? Visit our [project roadmap](https://github.com/SiddarthR56/spark/blob/main/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking. 
 
+This project is made possible by the incredible donation of time from NC State Project Contributors and the advice/support of CSC 510 teaching staff. NC State University has made the resources for this project possible, and will continue to support CSC 510 projects for the forseeable future. 
+
 ## Help 
   
 Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly.
