@@ -3,7 +3,7 @@ Total Score: TODO
 |Notes|Score|Links & Support|
 |-----|---------|---------|
 |Video1 : For people starting with 2020 or 2021 projects, 2min video of old functionality| 3 | Not applicable as we developed a product from scratch. | 
-|Video2| For people starting with 2020 or 2021 projects, 2min video of delta between functionality| 3 | Not applicable as we developed a product from scratch. | 
+|Video2 : For people starting with 2020 or 2021 projects, 2min video of delta between functionality | 3 | Not applicable as we developed a product from scratch. | 
 |Workload is spread over the whole team (one team member is often Xtimes more productive than the others, but nevertheless, here is a track record that everyone is contributing a lot)| 3 | From [GH Insights](https://github.com/SiddarthR56/spark/graphs/contributors), team members on average are each responsible for 25 commits. Participant commit distribution is normal and most group memebrs have committed a net 1000-1500 lines of code as well.  |
 |Number of commits| 3 | From GH commits. Overall [40+ commits](https://github.com/SiddarthR56/spark/graphs/commit-activity) made to main and over 100+ commits total 25 averaging per person. |
 |Number of commits: by different people| 2 | From [GH Insights](https://github.com/SiddarthR56/spark/pulse). 3 members of the group committed approximatly 3 times as much as the other group members. However, some people's commits had more code included in it, hence the 2 rather than 1.  |
@@ -51,8 +51,8 @@ Total Score: TODO
 |Did the team publish the release history e.g. release data, version numbers, key features of each release etc. on your web site or in the documentation? | TODO |  | 
 |Does the software describe how a user can get help with using the software? | TODO |  |  
 |Does the website and documentation describe what support, if any, the team provide to users and developers? | TODO | |  
-|Does the project have an e-mail address or forum that is solely for supporting users? | TODO |  | 
-|Are e-mails to the support e-mail address received by more than one person? | TODO |  | 
+|Does the project have an e-mail address or forum that is solely for supporting users? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
+|Are e-mails to the support e-mail address received by more than one person? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
 |Does the project have a ticketing system to manage bug reports and feature requests? | 3 | Yes. A ticketing system exists and feature request and bug report [templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) exist for easy logging. | 
 |Is the project's ticketing system publicly visible to the users, so they can view bug reports and feature requests? | 3 | Yes, bug reports are publically available [here](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) |  
 
@@ -65,9 +65,9 @@ Total Score: TODO
 | Question 2.1: Is the name of your project/software unique? | | | 
 | Question 2.2: Is your project/software name free from trademark violations? | | | 
 | Question 3.1: Is your software available as a package that can be deployed without building it?| | | 
-| Question 3.2: Is your software available for free? | | | 
+| Question 3.2: Is your software available for free? | 3 | Yes, software can be cloned on a server to use between users of interest.| 
 | Question 3.3: Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | | | 
-| Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| | | 
+| Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| 3 | Public repo available for cloning and can be downloaded on Zenodo as well. | 
 | Question 4.1: Is your documentation clearly available on your website or within your software?| | | 
 | Question 4.2: Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?| | | 
 | Question 4.3: If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software? | | | 
@@ -117,16 +117,16 @@ Total Score: TODO
 | Question 13.7: Can users subscribe to notifications to changes to your source code repository? | | | 
 | Question 13.8: If your software is developed as an open source project (and, not just a project developing open source software), do you have a governance model? | | | 
 | Question 14.1: Do you accept contributions (e.g. bug fixes, enhancements, documentation updates, tutorials) from people who are not part of your project? | | | 
-| Question 14.2: Do you have a contributions policy? | | | 
-| Question 14.3: Is your contributions' policy publicly available? | | | 
+| Question 14.2: Do you have a contributions policy? | 3 |[Contribution]([CONTRIBUTION.md](CONTRIBUTING.md)) information is up to date. Links are included within the file to point to additional resources or areas on the git page that should be used when contributing.  | 
+| Question 14.3: Is your contributions' policy publicly available? |3 |[Contribution]([CONTRIBUTION.md](CONTRIBUTING.md)) information is pubically available. Links are included within the file to point to additional resources or areas on the git page that should be used when contributing.  | 
 | Question 14.4: Do contributors keep the copyright/IP of their contributions? | | | 
 | Question 15.1: Does your website and documentation clearly state the copyright owners of your software and documentation?| | | 
 | Question 15.2: Does each of your source code files include a copyright statement?| | | 
-| Question 15.3: Does your website and documentation clearly state the licence of your software? | | | 
-| Question 15.4: Is your software released under an open source licence? | | | 
-| Question 15.5: Is your software released under an OSI-approved open-source licence? | | | 
+| Question 15.3: Does your website and documentation clearly state the licence of your software? | 3.  |Yes. License is stated in About tab and in [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE).| 
+| Question 15.4: Is your software released under an open source licence? | 3 | Yes. License is stated in About tab and in [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE). The license used is the MIT License. | 
+| Question 15.5: Is your software released under an OSI-approved open-source licence? | 3 | Yes. [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE) includes the MIT License which is [approved](https://opensource.org/licenses/MIT) by OSI. | 
 | Question 15.6: Does each of your source code files include a licence header? | | | 
-| Question 15.7: Do you have a recommended citation for your software | | | 
-| Question 16.1: Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)? | | | 
+| Question 15.7: Do you have a recommended citation for your software | 3 | Yes. Citation is linked within the [CITATION.cff](https://github.com/SiddarthR56/spark/blob/main/CITATION.cff) file and can be found in the About tab of the repo as well. | 
+| Question 16.1: Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)? | 3 | Yes. Project roadmap has been developed with overarching goals. It is found [here](https://github.com/SiddarthR56/spark/blob/main/docs/project_roadmap.md) | 
 | Question 16.2: Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed? | | | 
 | Question 16.3: Do you make timely announcements of the deprecation of components, APIs, etc.?| | | 
