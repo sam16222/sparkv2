@@ -173,13 +173,13 @@ function start_share() {
 function disable_gestures() {
     console.log("Disabling gestures.")
     gesturesEnabled = false; 
-    screenShare.innerHTML = "Enable Gestures";
+    toggleGesture.innerHTML = "Enable Gestures";
 }
 
 function enable_gestures() {
     console.log("Enabling gestures.")
     gesturesEnabled = true; 
-    screenShare.innerHTML = "Disable Gestures";
+    toggleGesture.innerHTML = "Disable Gestures";
 }
 
 socket.on('joined', function (room) {
