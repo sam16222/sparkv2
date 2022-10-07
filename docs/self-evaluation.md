@@ -7,7 +7,7 @@ Total Score: TODO
 |Workload is spread over the whole team (one team member is often Xtimes more productive than the others, but nevertheless, here is a track record that everyone is contributing a lot)| 3 | From [GH Insights](https://github.com/SiddarthR56/spark/graphs/contributors), team members on average are each responsible for 25 commits. Participant commit distribution is normal and most group memebrs have committed a net 1000-1500 lines of code as well.  |
 |Number of commits| 3 | From GH commits. Overall [40+ commits](https://github.com/SiddarthR56/spark/graphs/commit-activity) made to main and over 100+ commits total 25 averaging per person. |
 |Number of commits: by different people| 2 | From [GH Insights](https://github.com/SiddarthR56/spark/pulse). 3 members of the group committed approximatly 3 times as much as the other group members. However, some people's commits had more code included in it, hence the 2 rather than 1.  |
-|Issues reports: there are **many**| 3 | Over [10 issues listed](https://github.com/SiddarthR56/spark/pulse), each with several areas for improvement listed and/or specific tasks within the issue to be fixed. In addition, [issue templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) have been created demonstrating thoroughness.  |
+|Issues reports: there are **many**| 3 | Over [15 issues listed](https://github.com/SiddarthR56/spark/pulse), each with several areas for improvement listed and/or specific tasks within the issue to be fixed. In addition, [issue templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) have been created demonstrating thoroughness.  |
 |Issues are being closed| 3 | At the time of submission, all issues have sparked discussions with teammates and have been closed. The only issues NOT closed are feature requests for the project extension. |
 |DOI badge: exists| 3 | From GH within [README.md](README.md). It also is found within the citation document and about us section of repo.|
 |Docs: doco generated, format not ugly | TODO | |
@@ -66,8 +66,8 @@ Total Score: TODO
 | Question 2.2: Is your project/software name free from trademark violations? | | | 
 | Question 3.1: Is your software available as a package that can be deployed without building it?| | | 
 | Question 3.2: Is your software available for free? | 3 | Yes, software can be cloned on a server to use between users of interest.| 
-| Question 3.3: Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | | | 
-| Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| 3 | Public repo available for cloning and can be downloaded on Zenodo as well. | 
+| Question 3.3: Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | 3 |  Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
+| Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| 3 | Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
 | Question 4.1: Is your documentation clearly available on your website or within your software?| | | 
 | Question 4.2: Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?| | | 
 | Question 4.3: If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software? | | | 
@@ -76,12 +76,12 @@ Total Score: TODO
 | Question 4.6: If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation? | | | 
 | Question 4.7: Do you store your documentation under revision control with your source code? | | | 
 | Question 4.8: Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation? | | | 
-| Question 5.1: Does your software describe how a user can get help with using your software? | | | 
-| Question 5.2: Does your website and documentation describe what support, if any, you provide to users and developers? | | | 
-| Question 5.3: Does your project have an e-mail address or forum that is solely for supporting users? | | | 
-| Question 5.4: Are e-mails to your support e-mail address received by more than one person?| | | 
-| Question 5.5: Does your project have a ticketing system to manage bug reports and feature requests? | | | 
-| Question 5.6: Is your project's ticketing system publicly visible to your users, so they can view bug reports and feature requests? | | | 
+| Question 5.1: Does your software describe how a user can get help with using your software? |  | | 
+| Question 5.2: Does your website and documentation describe what support, if any, you provide to users and developers? | 3 | Yes. In the readme there is a area for getting help. This includes a link to the [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md)| 
+| Question 5.3: Does your project have an e-mail address or forum that is solely for supporting users? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
+| Question 5.4: Are e-mails to your support e-mail address received by more than one person?| 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
+| Question 5.5: Does your project have a ticketing system to manage bug reports and feature requests? | 3 | Yes. A ticketing system exists and feature request and bug report [templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) exist for easy logging.| 
+| Question 5.6: Is your project's ticketing system publicly visible to your users, so they can view bug reports and feature requests? | 3 | Yes, bug reports are publically available [here](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) | 
 | Question 6.1: Is your software’s architecture and design modular? | | | 
 | Question 6.2: Does your software use an accepted coding standard or convention? | | | 
 | Question 7.1: Does your software allow data to be imported and exported using open data formats? | | | 
@@ -89,7 +89,6 @@ Total Score: TODO
 | Question 8.1: Is your software cross-platform compatible? | | | 
 | Question 9.1: Does your software adhere to appropriate accessibility conventions or standards? | | | 
 | Question 9.2: Does your documentation adhere to appropriate accessibility conventions or standards? | |. 
-| Question 4.4: Do you provide a comprehensive guide to all your software’s commands, functions and options?| |  | 
 | Question 10.1: Is your source code stored in a repository under revision control? | | | 
 | Question 10.2: Is each source code release a snapshot of the repository? | | | 
 | Question 10.3: Are releases tagged in the repository? | | | 
