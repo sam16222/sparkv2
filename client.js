@@ -210,19 +210,6 @@ socket.on('offer', function (event) {
     }
 });
 
-socket.on('offer-screen', function (event) {
-    if (!screenStream) {
-
-        console.log("Attempting to access Screen Share of other user.")
-        alert("Attempting to access Screen Share of other user.")
-
-        remoteVideo.className = "video-small";
-        divConsultingRoomwSharing.style = "display: block;";
-
-    }
-});
-
-
 socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
