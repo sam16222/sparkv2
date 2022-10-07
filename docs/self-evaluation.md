@@ -9,7 +9,7 @@ Total Score: TODO
 |Number of commits: by different people| 2 | From [GH Insights](https://github.com/SiddarthR56/spark/pulse). 3 members of the group committed approximatly 3 times as much as the other group members. However, some people's commits had more code included in it, hence the 2 rather than 1.  |
 |Issues reports: there are **many**| 3 | Over [10 issues listed](https://github.com/SiddarthR56/spark/pulse), each with several areas for improvement listed and/or specific tasks within the issue to be fixed. In addition, [issue templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) have been created demonstrating thoroughness.  |
 |Issues are being closed| 3 | At the time of submission, all issues have sparked discussions with teammates and have been closed. The only issues NOT closed are feature requests for the project extension. |
-|DOI badge: exists| TODO | From GH within [README.md](README.md) |
+|DOI badge: exists| 3 | From GH within [README.md](README.md). It also is found within the citation document and about us section of repo.|
 |Docs: doco generated, format not ugly | TODO | |
 |Docs: what: point descriptions of each class/function (in isolation) | TODO |  | 
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| TODO | |
