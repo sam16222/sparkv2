@@ -35,7 +35,7 @@ Total Score: TODO
 |Does the website and documentation provide a clear, high-level overview of the software? | TODO | |
 |Does the website and documentation clearly describe the type of user who should use the software? | TODO | |
 |Did the team publish case studies to show how the software has been used by team and others? | TODO |  | 
-|Is the name of the project/software unique? | TODO | Yes! Spark ... | 
+|Is the name of the project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
 |Is the project/software name free from trademark violations? | TODO | | 
 |Is the software available as a package that can be deployed without building it? | TODO | | 
 |Is the software available for free? | 3 |  [Licensed under MIT](https://github.com/SiddarthR56/spark/blob/main/LICENSE) | 
@@ -62,7 +62,7 @@ Total Score: TODO
 |Question 1.1: Does your website and documentation provide a clear, high-level overview of your software? |  | | 
 |Question 1.2: Does your website and documentation clearly describe the type of user who should use your software? | | | 
 | Question 1.3: Do you publish case studies to show how your software has been used by yourself and others? | | | 
-| Question 2.1: Is the name of your project/software unique? | | | 
+| Question 2.1: Is the name of your project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
 | Question 2.2: Is your project/software name free from trademark violations? | | | 
 | Question 3.1: Is your software available as a package that can be deployed without building it?| | | 
 | Question 3.2: Is your software available for free? | 3 | Yes, software can be cloned on a server to use between users of interest.| 
