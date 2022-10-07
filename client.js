@@ -132,7 +132,7 @@ screenShare.addEventListener('click', () =>{
 
         navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
         .then(function (stream) {
-            screenStream = stream;
+            const screenTrack = stream.getTracks()[0];
             screenVideo.srcObject = stream;
             startedStream = true;
             senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
@@ -170,8 +170,7 @@ socket.on('ready', function () {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+        localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.createOffer()
             .then(sessionDescription => {
                 rtcPeerConnection.setLocalDescription(sessionDescription);
