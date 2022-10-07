@@ -12,7 +12,7 @@
   
 </h3>
 
-We have the best hands free solution to your presentation needs! Have you ever presented to an audience and not had the ability to interact and change your meeting controls on the go? Spark is a solution to use gestures to change your volume and screen sharing settings while you present. You no longer need to type a value, instead just give your camera a gesture and keep on presenting. We guarantee, it will be the most seemless, hands-free presentation you have had! 
+We have the best hands free solution to your presentation needs! Have you ever presented to an audience and not had the ability to interact and change your meeting controls on the go? Spark is a solution to use gestures to change your volume and screen sharing settings while you present. You no longer need to type a value, instead just give your camera a gesture and keep on presenting. We guarantee it will *spark* new conversations and be the most seemless, hands-free presentation you have had! 
 
 ## Capabilities 
 
@@ -59,32 +59,30 @@ TODO
 
 ```
 .
-|   .coverage
 |   .eslintrc.json
 |   .gitignore
 |   CITATION.cff
-|   CODE-OF-CONDUCT.md
+|   CODE_OF_CONDUCT.md
 |   CONTRIBUTING.md
 |   LICENSE
 |   INSTALL.md
 |   README.md
 |   package.json
 |   package-lock.json
+|   server.js 
+|   client.js
+|   webrtcpage.html
 |   
 +---.github
 |   \---workflows
 |           build.yml
 |           test.yml
 |           lint.yml
+|           codeql-analysis.yml
 |   \---ISSUE_TEMPLATE
 |           bug_report.md
 |           feature_request.md
-|     
-+---code
-|   |   server.js 
-|   |   client.js 
-|   |   webrtcpage.html
-|   |   
+|      
 +---static
 |   \---css
 |       | style.css
@@ -93,10 +91,16 @@ TODO
 |   |   filetree.txt
 |   |   project_roadmap.md
 |   |   self_evaluation.md
+|   |   troubleshooting_guide.md
 |   \---documentation_photos
-|       | frontend_intro.jpg
-|       | project_name.jpg
-|                   
+|           *lots of photos listed not shown here*
+|   
++---out 
+|   |   index.html
+|   \---fonts
+|   \---scripts 
+|   \---styles
+|                    
 \---test
     |   test.js
 ```
