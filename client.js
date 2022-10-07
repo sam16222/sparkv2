@@ -135,42 +135,13 @@ screenShare.addEventListener('click', () =>{
             screenStream = stream;
             screenVideo.srcObject = stream;
             startedStream = true;
+            senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
         }).catch(function (err) {
             console.log('An error ocurred when accessing media devices', err);
         });
 
-        // socket.emit("screen-shared", roomNumber);
-
-        // console.log(screenStream);
-        // rtcPeerConnection.ontrack = onAddScreenStream;
-        // share = rtcPeerConnection.addTrack(screenStream.getTracks()[0], screenStream);
-        // rtcPeerConnection.createOffer()
-        //     .then(sessionDescription => {
-        //         rtcPeerConnection.setLocalDescription(sessionDescription);
-        //         socket.emit('offer-screen', {
-        //             type: 'offer',
-        //             sdp: sessionDescription,
-        //             room: roomNumber
-        //         });
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
-
         console.log("screen sharing has begun");
-
-
-
-        // Flashphoner.init({});
-        // //Connect to WCS server over websockets
-        // session = Flashphoner.createSession({
-        //     urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
-        // }).on(SESSION_STATUS.ESTABLISHED, function(session) {
-        //     console.log("ESTABLISHED");
-        //     shareClick();
-        //     startedStream = true;
-        //     socket.emit('screen-shared', roomNumber);
-        // });
     }
 });
 
@@ -247,8 +218,6 @@ socket.on('offer-screen', function (event) {
 
         remoteVideo.className = "video-small";
         divConsultingRoomwSharing.style = "display: block;";
-
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
 
     }
 });
