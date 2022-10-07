@@ -37,6 +37,10 @@ TODO
 
 TODO
 
+<img src="/docs/documentation_photos/ChooseRoomNo.png" alt="drawing" width="480" /> 
+<img src="/docs/documentation_photos/RoomWithOne.png" alt="drawing" width="480" /> 
+<img src="/docs/documentation_photos/MeetingWithTwo.png" alt="drawing" width="480" /> 
+
 ## Use 
 
 Setup and installation instructions can be found in the [user-friendly install guide](INSTALL.md)
