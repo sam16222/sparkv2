@@ -33,11 +33,6 @@ var x1 = 0;
 var x2 = 0;
 const senders = [];
 
-var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
-var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
-var session;
-var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
-
 var socket = io();
 
 btnGoRoom.onclick = function () {
@@ -118,6 +113,7 @@ toggleMic.addEventListener('click', () => {
 screenShare.addEventListener('click', () =>{
 
     if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+        console.log("Ending screen share.")
         screenShare.innerHTML = "Share Screen";
         divConsultingRoomwSharing.style = "display: none";
         remoteVideo.className = "video-large";
@@ -126,8 +122,8 @@ screenShare.addEventListener('click', () =>{
 
     } else {
 
+        console.log("Beginning screen share.")
         screenShare.innerHTML = "Stop Sharing";
-
         console.log("screen sharing chain enabled");
 
         remoteVideo.className = "video-small";
