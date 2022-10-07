@@ -11,6 +11,7 @@ var remoteVideo = document.getElementById("remoteVideo");
 var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
+var toggleGesture = document.getElementById('gestures');
 var screenShare = document.getElementById('screen-share');
 
 var roomNumber;
@@ -25,9 +26,11 @@ var iceServers = {
         { 'urls': 'stun:stun.l.google.com:19302' }
     ]
 }
+
 var streamConstraints = { audio: true, video: true };
 var isCaller;
 var startedStream;
+var gesturesEnabled = true;
 var start_tracking = false;
 var x1 = 0;
 var x2 = 0;
@@ -108,38 +111,20 @@ toggleMic.addEventListener('click', () => {
     }
 });
 
+toggleGesture.addEventListener('click', () => {
+    if (gesturesEnabled == true) {
+        disable_gestures();
+    } else {
+        enable_gestures();
+    }
+});
 
 screenShare.addEventListener('click', () =>{
 
     if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
-        console.log("Ending screen share.")
-        screenShare.innerHTML = "Share Screen";
-        divConsultingRoomwSharing.style = "display: none";
-        remoteVideo.className = "video-large";
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
-        startedStream = false;
-
+        end_share();
     } else {
-
-        console.log("Beginning screen share.")
-        screenShare.innerHTML = "Stop Sharing";
-        console.log("screen sharing chain enabled");
-
-        remoteVideo.className = "video-small";
-        divConsultingRoomwSharing.style = "display: block;";
-
-        navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
-        .then(function (stream) {
-            const screenTrack = stream.getTracks()[0];
-            screenVideo.srcObject = stream;
-            startedStream = true;
-            senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
-
-        }).catch(function (err) {
-            console.log('An error ocurred when accessing media devices', err);
-        });
-
-        console.log("screen sharing has begun");
+        start_share();
     }
 
 });
@@ -152,6 +137,49 @@ function mute(audioTrack) {
 function unmute(audioTrack) {
     audioTrack.enabled = true;
     toggleMic.innerHTML = "Mute microphone"
+}
+
+function end_share() {
+    console.log("Ending screen share.")
+    screenShare.innerHTML = "Share Screen";
+    divConsultingRoomwSharing.style = "display: none";
+    remoteVideo.className = "video-large";
+    senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
+    startedStream = false;
+}
+
+function start_share() {
+    console.log("Beginning screen share.");
+    screenShare.innerHTML = "Stop Sharing";
+    console.log("screen sharing chain enabled");
+
+    remoteVideo.className = "video-small";
+    divConsultingRoomwSharing.style = "display: block;";
+
+    navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
+    .then(function (stream) {
+        const screenTrack = stream.getTracks()[0];
+        screenVideo.srcObject = stream;
+        startedStream = true;
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
+    }).catch(function (err) {
+        console.log('An error ocurred when accessing media devices', err);
+    });
+
+    console.log("screen sharing has begun");
+}
+
+function disable_gestures() {
+    console.log("Disabling gestures.")
+    gesturesEnabled = false; 
+    screenShare.innerHTML = "Enable Gestures";
+}
+
+function enable_gestures() {
+    console.log("Enabling gestures.")
+    gesturesEnabled = true; 
+    screenShare.innerHTML = "Disable Gestures";
 }
 
 socket.on('joined', function (room) {
@@ -259,13 +287,17 @@ function onResults(results) {
         if (start_tracking == true) {
             //Stop Tracking
             start_tracking = false;
-            if (x1[0] > x2[0]) {
-                //Gesture 1
-                console.log("right swipe")
-            }
-            else {
-                //Gesture 2
-                console.log("left swipe")
+            if (gesturesEnabled == true) {
+                if (x1[0] > x2[0]) {
+                    //Gesture 1
+                    console.log("right swipe");
+                    start_share();
+                }
+                else {
+                    //Gesture 2
+                    console.log("left swipe")
+                    end_share();
+                }
             }
         }
     }
@@ -301,15 +333,17 @@ function onResults(results) {
                 var y1 = lsit[4].slice(2, 3);
                 var y2 = lsit[2].slice(2, 3);
                 const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
-                if (y1[0] > y2[0]) {
-                    //Gesture 4
-                    console.log("Thumbs Down")
-                    mute(audioTrack);
-                }
-                else {
-                    //Gesture 5
-                    console.log("Thumbs Up")
-                    unmute(audioTrack);
+                if (gesturesEnabled == true) {
+                    if (y1[0] > y2[0]) {
+                        //Gesture 4
+                        console.log("Thumbs Down")
+                        mute(audioTrack);
+                    }
+                    else {
+                        //Gesture 5
+                        console.log("Thumbs Up")
+                        unmute(audioTrack);
+                    }
                 }
             }
         }
