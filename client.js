@@ -267,11 +267,13 @@ function onResults(results) {
             start_tracking = false;
             if (x1[0] > x2[0]) {
                 //Gesture 1
-                console.log("right swipe")
+                console.log("right swipe");
+                start_share();
             }
             else {
                 //Gesture 2
                 console.log("left swipe")
+                end_share();
             }
         }
     }
