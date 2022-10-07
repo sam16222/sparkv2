@@ -2,7 +2,7 @@
   
   <img src="/docs/documentation_photos/project_name.jpg" alt="drawing" width="450"/>    
 
-  <a href="README.md">Overview</a>     |     <a href="INSTALL.md">Installation</a>    |       <a href="OBJECTIVES.md">Long Term Objectives</a>    
+  <a href="README.md">Overview</a>     |     <a href="INSTALL.md">Installation</a>    |       <a href="project_roadmap.md">Long Term Objectives</a>    
   
   [![Build](https://github.com/SiddarthR56/spark/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
 [![Lint](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
