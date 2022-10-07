@@ -118,7 +118,7 @@ screenShare.addEventListener('click', () =>{
         screenShare.innerHTML = "Share Screen";
         divConsultingRoomwSharing.style = "display: none";
         remoteVideo.className = "video-large";
-        rtcPeerConnection.removeTrack(share);
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
         startedStream = false;
 
     } else {
