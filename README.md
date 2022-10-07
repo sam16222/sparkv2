@@ -33,6 +33,10 @@ We have the best hands free solution to your presentation needs! Have you ever p
 
 TODO
 
+## Worked Examples
+
+TODO
+
 ## Use 
 
 Setup and installation instructions can be found in the [user-friendly install guide](INSTALL.md)
