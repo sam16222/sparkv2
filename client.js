@@ -1,3 +1,9 @@
+// Copyright 2021 Google LLC
+
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/MIT.
+
 /* eslint-disable no-unused-vars */
 
 var divSelectRoom = document.getElementById("selectRoom");
@@ -14,6 +20,8 @@ var roomNumber;
 var localStream;
 var remoteStream;
 var rtcPeerConnection;
+
+/** Contains the stun server URL that will be used */
 var iceServers = {
     'iceServers': [
         { 'urls': 'stun:stun.services.mozilla.com' },
@@ -44,6 +52,9 @@ socket.on('connect', function() {
     console.log(socket.id);
 });
 
+/**
+ * Function is triggered when a room is created.
+ */
 socket.on('created', function (room) {
     console.log("You are the first one in the room. Room created.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
@@ -55,6 +66,9 @@ socket.on('created', function (room) {
     });
 });
 
+/**
+ * Function is triggered when the video on/off button is clicked.
+ */
 toggleButton.addEventListener('click', () =>{
     const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
     if(videoTrack.enabled){
@@ -66,6 +80,9 @@ toggleButton.addEventListener('click', () =>{
     }
 });
 
+/**
+ * Function is triggered when when the audio mute/unmute button is clicked.
+ */
 toggleMic.addEventListener('click', () =>{
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
     if(audioTrack.enabled){
@@ -77,6 +94,9 @@ toggleMic.addEventListener('click', () =>{
     }
 });
 
+/**
+ * Function is triggered when a room is successfully joined.
+ */
 socket.on('joined', function (room) {
     console.log("You are joining an existing room. Room joined.")
     navigator.mediaDevices.getUserMedia(streamConstraints).then(function (stream) {
@@ -88,6 +108,9 @@ socket.on('joined', function (room) {
     });
 });
 
+/**
+ * Function is triggered when it receives an ice candidate.
+ */
 socket.on('candidate', function (event) {
     var candidate = new RTCIceCandidate({
         sdpMLineIndex: event.label,
@@ -96,6 +119,9 @@ socket.on('candidate', function (event) {
     rtcPeerConnection.addIceCandidate(candidate);
 });
 
+/**
+ * This function is triggered when a person joins the room and is ready to communicate.
+ */
 socket.on('ready', function () {
     if (isCaller) {
         console.log("Attempting to access video log of joined user.")
@@ -119,6 +145,9 @@ socket.on('ready', function () {
     }
 });
 
+/**
+ * This function is triggered when an offer is received.
+ */
 socket.on('offer', function (event) {
     if (!isCaller) {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
@@ -142,14 +171,25 @@ socket.on('offer', function (event) {
     }
 });
 
+/**
+ * This function is triggered when an answer is received.
+ */
 socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
+/**
+ * This function is triggered when a user is disconnected.
+ */
 socket.on( 'disconnect', function () {
     console.log( 'disconnected to server' );
 });
 
+/**
+ * Implements the onIceCandidate function
+ * which is part of RTCPeerConnection
+ * @param {*} event event
+ */
 function onIceCandidate(event) {
     console.log(event)
     if (event.candidate) {
@@ -164,6 +204,10 @@ function onIceCandidate(event) {
     }
 }
 
+/**
+ * Impements the onAddStrean function that takes an event as an input
+ * @param {*} event event
+ */
 function onAddStream(event) {
     remoteVideo.srcObject = event.streams[0];
     remoteStream = event.stream;
