@@ -31,7 +31,7 @@ var startedStream;
 var start_tracking = false;
 var x1 = 0;
 var x2 = 0;
-
+const senders = [];
 
 var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
 var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
@@ -259,21 +259,9 @@ socket.on('offer-screen', function (event) {
         remoteVideo.className = "video-small";
         divConsultingRoomwSharing.style = "display: block;";
 
-        rtcPeerConnection.ontrack = onAddScreenStream;
-        rtcPeerConnection.addTrack(screenStream.getTracks()[0], screenStream);
-        rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-        rtcPeerConnection.createAnswer()
-            .then(sessionDescription => {
-                rtcPeerConnection.setLocalDescription(sessionDescription);
-                socket.emit('answer-screen', {
-                    type: 'answer',
-                    sdp: sessionDescription,
-                    room: roomNumber
-                });
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
+        socket.emit("screen-shared");
     }
 });
 
@@ -312,11 +300,6 @@ function onIceCandidate(event) {
 function onAddStream(event) {
     remoteVideo.srcObject = event.streams[0];
     remoteStream = event.stream;
-}
-
-function onAddScreenStream(event) {
-    screenVideo.srcObject = event.streams[0];
-    screenStream = event.stream;
 }
 
 // TO DELETE
