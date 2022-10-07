@@ -102,13 +102,12 @@ toggleButton.addEventListener('click', () => {
 toggleMic.addEventListener('click', () => {
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
     if (audioTrack.enabled) {
-        audioTrack.enabled = false;
-        toggleMic.innerHTML = "Unmute microphone"
+        mute(audioTrack);
     } else {
-        audioTrack.enabled = true;
-        toggleMic.innerHTML = "Mute microphone"
+        unmute(audioTrack);
     }
 });
+
 
 screenShare.addEventListener('click', () =>{
 
@@ -142,7 +141,18 @@ screenShare.addEventListener('click', () =>{
 
         console.log("screen sharing has begun");
     }
+
 });
+
+function mute(audioTrack) {
+    audioTrack.enabled = false;
+    toggleMic.innerHTML = "Unmute microphone"
+}
+
+function unmute(audioTrack) {
+    audioTrack.enabled = true;
+    toggleMic.innerHTML = "Mute microphone"
+}
 
 socket.on('joined', function (room) {
     console.log("You are joining an existing room. Room joined.")
@@ -290,13 +300,16 @@ function onResults(results) {
             else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
                 var y1 = lsit[4].slice(2, 3);
                 var y2 = lsit[2].slice(2, 3);
+                const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
                 if (y1[0] > y2[0]) {
                     //Gesture 4
                     console.log("Thumbs Down")
+                    mute(audioTrack);
                 }
                 else {
                     //Gesture 5
                     console.log("Thumbs Up")
+                    unmute(audioTrack);
                 }
             }
         }

@@ -3,10 +3,10 @@ var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var session;
 var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
 
-//Init Flashphoner API on page load
+/** Init Flashphoner API on page load */
 function init_api() {
     Flashphoner.init({});
-    //Connect to WCS server over websockets
+    /** Connect to WCS server over websockets */
     session = Flashphoner.createSession({
         urlServer: "wss://demo.flashphoner.com" //specify the address of your WCS
     }).on(SESSION_STATUS.ESTABLISHED, function (session) {
@@ -16,13 +16,14 @@ function init_api() {
     shareBtn.onclick = shareClick;
 }
 
-//Detect browser
+/** Detect browser */
 var Browser = {
     isSafari: function () {
         return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     },
 }
 
+/** Triggers play button to start streaming  */
 function shareClick() {
     if (Browser.isSafari()) {
         Flashphoner.playFirstVideo(document.getElementById("play"), true, PRELOADER_URL).then(function () {
@@ -33,7 +34,7 @@ function shareClick() {
     }
 }
 
-//Publishing Share Screen 
+/** Publishing Share Screen */
 function startStreaming() {
     var constraints = {
         video: {}
