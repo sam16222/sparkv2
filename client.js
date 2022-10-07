@@ -270,11 +270,6 @@ socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
-socket.on('answer-screen', function (event) {
-    console.log("answering screen share")
-    rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-});
-
 socket.on( 'disconnect', function () {
     alert( 'disconnected to server' );
 });
