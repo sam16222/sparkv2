@@ -112,34 +112,9 @@ toggleMic.addEventListener('click', () => {
 screenShare.addEventListener('click', () =>{
 
     if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
-        console.log("Ending screen share.")
-        screenShare.innerHTML = "Share Screen";
-        divConsultingRoomwSharing.style = "display: none";
-        remoteVideo.className = "video-large";
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
-        startedStream = false;
-
+        end_share();
     } else {
-
-        console.log("Beginning screen share.")
-        screenShare.innerHTML = "Stop Sharing";
-        console.log("screen sharing chain enabled");
-
-        remoteVideo.className = "video-small";
-        divConsultingRoomwSharing.style = "display: block;";
-
-        navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
-        .then(function (stream) {
-            const screenTrack = stream.getTracks()[0];
-            screenVideo.srcObject = stream;
-            startedStream = true;
-            senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
-
-        }).catch(function (err) {
-            console.log('An error ocurred when accessing media devices', err);
-        });
-
-        console.log("screen sharing has begun");
+        start_share();
     }
 
 });
@@ -152,6 +127,37 @@ function mute(audioTrack) {
 function unmute(audioTrack) {
     audioTrack.enabled = true;
     toggleMic.innerHTML = "Mute microphone"
+}
+
+function end_share() {
+    console.log("Ending screen share.")
+    screenShare.innerHTML = "Share Screen";
+    divConsultingRoomwSharing.style = "display: none";
+    remoteVideo.className = "video-large";
+    senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
+    startedStream = false;
+}
+
+function start_share() {
+    console.log("Beginning screen share.");
+    screenShare.innerHTML = "Stop Sharing";
+    console.log("screen sharing chain enabled");
+
+    remoteVideo.className = "video-small";
+    divConsultingRoomwSharing.style = "display: block;";
+
+    navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
+    .then(function (stream) {
+        const screenTrack = stream.getTracks()[0];
+        screenVideo.srcObject = stream;
+        startedStream = true;
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
+    }).catch(function (err) {
+        console.log('An error ocurred when accessing media devices', err);
+    });
+
+    console.log("screen sharing has begun");
 }
 
 socket.on('joined', function (room) {
