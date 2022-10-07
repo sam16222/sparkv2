@@ -86,6 +86,9 @@ TODO
 |       | style.css
 |      
 +---docs
+|   |   filetree.txt
+|   |   project_roadmap.md
+|   |   self_evaluation.md
 |   \---documentation_photos
 |       | frontend_intro.jpg
 |       | project_name.jpg
@@ -97,5 +100,10 @@ TODO
 ## Contributing
 
 Are you interested in contributing to this project? Visit [our contribution](CONTRIBUTING.md) documentation. 
+  
+Need some ideas on what to contribute? Visit our [project roadmap](https://github.com/SiddarthR56/spark/blob/main/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking. 
 
+## Help 
+  
+Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly.
 
