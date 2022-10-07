@@ -216,17 +216,6 @@ socket.on('ready', function () {
     }
 });
 
-socket.on('screen-shared', function () {
-    if (!startedStream) {
-        console.log("Attempting to access Screen Share of other user.")
-        alert("Attempting to access Screen Share of other user.")
-
-        remoteVideo.className = "video-small";
-        divConsultingRoomwSharing.style = "display: block;";
-
-    }
-});
-
 socket.on('offer', function (event) {
     if (!isCaller) {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
@@ -261,7 +250,6 @@ socket.on('offer-screen', function (event) {
 
         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
 
-        socket.emit("screen-shared");
     }
 });
 
