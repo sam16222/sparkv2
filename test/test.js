@@ -21,5 +21,11 @@ describe("Spark", () => {
                 done();
             })
         })
+        it("Should receive screen-sharing-min.html file", (done) => {
+            chai.request(app).get('/share').end((err, res) => {
+                res.should.have.status(200);
+                done();
+            })
+        })
     })
 })
