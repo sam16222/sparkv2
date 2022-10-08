@@ -15,5 +15,11 @@ describe("Spark", () => {
                 done();
             })
         })
+        it("Should receive client.js file", (done) => {
+            chai.request(app).get('/client.js').end((err, res) => {
+                res.should.have.status(200);
+                done();
+            })
+        })
     })
 })
