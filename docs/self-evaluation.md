@@ -12,7 +12,7 @@ Total Score: TODO
 |DOI badge: exists| 3 | From GH within [README.md](README.md). It also is found within the citation document and about us section of repo.|
 |Docs: doco generated, format not ugly | TODO | |
 |Docs: what: point descriptions of each class/function (in isolation) | TODO |  | 
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| TODO | |
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| TODO | Mini tutorials included in [README.md](README.md).|
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | [README.md](README.md) is engaging and includes eye catching images, phrases about how users can benefit from the software, and an overview of of setup/running the software. The linked video is clear and attracts users.|  
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| TODO | | 
 |Use of version control tools| 3 | Git utilized. Over 14 branches utilized and some commits reverted to. Proper version control practices were upheld.| 
