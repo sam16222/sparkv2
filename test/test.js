@@ -3,7 +3,8 @@ const chaiHttp = require('chai-http');
 const { app } = require('../server.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture')
-
+require('mocha-sinon');
+var expect = require('chai').expect;
 
 // Configure chai
 chai.use(chaiHttp);
@@ -83,6 +84,7 @@ describe("Spark", () => {
     describe("Testing sockets", () => {
         var socket = null;
         beforeEach(function (done) {
+            this.sinon.stub(console, 'log');
             // Setup
             socket = io.connect('http://localhost:3000', {
                 'reconnection delay': 0
@@ -123,45 +125,50 @@ describe("Spark", () => {
                 socket.emit('answer', 100)
                 done();
             });
-        });
-    })
-
-    describe("test gesture", () => {
-        it("Should match pre-calculated results", (done) => {
-            var PreCalculatedRes = {}
-            PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
-            PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
-            PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
-            PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
-
-            var fs = require('fs');
-            var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
-            var TestResults = json_to_obj(obj)
-            var res = {}
-            for (var idx in TestResults) {
-                var key = hand_gesture.onResults(TestResults[idx])
-                if (res[key] === undefined) {
-                    res[key] = 0
-                }
-                res[key]++
-            }
-
-            if ((PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers]) &&
-                (PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection]) &&
-                (PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp]) &&
-                (PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown])) {
+            it('console.log', function (done) {
+                expect(console.log.calledWith('a user connected')).to.be.true;
                 done()
+            });
+        });
+    });
+})
+
+describe("test gesture", () => {
+    it("Should match pre-calculated results", (done) => {
+        var PreCalculatedRes = {}
+        PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
+        PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
+        PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
+        PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
+
+        var fs = require('fs');
+        var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
+        var TestResults = json_to_obj(obj)
+        var res = {}
+        for (var idx in TestResults) {
+            var key = hand_gesture.onResults(TestResults[idx])
+            if (res[key] === undefined) {
+                res[key] = 0
             }
+            res[key]++
+        }
 
-        })
+        if ((PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers]) &&
+            (PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection]) &&
+            (PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp]) &&
+            (PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown])) {
+            done()
+        }
+
     })
+})
 
-    describe("Closing spark server", () => {
-        it("Should close server socket", (done) => {
-            chai.request(app).get('/close').end((err, res) => {
-                res.should.have.status(200);
-                done();
-            })
+describe("Closing spark server", () => {
+    it("Should close server socket", (done) => {
+        chai.request(app).get('/close').end((err, res) => {
+            res.should.have.status(200);
+            done();
         })
     })
 })
+
