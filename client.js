@@ -33,6 +33,9 @@ var isCaller;
 
 var socket = io();
 
+/**
+ * Function is triggered when a participant tries to enter the room. 
+ */
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
         alert("Please type a room number")
@@ -47,6 +50,9 @@ btnGoRoom.onclick = function () {
     }
 };
 
+/**
+ * Function is triggered when a participant accesses the software.
+ */
 socket.on('connect', function() {
     console.log("Connection acheived.");
     console.log(socket.id);
