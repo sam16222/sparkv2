@@ -35,11 +35,19 @@ TODO
 
 ## Worked Examples
 
-TODO
+1. User is directed to the homepage where they are asked to enter a room number they would like to join. If the room does not already exist, a new room will be created for the user, for example, Room 2 is created in our case here.
 
 <img src="/docs/documentation_photos/ChooseRoomNo.png" alt="drawing" width="480" /> 
+
+2. If another person wishes to join the room, they can simply enter the same room number to join the room. Currently, the application supports volume functions for mute/ unmute, video on/off, and screen share functionality. Gesture recognition is enabled by default for the mute/unmute and screen sharing functionalities.
+
 <img src="/docs/documentation_photos/RoomWithOne.png" alt="drawing" width="480" /> 
+
+3. By showing thumbs up/ down action towards the camera, either of the two users will be able to mute/ unmute their microphones. Similarly swipe left/ right action towards the camera will allow the users to share their screens with each other. In addition, users will also be able to disable gesture recognition by clicking the <b>Disable Gestures<b> button.
+
 <img src="/docs/documentation_photos/MeetingWithTwo.png" alt="drawing" width="480" /> 
+
+<img src="/docs/documentation_photos/ScreenSharing.png" alt="drawing" width="506" /> 
 
 ## Use 
 
