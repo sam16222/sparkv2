@@ -31,10 +31,6 @@ app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));
 });
 
-app.get('/hand_gesture.js', function (req, res) {
-    res.sendFile(path.join(__dirname, 'hand_gesture.js'));
-});
-
 io.on('connection', function (socket) {
     console.log('a user connected');
     console.log('connect socket id:' + `${socket.id}`);
