@@ -29,9 +29,9 @@ class TestEntries {
             idx = idx + 1
         }
     }
-    
+
     *entries() {
-        for (var i=0; i<this.elem_arr.length; i++) {
+        for (var i = 0; i < this.elem_arr.length; i++) {
             yield [i, this.elem_arr[i]];
         }
     }
@@ -40,8 +40,8 @@ class TestEntries {
 
 class TestGestureResults {
     constructor(json_data) {
-    var entries = new TestEntries(json_data["multiHandLandmarks[0]"])
-    this.multiHandLandmarks = []//new MultiHandLandmarks(entries, 1)
+        var entries = new TestEntries(json_data["multiHandLandmarks[0]"])
+        this.multiHandLandmarks = []//new MultiHandLandmarks(entries, 1)
         this.multiHandLandmarks[0] = entries
         this.lsit = []
         for (var i in json_data["lsit"]) {
@@ -133,7 +133,7 @@ describe("Spark", () => {
             PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
             PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
             PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
-            
+
             var fs = require('fs');
             var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
             var TestResults = json_to_obj(obj)
@@ -147,38 +147,14 @@ describe("Spark", () => {
             }
 
             if ((PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers]) &&
-                    (PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection]) && 
-                    (PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp]) && 
-                    (PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown])) {
+                (PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection]) &&
+                (PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp]) &&
+                (PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown])) {
                 done()
             }
 
         })
     })
-
-    describe('Socket emit methods ', function () {
-        var socket = null;
-        it('create or join emit function', function (done) {
-            socket.emit('create or join', 100)
-            done();
-        });
-        it('ready emit function', function (done) {
-            socket.emit('ready', 100)
-            done();
-        });
-        it('candidate emit function', function (done) {
-            socket.emit('candidate', 100)
-            done();
-        });
-        it('offer emit function', function (done) {
-            socket.emit('offer', 100)
-            done();
-        });
-        it('answer emit function', function (done) {
-            socket.emit('answer', 100)
-            done();
-        });
-    });
 
     describe("Closing spark server", () => {
         it("Should close server socket", (done) => {

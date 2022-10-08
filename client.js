@@ -44,7 +44,7 @@ var socket = io();
 
 function onGestureAction(results) {
     var gesture = onResults(results)
-    switch(gesture) {
+    switch (gesture) {
         case Gesture.RightSwipe: {
             start_share();
         } break;
@@ -62,7 +62,7 @@ function onGestureAction(results) {
             const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
             mute(audioTrack);
         } break;
-        default:{
+        default: {
             //pass
         }
     }
@@ -113,12 +113,12 @@ btnGoRoom.onclick = function () {
  * Function is triggered when a participant accesses the software.
  */
 socket.on('connect', function () {
-        console.log("Connection acheived.");
-        // divSelectRoom.style = "display: none;";
-        divConsultingRoom.style = "display: block;";
-        divConsultingControls.style = "display: block;";
-    }
-};
+    console.log("Connection acheived.");
+    // divSelectRoom.style = "display: none;";
+    divConsultingRoom.style = "display: block;";
+    divConsultingControls.style = "display: block;";
+}
+)
 
 /**
  * Function is triggered when a room is created.
@@ -134,21 +134,15 @@ socket.on('created', function (room) {
     });
 });
 
+/**
+ * Function is triggered when the video on/off button is clicked.
+ */
 toggleButton.addEventListener('click', () => {
     const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
     if (videoTrack.enabled) {
         videoTrack.enabled = false;
         toggleButton.innerHTML = "Show cam"
     } else {
-/**
- * Function is triggered when the video on/off button is clicked.
- */
-toggleButton.addEventListener('click', () =>{
-    const videoTrack = localStream.getTracks().find(track => track.kind === 'video');
-    if(videoTrack.enabled){
-        videoTrack.enabled = false;
-        toggleButton.innerHTML = "Show cam"
-    } else{
         videoTrack.enabled = true;
         toggleButton.innerHTML = "Hide cam"
     }
@@ -171,9 +165,9 @@ toggleGesture.addEventListener('click', () => {
     }
 });
 
-screenShare.addEventListener('click', () =>{
+screenShare.addEventListener('click', () => {
 
-    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+    if (document.getElementById('consultingRoomwSharing').style.cssText == "display: block;") {
         end_share();
     } else {
         start_share();
@@ -208,42 +202,41 @@ function start_share() {
     remoteVideo.className = "video-small";
     divConsultingRoomwSharing.style = "display: block;";
 
-    navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
-    .then(function (stream) {
-        const screenTrack = stream.getTracks()[0];
-        screenVideo.srcObject = stream;
-        startedStream = true;
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+    navigator.mediaDevices.getDisplayMedia({ video: { cursor: "always" }, audio: false })
+        .then(function (stream) {
+            const screenTrack = stream.getTracks()[0];
+            screenVideo.srcObject = stream;
+            startedStream = true;
+            senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
 
-    }).catch(function (err) {
-        console.log('An error ocurred when accessing media devices', err);
-    });
+        }).catch(function (err) {
+            console.log('An error ocurred when accessing media devices', err);
+        });
 
     console.log("screen sharing has begun");
 }
 
 function disable_gestures() {
     console.log("Disabling gestures.")
-    gesturesEnabled = false; 
+    gesturesEnabled = false;
     toggleGesture.innerHTML = "Enable Gestures";
 }
 
 function enable_gestures() {
     console.log("Enabling gestures.")
-    gesturesEnabled = true; 
+    gesturesEnabled = true;
     toggleGesture.innerHTML = "Disable Gestures";
 }
 
-=======
 /**
  * Function is triggered when when the audio mute/unmute button is clicked.
  */
-toggleMic.addEventListener('click', () =>{
+toggleMic.addEventListener('click', () => {
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
-    if(audioTrack.enabled){
+    if (audioTrack.enabled) {
         audioTrack.enabled = false;
         toggleMic.innerHTML = "Unmute microphone"
-    } else{
+    } else {
         audioTrack.enabled = true;
         toggleMic.innerHTML = "Mute microphone"
     }
@@ -333,12 +326,12 @@ socket.on('answer', function (event) {
 
 socket.on('full', function () {
     console.log('Room is full. You can not enter this room right now.');
-
+})
 /**
  * This function is triggered when a user is disconnected.
  */
-socket.on( 'disconnect', function () {
-    console.log( 'disconnected to server' );
+socket.on('disconnect', function () {
+    console.log('disconnected to server');
 });
 
 /**
