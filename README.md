@@ -47,7 +47,7 @@ TODO
 
 <img src="/docs/documentation_photos/MeetingWithTwo.png" alt="drawing" width="480" /> 
 
-<img src="/docs/documentation_photos/ScreenSharing.png" alt="drawing" width="506" /> 
+<img src="/docs/documentation_photos/ScreenSharing.png" alt="drawing" width="480" /> 
 
 ## Use 
 
