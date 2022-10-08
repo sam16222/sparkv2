@@ -2,29 +2,42 @@
 
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
+var divConsultingRoomwSharing = document.getElementById("consultingRoomwSharing");
 var divConsultingControls = document.getElementById("consultingControls");
 var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
+var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
+var toggleGesture = document.getElementById('gestures');
 var screenShare = document.getElementById('screen-share');
 
 var roomNumber;
 var localStream;
 var remoteStream;
+var screenStream;
 var rtcPeerConnection;
+var peerScreenConnection;
 var iceServers = {
     'iceServers': [
         { 'urls': 'stun:stun.services.mozilla.com' },
         { 'urls': 'stun:stun.l.google.com:19302' }
     ]
 }
+
 var streamConstraints = { audio: true, video: true };
 var isCaller;
 
-var socket = io("http://localhost:3000");
+var startedStream;
+var gesturesEnabled = true;
+var start_tracking = false;
+var x1 = 0;
+var x2 = 0;
+const senders = [];
+
+var socket = io();
 
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
@@ -34,7 +47,6 @@ btnGoRoom.onclick = function () {
         console.log("Room number " + roomNumber + " gathered");
         console.log('connect socket id:' + `${socket.id}`);
         socket.emit("create or join", roomNumber);
-        // divSelectRoom.style = "display: none;";
         divConsultingRoom.style = "display: block;";
         divConsultingControls.style = "display: block;"
 
@@ -94,17 +106,82 @@ toggleButton.addEventListener('click', () => {
 toggleMic.addEventListener('click', () => {
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
     if (audioTrack.enabled) {
-        audioTrack.enabled = false;
-        toggleMic.innerHTML = "Unmute microphone"
+        mute(audioTrack);
     } else {
-        audioTrack.enabled = true;
-        toggleMic.innerHTML = "Mute microphone"
+        unmute(audioTrack);
     }
 });
 
-screenShare.addEventListener('click', () => {
-    // Add in update to HTML page after screen share enable
+toggleGesture.addEventListener('click', () => {
+    if (gesturesEnabled == true) {
+        disable_gestures();
+    } else {
+        enable_gestures();
+    }
 });
+
+screenShare.addEventListener('click', () =>{
+
+    if(document.getElementById('consultingRoomwSharing').style.cssText == "display: block;"){
+        end_share();
+    } else {
+        start_share();
+    }
+
+});
+
+function mute(audioTrack) {
+    audioTrack.enabled = false;
+    toggleMic.innerHTML = "Unmute microphone"
+}
+
+function unmute(audioTrack) {
+    audioTrack.enabled = true;
+    toggleMic.innerHTML = "Mute microphone"
+}
+
+function end_share() {
+    console.log("Ending screen share.")
+    screenShare.innerHTML = "Share Screen";
+    divConsultingRoomwSharing.style = "display: none";
+    remoteVideo.className = "video-large";
+    senders.find(sender => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1])
+    startedStream = false;
+}
+
+function start_share() {
+    console.log("Beginning screen share.");
+    screenShare.innerHTML = "Stop Sharing";
+    console.log("screen sharing chain enabled");
+
+    remoteVideo.className = "video-small";
+    divConsultingRoomwSharing.style = "display: block;";
+
+    navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false })
+    .then(function (stream) {
+        const screenTrack = stream.getTracks()[0];
+        screenVideo.srcObject = stream;
+        startedStream = true;
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack)
+
+    }).catch(function (err) {
+        console.log('An error ocurred when accessing media devices', err);
+    });
+
+    console.log("screen sharing has begun");
+}
+
+function disable_gestures() {
+    console.log("Disabling gestures.")
+    gesturesEnabled = false; 
+    toggleGesture.innerHTML = "Enable Gestures";
+}
+
+function enable_gestures() {
+    console.log("Enabling gestures.")
+    gesturesEnabled = true; 
+    toggleGesture.innerHTML = "Disable Gestures";
+}
 
 socket.on('joined', function (room) {
     console.log("You are joining an existing room. Room joined.")
@@ -131,8 +208,7 @@ socket.on('ready', function () {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+        localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.createOffer()
             .then(sessionDescription => {
                 rtcPeerConnection.setLocalDescription(sessionDescription);
@@ -153,8 +229,7 @@ socket.on('offer', function (event) {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
-        rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-        rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+        localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
         rtcPeerConnection.createAnswer()
             .then(sessionDescription => {

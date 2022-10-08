@@ -26,6 +26,7 @@ app.get('/share', function (req, res) {
     res.sendFile(path.join(__dirname, 'screen-sharing-min.html'));
 });
 
+
 app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));
 });
@@ -62,7 +63,13 @@ io.on('connection', function (socket) {
         socket.broadcast.to(room).emit('ready');
     });
 
-    socket.on('candidate', function (event) {
+
+    socket.on('screen-shared', function(room){
+        socket.broadcast.to(room).emit('screen-shared');
+    })
+
+    socket.on('candidate', function (event){
+
         socket.broadcast.to(event.room).emit('candidate', event);
     });
 
@@ -72,6 +79,10 @@ io.on('connection', function (socket) {
 
     socket.on('answer', function (event) {
         socket.broadcast.to(event.room).emit('answer', event.sdp);
+    });
+
+    socket.on('answer-screen', function(event){
+        socket.broadcast.to(event.room).emit('answer-screen',event.sdp);
     });
 
     socket.on('disconnect', function () {
