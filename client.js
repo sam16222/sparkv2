@@ -63,15 +63,22 @@ btnGoRoom.onclick = function () {
     }
 };
 
+/**
+  * Socket connects.
+  * 
+  * @event socket#connect
+ */
 socket.on('connect', function() {
     console.log("Connection acheived.");
     console.log(socket.id);
 });
 
 /**
-  * Close event from net.Server.
+  * Socket creating a room.
   * 
-  * @event socket#on
+  * @event socket#created
+  * @param {number} room - Room number
+  * 
  */
 socket.on('created', function (room) {
     console.log("You are the first one in the room. Room created.")

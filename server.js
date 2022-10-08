@@ -5,6 +5,23 @@
 // https://opensource.org/licenses/MIT.
 
 const express = require('express');
+
+/**
+ * The app instance.
+ *
+ * @param {Object} [opts] The Server and net.Server options.
+ * @param {Function} [opts.objectSerializer=JSON.stringify] Serializes an object into a binary
+ *        buffer. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @param {Function} [opts.objectDeserializer=JSON.parse] Deserializes a binary buffer into an
+ *        object. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @constructor
+ * @fires app#use
+ * @fires app#get
+ * @fires app#connection
+ * @fires app#error
+ */
 const app = express();
 // const fs = require('fs');
 
@@ -23,6 +40,12 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 
 /**  app.use(express.static('public'));*/
+
+/**
+  * app connects.
+  * 
+  * @event app#use
+ */
 app.use(express.static(path.join(__dirname, '/static')));
 
 app.get('/', function(req, res) {
