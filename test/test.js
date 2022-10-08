@@ -34,5 +34,9 @@ describe("Spark", () => {
             socket.emit('create or join', 100)
             done();
         });
+        it('ready emit function', function (done) {
+            socket.emit('ready', 100)
+            done();
+        });
     });
 })
