@@ -156,6 +156,30 @@ describe("Spark", () => {
         })
     })
 
+    describe('Socket emit methods ', function () {
+        var socket = null;
+        it('create or join emit function', function (done) {
+            socket.emit('create or join', 100)
+            done();
+        });
+        it('ready emit function', function (done) {
+            socket.emit('ready', 100)
+            done();
+        });
+        it('candidate emit function', function (done) {
+            socket.emit('candidate', 100)
+            done();
+        });
+        it('offer emit function', function (done) {
+            socket.emit('offer', 100)
+            done();
+        });
+        it('answer emit function', function (done) {
+            socket.emit('answer', 100)
+            done();
+        });
+    });
+
     describe("Closing spark server", () => {
         it("Should close server socket", (done) => {
             chai.request(app).get('/close').end((err, res) => {
