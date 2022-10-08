@@ -16,11 +16,11 @@
     "sphinx-js": "^0.0.9"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.11",
-    "socket.io": "^4.5.2"
-  },
-  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "coverage-node": "^8.0.0",
-    "eslint": "^8.24.0"
+    "eslint": "^8.24.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0"
   }
 }
