@@ -14,7 +14,7 @@ Total Score: TODO
 |Docs: what: point descriptions of each class/function (in isolation) | TODO |  | 
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| TODO | Mini tutorials included in [README.md](README.md).|
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | [README.md](README.md) is engaging and includes eye catching images, phrases about how users can benefit from the software, and an overview of of setup/running the software. The linked video is clear and attracts users.|  
-|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| TODO | | 
+|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 3 | Great animated video on [README.md](README.md) that shows why people should use the tool and launches into a brief demo. Anouther copy of the video can be found within our [documentation folder](https://github.com/SiddarthR56/spark/blob/main/docs/spark_demo.mp4) | 
 |Use of version control tools| 3 | Git utilized. Over 14 branches utilized and some commits reverted to. Proper version control practices were upheld.| 
 |Use of style checkers | 3 | Style checker can be found [here](https://github.com/SiddarthR56/spark/blob/main/.github/workflows/lint.yml) |
 |Use of code formatters. | 3 | Code checker utilized. [Evidence here](https://github.com/SiddarthR56/spark/blob/main/.github/workflows/codeql-analysis.yml) Formats that pose issues are notified prior to users mergeing to main and will create security issues if a bad format has been identified. |
