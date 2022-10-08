@@ -28,4 +28,11 @@ describe("Spark", () => {
             })
         })
     })
+
+    describe('Socket emit methods ', function () {
+        it('create or join emit function', function (done) {
+            socket.emit('create or join', 100)
+            done();
+        });
+    });
 })
