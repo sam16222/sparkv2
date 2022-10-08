@@ -30,6 +30,7 @@ describe("Spark", () => {
     })
 
     describe('Socket emit methods ', function () {
+        var socket = null;
         it('create or join emit function', function (done) {
             socket.emit('create or join', 100)
             done();
