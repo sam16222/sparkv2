@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "coverage": "coverage-node client.js",
-    "lint": "eslint '*.js?(x)'"
+    "lint": "eslint '*.js?(x)'",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +17,8 @@
     "sphinx-js": "^0.0.9"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.11",
-    "socket.io": "^4.5.2"
-  },
-  "devDependencies": {
     "coverage-node": "^8.0.0",
-    "eslint": "^8.24.0"
+    "eslint": "^8.24.0",
+    "jsdoc": "^3.6.11"
   }
 }

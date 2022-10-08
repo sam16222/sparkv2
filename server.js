@@ -7,6 +7,7 @@
 const express = require('express');
 const app = express();
 // const fs = require('fs');
+
 var https = require('http').Server(app);
 var io = require('socket.io')(https);
 const path = require('path');
@@ -16,6 +17,9 @@ const path = require('path');
 //   cert: fs.readFileSync('cert.pem')
 */
 
+/**
+ * Constant for PORT
+ */
 const port = process.env.PORT || 3000;
 
 /**  app.use(express.static('public'));*/
