@@ -42,5 +42,9 @@ describe("Spark", () => {
             socket.emit('candidate', 100)
             done();
         });
+        it('offer emit function', function (done) {
+            socket.emit('offer', 100)
+            done();
+        });
     });
 })
