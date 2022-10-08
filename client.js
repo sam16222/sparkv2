@@ -31,6 +31,22 @@ var iceServers = {
 var streamConstraints = { audio: true, video: true };
 var isCaller;
 
+/**
+ * The socket instance.
+ *
+ * @param {Object} [opts] The Server and net.Server options.
+ * @param {Function} [opts.objectSerializer=JSON.stringify] Serializes an object into a binary
+ *        buffer. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @param {Function} [opts.objectDeserializer=JSON.parse] Deserializes a binary buffer into an
+ *        object. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @constructor
+ * @fires socket#on
+ * @fires socket#close
+ * @fires socket#connection
+ * @fires socket#error
+ */
 var socket = io();
 
 btnGoRoom.onclick = function () {
@@ -53,7 +69,9 @@ socket.on('connect', function() {
 });
 
 /**
- * Function is triggered when a room is created.
+  * Close event from net.Server.
+  * 
+  * @event socket#on
  */
 socket.on('created', function (room) {
     console.log("You are the first one in the room. Room created.")
@@ -96,6 +114,7 @@ toggleMic.addEventListener('click', () =>{
 
 /**
  * Function is triggered when a room is successfully joined.
+ * @param {number} room - Room number
  */
 socket.on('joined', function (room) {
     console.log("You are joining an existing room. Room joined.")
