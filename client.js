@@ -148,7 +148,10 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-toggleMic.addEventListener('click', () => {
+/**
+ * Function is triggered when when the audio mute/unmute button is clicked.
+ */
+ toggleMic.addEventListener('click', () => {
     const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
     if (audioTrack.enabled) {
         mute(audioTrack);
@@ -227,20 +230,6 @@ function enable_gestures() {
     gesturesEnabled = true;
     toggleGesture.innerHTML = "Disable Gestures";
 }
-
-/**
- * Function is triggered when when the audio mute/unmute button is clicked.
- */
-toggleMic.addEventListener('click', () => {
-    const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
-    if (audioTrack.enabled) {
-        audioTrack.enabled = false;
-        toggleMic.innerHTML = "Unmute microphone"
-    } else {
-        audioTrack.enabled = true;
-        toggleMic.innerHTML = "Mute microphone"
-    }
-});
 
 /**
  * Function is triggered when a room is successfully joined.
@@ -358,6 +347,7 @@ function onIceCandidate(event) {
  * @param {*} event event
  */
 function onAddStream(event) {
+    console.log("Remote video is being connected to the current client.");
     remoteVideo.srcObject = event.streams[0];
     remoteStream = event.stream;
 }
