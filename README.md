@@ -27,7 +27,7 @@ We have the best hands free solution to your presentation needs! Have you ever p
 <img src="/docs/documentation_photos/swipe.jpeg" alt="drawing" width="300" height="200"/>    
 <img src="/docs/documentation_photos/thumbs-up-thumbs-down.gif" width="300" height="200"/>   
 
-<h1>
+</h1>
 
 ## Demo Video 
 
@@ -130,6 +130,8 @@ This project is made possible by the incredible donation of time from NC State P
 ## Help 
 
 View some common issues users have identified in our [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md). We list tips and tricks for identifying where the issue may be coming from. Issue reports may be linked to this guide if you identify a bug that is a software limitation. 
+
+You can visit our website with full descriptions of our classes and methods by opening ```index.html``` within your file explorer. Included on the website is user profiles of people who should use the software and success stories!
   
 Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly. You can also email the development email to asked to be added to our subsriber list for updates regarding the project's development.
 
