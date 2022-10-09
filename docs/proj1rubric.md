@@ -96,11 +96,11 @@ Total Score: TODO
 | Question 10.5: Do you back-up your repository? | 3 | Yes. Our repository is backed up on Zenodo prior to each release. | 
 | Question 11.1: Do you provide publicly-available instructions for building your software from the source code? | | |
 | Question 11.2: Can you build, or package, your software using an automated tool? | | | 
-| Question 11.3: Do you provide publicly-available instructions for deploying your software? | 3 | Visit the [installation guide](INSTALL.md) to learn how to run the software. These instructions are pubicly available. | 
-| Question 11.4: Does your documentation list all third-party dependencies? | | | 
-| Question 11.5: Does your documentation list the version number for all third-party dependencies? |  | | 
-| Question 11.6: Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional? | | | 
-| Question 11.7: Can you download dependencies using a dependency management tool or package manager? | | | 
+| Question 11.3: Do you provide publicly-available instructions for deploying your software? | 3 | Visit the [installation guide](https://github.com/SiddarthR56/spark/blob/main/INSTALL.md) to learn how to run the software. These instructions are pubicly available. | 
+| Question 11.4: Does your documentation list all third-party dependencies? | 3 | Yes. All third-party dependencies are listing [here](https://github.com/SiddarthR56/spark/blob/doc-generation/docs/dependencies.md) | 
+| Question 11.5: Does your documentation list the version number for all third-party dependencies? | 3 | Yes. All third-party dependencies are listing [here](https://github.com/SiddarthR56/spark/blob/doc-generation/docs/dependencies.md) | 
+| Question 11.6: Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional? | 2 | Yes. Within the package-lock.json file, dependencies are listed with their version number, url and weather or not they should be used in development or production enviornments. The license for each dependency is not listed.| 
+| Question 11.7: Can you download dependencies using a dependency management tool or package manager? | 3 | Yes. When building your enviornment, you can run ```npm install``` and all of the dependencies within the package-lock.json file will be downloaded for use.| 
 | Question 11.8: Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful? | 3 | Yes. Our [test](https://github.com/SiddarthR56/spark/blob/main/.github/workflows/test.yml) script can run after deployment to see if build was successful. Instructions for running this file locally can be found within our [results](docs/results.md) file and within our readme.| 
 | Question 12.1: Do you have an automated test suite for your software? | 3 | Yes. Tests are run by a script which is defined in the [package files](package.json) | 
 | Question 12.2: Do you have a framework to periodically (e.g. nightly) run your tests on the latest version of the source code? | | | 
