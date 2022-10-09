@@ -45,7 +45,7 @@ Total Score: TODO
 |Does the documentation include a "quick start" guide, that provides a short overview of how to use the software with some basic examples of use? | TODO | |  
 |If team has provided more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use the software? | TODO | | 
 |Did the team provide a comprehensive guide to all the software’s commands, functions and options? | TODO |  |
-|Did the team provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | TODO | |
+|Did the team provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | 2 | There is a [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md) where users can go to find frequent problems and their potential solutions. This guide includes how the problem typically occurs and potential solutions to fix the issue. With this being said, there is no error messages that people should expect. Providing error messages would help these problems get diagnosed quicker and could be established to improve user experience in future iterations.  |
 |If the software can be used as a library, package or service by other software, do the team provide comprehensive API documentation? | 3  | Not applicable. The services can not be used as an API. |  
 |Did the team store the documentation under revision control with your source code? | TODO |  |  
 |Did the team publish the release history e.g. release data, version numbers, key features of each release etc. on your web site or in the documentation? | TODO |  | 
@@ -72,8 +72,8 @@ Total Score: TODO
 | Question 4.2: Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?| | | 
 | Question 4.3: If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software? | | | 
 | Question 4.4: Do you provide a comprehensive guide to all your software’s commands, functions and options?| | | 
-| Question 4.5: Do you provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | | | 
-| Question 4.6: If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation? | | | 
+| Question 4.5: Do you provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | 2 | There is a [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md) where users can go to find frequent problems and their potential solutions. This guide includes how the problem typically occurs and potential solutions to fix the issue. With this being said, there is no error messages that people should expect. Providing error messages would help these problems get diagnosed quicker and could be established to improve user experience in future iterations. | 
+| Question 4.6: If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation? | 3 |  Not applicable. The services can not be used as an API. | 
 | Question 4.7: Do you store your documentation under revision control with your source code? | | | 
 | Question 4.8: Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation? | | | 
 | Question 5.1: Does your software describe how a user can get help with using your software? |  | | 
@@ -82,7 +82,7 @@ Total Score: TODO
 | Question 5.4: Are e-mails to your support e-mail address received by more than one person?| 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
 | Question 5.5: Does your project have a ticketing system to manage bug reports and feature requests? | 3 | Yes. A ticketing system exists and feature request and bug report [templates](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) exist for easy logging.| 
 | Question 5.6: Is your project's ticketing system publicly visible to your users, so they can view bug reports and feature requests? | 3 | Yes, bug reports are publically available [here](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) | 
-| Question 6.1: Is your software’s architecture and design modular? | | | 
+| Question 6.1: Is your software’s architecture and design modular? | 3 | Yes! The design is modular. Functionality is abstracted into server and client classes. In additional gesture recognition has its own js section. This ensures that updating either the user experience or the gesture recognition can be done in an isolated fashion. | 
 | Question 6.2: Does your software use an accepted coding standard or convention? | | | 
 | Question 7.1: Does your software allow data to be imported and exported using open data formats? | | | 
 | Question 7.2: Does your software allow communications using open communications protocols? | | | 
