@@ -9,7 +9,8 @@
         "format": "npx prettier --write \"**/*.js\"",
         "test": "mocha",
         "coverage": "nyc mocha",
-        "coverage_ci": "nyc mocha > cov"
+        "coverage_ci": "nyc mocha > cov", 
+        "help": "python3 scripts/help.py"
     },
     "author": "",
     "license": "MIT",
