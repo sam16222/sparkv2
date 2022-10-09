@@ -120,8 +120,11 @@ toggleMic.addEventListener('click', () =>{
 });
 
 /**
- * Function is triggered when a room is successfully joined.
- * @param {number} room - Room number
+  * Socket joining a room.
+  * 
+  * @event socket#joined
+  * @param {number} room - Room number
+  * 
  */
 socket.on('joined', function (room) {
     console.log("You are joining an existing room. Room joined.")
@@ -136,6 +139,9 @@ socket.on('joined', function (room) {
 
 /**
  * Function is triggered when it receives an ice candidate.
+ * 
+ * @event socket#candidate
+ * @param {*} event event
  */
 socket.on('candidate', function (event) {
     var candidate = new RTCIceCandidate({
@@ -147,6 +153,8 @@ socket.on('candidate', function (event) {
 
 /**
  * This function is triggered when a person joins the room and is ready to communicate.
+ * 
+ * @event socket#ready
  */
 socket.on('ready', function () {
     if (isCaller) {
@@ -173,6 +181,9 @@ socket.on('ready', function () {
 
 /**
  * This function is triggered when an offer is received.
+ * 
+ * @event socket#offer
+ * @param {*} event event
  */
 socket.on('offer', function (event) {
     if (!isCaller) {
@@ -199,6 +210,9 @@ socket.on('offer', function (event) {
 
 /**
  * This function is triggered when an answer is received.
+ * 
+ * @event socket#answer
+ * @param {*} event event
  */
 socket.on('answer', function (event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
@@ -206,6 +220,7 @@ socket.on('answer', function (event) {
 
 /**
  * This function is triggered when a user is disconnected.
+ * @event socket#disconnect
  */
 socket.on( 'disconnect', function () {
     console.log( 'disconnected to server' );
