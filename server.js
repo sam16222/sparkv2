@@ -19,8 +19,7 @@ const express = require('express');
  * @constructor
  * @fires app#use
  * @fires app#get
- * @fires app#connection
- * @fires app#error
+ * @fires app#on
  */
 const app = express();
 // const fs = require('fs');
@@ -42,16 +41,31 @@ const port = process.env.PORT || 3000;
 /**  app.use(express.static('public'));*/
 
 /**
-  * app connects.
+  * app use the dir.
   * 
   * @event app#use
  */
 app.use(express.static(path.join(__dirname, '/static')));
 
+
+/**
+  * app get page.
+  * 
+  * @event app#use
+  * @param {Object} req request
+  * @param {Object} res response
+ */
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'webrtcpage.html'));
 });
 
+/**
+  * app get page.
+  * 
+  * @event app#use
+  * @param {Object} req request
+  * @param {Object} res response
+ */
 app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));
   });
@@ -87,22 +101,35 @@ io.on('connection', function (socket) {
         socket.broadcast.to(room).emit('ready');
     });
 
-    /** This function is triggered when server gets a candidate from a person in the room */
+    /** This function is triggered when server gets a candidate from a person in the room 
+    * 
+    * @event socket#candidate
+    * @param {*} event event
+    */
     socket.on('candidate', function (event){
         socket.broadcast.to(event.room).emit('candidate', event);
     });
 
-    /** This function is triggered when server gets an offer from a person in the room */
+    /** This function is triggered when server gets an offer from a person in the room 
+    * 
+    * @event socket#offer
+    * @param {*} event event
+    */
     socket.on('offer', function(event){
         socket.broadcast.to(event.room).emit('offer',event.sdp);
     });
 
-    /** This function is triggered when server gets an answer from a person in the room */
+    /** This function is triggered when server gets an answer from a person in the room 
+     * @event socket#answer
+     * @param {*} event event
+     */
     socket.on('answer', function(event){
         socket.broadcast.to(event.room).emit('answer',event.sdp);
     });
 
-    /** This function is triggered when a user disconnects */
+    /** This function is triggered when a user disconnects
+     * @event socket#disconnect
+     */
     socket.on('disconnect', function () {
         console.log('a user disconnected');
     });
