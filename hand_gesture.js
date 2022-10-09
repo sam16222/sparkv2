@@ -24,12 +24,10 @@ function onResults(results) {
       start_tracking = false;
       if (gesturesEnabled == true) {
         if (x1[0] > x2[0]) {
-          //Gesture 1
-          console.log('right swipe');
+          //Gesture 1 'right swipe';
           return Gesture.RightSwipe;
         } else {
-          //Gesture 2
-          console.log('left swipe');
+          //Gesture 2 'left swipe'
           return Gesture.LeftSwipe;
         }
       }
@@ -54,20 +52,17 @@ function onResults(results) {
       start_tracking = false;
 
       if (fings[0] == true && fings[1] == true && fings[2] == true && fings[3] == true && fings[4] == true) {
-        //Gesture 3
-        console.log('all five fingers');
+        //Gesture 3 'all five fingers';
         return Gesture.All5Fingers;
       } else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
         var y1 = lsit[4].slice(2, 3);
         var y2 = lsit[2].slice(2, 3);
         if (gesturesEnabled == true) {
           if (y1[0] > y2[0]) {
-            //Gesture 4
-            console.log('Thumbs Down');
+            //Gesture 4 'Thumbs Down';
             return Gesture.ThumbsDown;
           } else {
-            //Gesture 5
-            console.log('Thumbs Up');
+            //Gesture 5 'Thumbs Up';
             return Gesture.ThumbsUp;
           }
         }
