@@ -9,6 +9,7 @@
       "monospaceLinks": true
     },
     "opts": {
+      "template": "node_modules/clean-jsdoc-theme",  
       "recurse": true
     }
   }

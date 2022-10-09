@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "coverage": "coverage-node client.js",
     "lint": "eslint '*.js?(x)'",
-    "doc": "jsdoc -c jsdoc.json"
+    "doc": "jsdoc -c jsdoc.json",
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "sphinx-js": "^0.0.9"
   },
   "devDependencies": {
+    "clean-jsdoc-theme": "^4.1.8",
     "coverage-node": "^8.0.0",
     "eslint": "^8.24.0",
     "jsdoc": "^3.6.11"

@@ -246,7 +246,7 @@ function onIceCandidate(event) {
 }
 
 /**
- * Impements the onAddStrean function that takes an event as an input
+ * Implements the onAddStrean function that takes an event as an input
  * @param {*} event event
  */
 function onAddStream(event) {

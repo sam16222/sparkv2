@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, '/static')));
 /**
   * app get page.
   * 
-  * @event app#use
+  * @event app#get
   * @param {Object} req request
   * @param {Object} res response
  */
@@ -62,7 +62,7 @@ app.get('/', function(req, res) {
 /**
   * app get page.
   * 
-  * @event app#use
+  * @event app#get
   * @param {Object} req request
   * @param {Object} res response
  */
@@ -103,32 +103,25 @@ io.on('connection', function (socket) {
 
     /** This function is triggered when server gets a candidate from a person in the room 
     * 
-    * @event socket#candidate
-    * @param {*} event event
     */
     socket.on('candidate', function (event){
         socket.broadcast.to(event.room).emit('candidate', event);
     });
 
     /** This function is triggered when server gets an offer from a person in the room 
-    * 
-    * @event socket#offer
-    * @param {*} event event
     */
     socket.on('offer', function(event){
         socket.broadcast.to(event.room).emit('offer',event.sdp);
     });
 
     /** This function is triggered when server gets an answer from a person in the room 
-     * @event socket#answer
-     * @param {*} event event
      */
     socket.on('answer', function(event){
         socket.broadcast.to(event.room).emit('answer',event.sdp);
     });
 
     /** This function is triggered when a user disconnects
-     * @event socket#disconnect
+     * 
      */
     socket.on('disconnect', function () {
         console.log('a user disconnected');
