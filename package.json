@@ -1,36 +1,36 @@
 {
-  "name": "spark",
-  "version": "1.0.0",
-  "description": "Go handsfree with Spark and use hand gestures to increase your freedom and control the call.",
-  "main": "server.js",
-  "scripts": {
-      "lint": "eslint '*.js?(x)'",
-      "start": "nodemon server.js",
-      "format": "npx prettier --write \"**/*.js\"",
-      "test": "mocha",
-      "coverage": "nyc mocha",
-      "coverage_ci": "nyc mocha > cov", 
-      "help": "python3 scripts/help.py",
-      "doc": "jsdoc -c jsdoc.json",
-      "generate-docs": "jsdoc --configure jsdoc.json --verbose"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-      "@types/socket.io-client": "^3.0.0",
-      "express": "^4.18.1",
-      "express-rate-limit": "^6.6.0",
-      "mocha-sinon": "^2.1.2",
-      "socket.io": "^4.5.2",
-      "socket.io-client": "^4.5.2"
-  },
-  "devDependencies": {
-      "chai": "^4.3.6",
-      "chai-http": "^4.3.0",
-      "coverage-node": "^8.0.0",
-      "eslint": "^8.24.0",
-      "mocha": "^10.0.0",
-      "nyc": "^15.1.0",
-      "clean-jsdoc-theme": "^4.1.8"
-  }
+    "name": "spark",
+    "version": "1.0.0",
+    "description": "Go handsfree with Spark and use hand gestures to increase your freedom and control the call.",
+    "main": "server.js",
+    "scripts": {
+        "lint": "eslint '*.js?(x)'",
+        "start": "nodemon server.js",
+        "format": "npx prettier --write \"**/*.js\"",
+        "test": "mocha",
+        "coverage": "nyc mocha",
+        "coverage_ci": "nyc mocha > cov", 
+        "help": "python3 scripts/help.py",
+        "doc": "jsdoc -c jsdoc.json",
+        "generate-docs": "jsdoc --configure jsdoc.json --verbose"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@types/socket.io-client": "^3.0.0",
+        "express": "^4.18.1",
+        "express-rate-limit": "^6.6.0",
+        "mocha-sinon": "^2.1.2",
+        "socket.io": "^4.5.2",
+        "socket.io-client": "^4.5.2"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "chai-http": "^4.3.0",
+        "coverage-node": "^8.0.0",
+        "eslint": "^8.24.0",
+        "mocha": "^10.0.0",
+        "nyc": "^15.1.0",
+        "clean-jsdoc-theme": "^4.1.8"
+    }
 }

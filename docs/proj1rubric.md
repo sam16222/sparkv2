@@ -26,7 +26,7 @@ Total Score: TODO
 |The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up| 3 |  [Contribution]([CONTRIBUTION.md](CONTRIBUTING.md)) information is up to date. Links are included within the file to point to additional resources or areas on the git page that should be used when contributing. |
 |Issues are discussed before they are closed| 3 | Issues include comments about the status of the issue before being closed. One such example of a discussion can be found [here](https://github.com/SiddarthR56/spark/issues/3) |
 |Chat channel: exists| 3 | Chat channel is available and is activly used. It was started on August 25, 2022. While no 'statistic' insights are available within discord, the chat channel averages 15-35 messages a day regarding deliverables, scheduling meetings, code debugging and feature ideation. A small screen shot of a sample of text has been extracted as evidence: ![discord evidence](https://github.com/SiddarthR56/spark/blob/main/docs/documentation_photos/discord_evidence.jpg) For more details about the discord conversation, you can join the channel [here](https://discord.gg/PDnJtzCW) |
-|Test cases: a large proportion of the issues related to handling failing cases.| TODO | |
+|Test cases: a large proportion of the issues related to handling failing cases.| 1 | Test cases made up 4/14 issues throughout the development (not including issues for project's future development). This should have been a much higher number to address the bugs identified throughout development.|
 |Evidence that the whole team is using the same tools: everyone can get to all tools and files| 3 | All members contributing across branches. Development/testing has occured on multiple machines. Package.json and Package-lock.json provide a listing of the dependencies needed so that each participant can instantiate a directory with the same parameters.  |
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)| 3 | Config file was updated frequnetly by different members. Specifically, over 18 commits to the config files have been made by 5 people. |
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)| 3 | The entire team has access to the repository and is able to run the demo. We ensured this by having different members screen share and run the program during troubleshooting sessions.  | 
@@ -36,20 +36,20 @@ Total Score: TODO
 |Does the website and documentation clearly describe the type of user who should use the software? | TODO | |
 |Did the team publish case studies to show how the software has been used by team and others? | TODO |  | 
 |Is the name of the project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
-|Is the project/software name free from trademark violations? | TODO | | 
+|Is the project/software name free from trademark violations? | 3 | No known trademark violations have been breached through this naming convention. | 
 |Is the software available as a package that can be deployed without building it? | TODO | | 
 |Is the software available for free? | 3 |  [Licensed under MIT](https://github.com/SiddarthR56/spark/blob/main/LICENSE) | 
 |Is the source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | 3 | Public repo available for cloning and can be downloaded on Zenodo as well. |  
 |Is the software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)? | 3 | Hosted by GitHub and Zenodo | 
 |Is the documentation clearly available on your website or within your software? | TODO |  |  
-|Does the documentation include a "quick start" guide, that provides a short overview of how to use the software with some basic examples of use? | TODO | |  
-|If team has provided more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use the software? | TODO | | 
-|Did the team provide a comprehensive guide to all the software’s commands, functions and options? | TODO |  |
+|Does the documentation include a "quick start" guide, that provides a short overview of how to use the software with some basic examples of use? | 3 | In addition to having a demo video show the functionalities, there is also a user work flow section of the readme that describes an overview of how to use the software. |  
+|If team has provided more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use the software? | 3 | The documentation provided is extensive. The [README](README.md) has overview information and the [results](/docs/results.md) shows testing and coverage information. The [install guide](INSTALL.md) has user workflows and information about how to install the software. Then automated documentation has been generated as well and can be launched as a start guide. Step by step inforamtion has been provided as well as comprehensive troubleshooting steps and access to a development email account to discuss issues on a one-on-one basis. | 
+|Did the team provide a comprehensive guide to all the software’s commands, functions and options? | 3 | Yes. The software functions are described in the [user guide](INSTALL.md) and the sequence to begin the software can be accessed through a help menu in the terminal as well. |
 |Did the team provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | 2 | There is a [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md) where users can go to find frequent problems and their potential solutions. This guide includes how the problem typically occurs and potential solutions to fix the issue. With this being said, there is no error messages that people should expect. Providing error messages would help these problems get diagnosed quicker and could be established to improve user experience in future iterations.  |
 |If the software can be used as a library, package or service by other software, do the team provide comprehensive API documentation? | 3  | Not applicable. The services can not be used as an API. |  
 |Did the team store the documentation under revision control with your source code? | TODO |  |  
 |Did the team publish the release history e.g. release data, version numbers, key features of each release etc. on your web site or in the documentation? | TODO |  | 
-|Does the software describe how a user can get help with using the software? | TODO |  |  
+|Does the software describe how a user can get help with using the software? | 3 | Yes. In the [readme](README.md), there is a notice about needing additional support which states that a user can submit an issue, read our help/troubleshooting guides, or email our developers email address to get support using the software.   |  
 |Does the website and documentation describe what support, if any, the team provide to users and developers? | TODO | |  
 |Does the project have an e-mail address or forum that is solely for supporting users? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
 |Are e-mails to the support e-mail address received by more than one person? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
@@ -63,20 +63,20 @@ Total Score: TODO
 |Question 1.2: Does your website and documentation clearly describe the type of user who should use your software? | | | 
 | Question 1.3: Do you publish case studies to show how your software has been used by yourself and others? | | | 
 | Question 2.1: Is the name of your project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
-| Question 2.2: Is your project/software name free from trademark violations? | | | 
+| Question 2.2: Is your project/software name free from trademark violations? | 3 | No known trademark violations have been breached through this naming convention. | 
 | Question 3.1: Is your software available as a package that can be deployed without building it?| | | 
 | Question 3.2: Is your software available for free? | 3 | Yes, software can be cloned on a server to use between users of interest.| 
 | Question 3.3: Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | 3 |  Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
 | Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| 3 | Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
 | Question 4.1: Is your documentation clearly available on your website or within your software?| | | 
-| Question 4.2: Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?| | | 
-| Question 4.3: If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software? | | | 
-| Question 4.4: Do you provide a comprehensive guide to all your software’s commands, functions and options?| | | 
+| Question 4.2: Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?| 3 | In addition to having a demo video show the functionalities, there is also a user work flow section of the readme that describes an overview of how to use the software. | 
+| Question 4.3: If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software? | 3 | The documentation provided is extensive. The [README](README.md) has overview information and the [results](/docs/results.md) shows testing and coverage information. The [install guide](INSTALL.md) has user workflows and information about how to install the software. Then automated documentation has been generated as well and can be launched as a start guide. Step by step inforamtion has been provided as well as comprehensive troubleshooting steps and access to a development email account to discuss issues on a one-on-one basis. | 
+| Question 4.4: Do you provide a comprehensive guide to all your software’s commands, functions and options?| 3 | Yes. The software functions are described in the [user guide](INSTALL.md) and the sequence to begin the software can be accessed through a help menu in the terminal as well. | 
 | Question 4.5: Do you provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages? | 2 | There is a [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md) where users can go to find frequent problems and their potential solutions. This guide includes how the problem typically occurs and potential solutions to fix the issue. With this being said, there is no error messages that people should expect. Providing error messages would help these problems get diagnosed quicker and could be established to improve user experience in future iterations. | 
 | Question 4.6: If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation? | 3 |  Not applicable. The services can not be used as an API. | 
 | Question 4.7: Do you store your documentation under revision control with your source code? | | | 
 | Question 4.8: Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation? | | | 
-| Question 5.1: Does your software describe how a user can get help with using your software? |  | | 
+| Question 5.1: Does your software describe how a user can get help with using your software? | 3 | Yes. In the [readme](README.md), there is a notice about needing additional support which states that a user can submit an issue, read our help/troubleshooting guides, or email our developers email address to get support using the software.   | 
 | Question 5.2: Does your website and documentation describe what support, if any, you provide to users and developers? | 3 | Yes. In the readme there is a area for getting help. This includes a link to the [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md)| 
 | Question 5.3: Does your project have an e-mail address or forum that is solely for supporting users? | 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
 | Question 5.4: Are e-mails to your support e-mail address received by more than one person?| 3 | Yes. The project has an email address (develop.nak@gmail.com) where users can submit questions and support tickets. This email address forwards information on to the associated project members. | 
@@ -86,27 +86,27 @@ Total Score: TODO
 | Question 6.2: Does your software use an accepted coding standard or convention? | | | 
 | Question 7.1: Does your software allow data to be imported and exported using open data formats? | | | 
 | Question 7.2: Does your software allow communications using open communications protocols? | | | 
-| Question 8.1: Is your software cross-platform compatible? | | | 
+| Question 8.1: Is your software cross-platform compatible? | 3 | Yes. The system runs in your browser and can be deployed locally or on a server. The browser can be flexible (including but not limited to Safari, Firefox and Chrome) | 
 | Question 9.1: Does your software adhere to appropriate accessibility conventions or standards? | | | 
 | Question 9.2: Does your documentation adhere to appropriate accessibility conventions or standards? | |. 
 | Question 10.1: Is your source code stored in a repository under revision control? | | | 
 | Question 10.2: Is each source code release a snapshot of the repository? | | | 
-| Question 10.3: Are releases tagged in the repository? | | | 
-| Question 10.4: Is there a branch of the repository that is always stable? (i.e. tests always pass, code always builds successfully) | | | 
+| Question 10.3: Are releases tagged in the repository? | 3 | Releases are tagged on the front page of the repository. | 
+| Question 10.4: Is there a branch of the repository that is always stable? (i.e. tests always pass, code always builds successfully) | 2 | Upon initial development, this branch of the repository did not always pass. But after the first release occured, the branch was stable and builds/tests has always been passing. | 
 | Question 10.5: Do you back-up your repository? | | | 
 | Question 11.1: Do you provide publicly-available instructions for building your software from the source code? | | |
 | Question 11.2: Can you build, or package, your software using an automated tool? | | | 
-| Question 11.3: Do you provide publicly-available instructions for deploying your software? | | | 
+| Question 11.3: Do you provide publicly-available instructions for deploying your software? | 3 | Visit the [installation guide](INSTALL.md) to learn how to run the software. These instructions are pubicly available. | 
 | Question 11.4: Does your documentation list all third-party dependencies? | | | 
 | Question 11.5: Does your documentation list the version number for all third-party dependencies? |  | | 
 | Question 11.6: Does your software list the web address, and licences for all third-party dependencies and say whether the dependencies are mandatory or optional? | | | 
 | Question 11.7: Can you download dependencies using a dependency management tool or package manager? | | | 
 | Question 11.8: Do you have tests that can be run after your software has been built or deployed to show whether the build or deployment has been successful? | | | 
-| Question 12.1: Do you have an automated test suite for your software? | | | 
+| Question 12.1: Do you have an automated test suite for your software? | 3 | Yes. Tests are run by a script which is defined in the [package files](package.json) | 
 | Question 12.2: Do you have a framework to periodically (e.g. nightly) run your tests on the latest version of the source code? | | | 
-| Question 12.3: Do you use continuous integration, automatically running tests whenever changes are made to your source code? | | | 
+| Question 12.3: Do you use continuous integration, automatically running tests whenever changes are made to your source code? | 3 | Yes. View our PRs to see that automated tests are run prior to merging. Several PRs were delayed by the merge becauase they failed these automatic tests.| 
 | Question 12.4: Are your test results publicly visible? | 3 | Yes. Users can run the full set of test/coverage suites and results are listed within the [results.md](results.md) page.| 
-| Question 12.5: Are all manually-run tests documented? | TODO | | 
+| Question 12.5: Are all manually-run tests documented? | 3 | TODO CREATE BLACKBOX TESTS   | 
 | Question 13.1: Does your project have resources (e.g. blog, Twitter, RSS feed, Facebook page, wiki, mailing list) that are regularly updated with information about your software? | | | 
 | Question 13.2: Does your website state how many projects and users are associated with your project? | | | 
 | Question 13.3: Do you provide success stories on your website? | | | 
