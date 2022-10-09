@@ -4,26 +4,30 @@ Use of this source code is governed by an MIT-style
 license that can be found in the LICENSE file or at
 https://opensource.org/licenses/MIT. -->
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="style.css" />
 <!DOCTYPE html>
 <html  lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href='/css/style.css'>
-        
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <link type="text/css" rel="stylesheet" href='/css/style.css'>
+
+
     <title>Videocall Application</title>
- 
+    
+    <meta charset="utf-8">
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
     <!-- used to create a header, sidebar and main section  -->
     <div class="wrapper">
         <nav class="box header navbar navbar-expand-md navbar-light bg-light">
@@ -44,7 +48,17 @@ https://opensource.org/licenses/MIT. -->
                 <label>Control your web sharing capabilities here: </label>
                 <button type="submit" class="btn btn-dark btn-sm" id="toggle-cam">Hide cam</button>
                 <button type="submit" class="btn btn-dark btn-sm" id="toggle-mic">Mute microphone</button>
+                
+                <br> 
+                <label>Share your screen: </label>
+                <button type="submit" class="btn btn-dark btn-sm" id="screen-share">Share Screen</button>
+
+                <hr> 
+                <label>Disable gesture recognition </label>
+                <button type="submit" class="btn btn-dark btn-sm" id="gestures">Disable Gestures</button>
+
             </div>
+
         </div>
 
         <div class="box content">
@@ -53,17 +67,26 @@ https://opensource.org/licenses/MIT. -->
                 <br>
                 <video class="video-large" id="remoteVideo" autoplay></video>
             </div>
-        </div>
-    </div>
+            <div  id="consultingRoomwSharing" style="display:none">
+                <video class="video-large" id="screen-sharing" autoplay ></video>
+            </div>
+            <section>
 
+            
+            <section>
+
+        </div>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://flashphoner.com/downloads/builds/flashphoner_client/wcs_api-2.0/current/flashphoner.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/client.js"></script>
+    <script type='text/javascript' src="/hand_gesture.js"></script>
+    <script type="text/javascript" src="/client.js"></script>
 
 </body>
-
 </html>
