@@ -39,6 +39,22 @@ var isCaller;
 var startedStream;
 const senders = [];
 
+/**
+ * The socket instance.
+ *
+ * @param {Object} [opts] The Server and net.Server options.
+ * @param {Function} [opts.objectSerializer=JSON.stringify] Serializes an object into a binary
+ *        buffer. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @param {Function} [opts.objectDeserializer=JSON.parse] Deserializes a binary buffer into an
+ *        object. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @constructor
+ * @fires socket#on
+ * @fires socket#close
+ * @fires socket#connection
+ * @fires socket#error
+ */
 var socket = io();
 
 /**
@@ -125,7 +141,9 @@ btnGoRoom.onclick = function () {
 };
 
 /**
- * Function is triggered when a participant accesses the software.
+ * Socket connects.
+ * 
+ * @event socket#connect
  */
 socket.on('connect', function () {
   console.log('Connection acheived.');
@@ -135,7 +153,11 @@ socket.on('connect', function () {
 });
 
 /**
- * Function is triggered when a room is created.
+  * Socket creating a room.
+  * 
+  * @event socket#created
+  * @param {number} room - Room number
+  * 
  */
 socket.on('created', function (room) {
   console.log('You are the first one in the room. Room created.');
@@ -248,7 +270,11 @@ function enable_gestures() {
 }
 
 /**
- * Function is triggered when a room is successfully joined.
+  * Socket joining a room.
+  * 
+  * @event socket#joined
+  * @param {number} room - Room number
+  * 
  */
 socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
@@ -266,6 +292,9 @@ socket.on('joined', function (room) {
 
 /**
  * Function is triggered when it receives an ice candidate.
+ * 
+ * @event socket#candidate
+ * @param {*} event event
  */
 socket.on('candidate', function (event) {
   var candidate = new RTCIceCandidate({
@@ -277,6 +306,8 @@ socket.on('candidate', function (event) {
 
 /**
  * This function is triggered when a person joins the room and is ready to communicate.
+ * 
+ * @event socket#ready
  */
 socket.on('ready', function () {
   if (isCaller) {
@@ -304,6 +335,9 @@ socket.on('ready', function () {
 
 /**
  * This function is triggered when an offer is received.
+ * 
+ * @event socket#offer
+ * @param {*} event event
  */
 socket.on('offer', function (event) {
   if (!isCaller) {
@@ -331,6 +365,9 @@ socket.on('offer', function (event) {
 
 /**
  * This function is triggered when an answer is received.
+ * 
+ * @event socket#answer
+ * @param {*} event event
  */
 socket.on('answer', function (event) {
   console.log('connection fully established. Both remote participants connection should be open.');
@@ -342,6 +379,7 @@ socket.on('full', function () {
 });
 /**
  * This function is triggered when a user is disconnected.
+ * @event socket#disconnect
  */
 socket.on('disconnect', function () {
   console.log('disconnected to server');
@@ -367,7 +405,7 @@ function onIceCandidate(event) {
 }
 
 /**
- * Impements the onAddStrean function that takes an event as an input
+ * Implements the onAddStrean function that takes an event as an input
  * @param {*} event event
  */
 function onAddStream(event) {

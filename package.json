@@ -10,7 +10,9 @@
         "test": "mocha",
         "coverage": "nyc mocha",
         "coverage_ci": "nyc mocha > cov", 
-        "help": "python3 scripts/help.py"
+        "help": "python3 scripts/help.py",
+        "doc": "jsdoc -c jsdoc.json",
+        "generate-docs": "jsdoc --configure jsdoc.json --verbose"
     },
     "author": "",
     "license": "MIT",
@@ -28,6 +30,7 @@
         "coverage-node": "^8.0.0",
         "eslint": "^8.24.0",
         "mocha": "^10.0.0",
-        "nyc": "^15.1.0"
+        "nyc": "^15.1.0",
+        "clean-jsdoc-theme": "^4.1.8"
     }
 }

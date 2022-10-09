@@ -7,13 +7,31 @@
  */
 
 const express = require('express');
+
+/**
+ * The app instance.
+ *
+ * @param {Object} [opts] The Server and net.Server options.
+ * @param {Function} [opts.objectSerializer=JSON.stringify] Serializes an object into a binary
+ *        buffer. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @param {Function} [opts.objectDeserializer=JSON.parse] Deserializes a binary buffer into an
+ *        object. This functions allows you to implement custom serialization protocols for
+ *        the data or even use other known protocols like "Protocol Buffers" or  "MessagePack".
+ * @constructor
+ * @fires app#use
+ * @fires app#get
+ * @fires app#on
+ */
 const app = express();
+
 var http = require('http').Server(app);
 var io = require('socket.io')(http, {
   cors: {
     origin: '*',
   },
 });
+
 const path = require('path');
 
 // rate limiter code adapted from https://codeql.github.com/codeql-query-help/javascript/js-missing-rate-limiting/
@@ -26,10 +44,25 @@ var limiter = RateLimit({
 // apply rate limiter to all requests
 app.use(limiter);
 
+/**
+ * Constant for PORT
+ */
 const port = process.env.PORT || 3000;
 
+/**
+  * app use the dir.
+  * 
+  * @event app#use
+ */
 app.use(express.static(path.join(__dirname, '/static')));
 
+/**
+  * app get page.
+  * 
+  * @event app#get
+  * @param {Object} req request
+  * @param {Object} res response
+ */
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'webrtcpage.html'));
 });
@@ -39,6 +72,13 @@ app.get('/close', (req, res) => {
   res.send('Http closed');
 });
 
+/**
+  * app get page.
+  * 
+  * @event app#get
+  * @param {Object} req request
+  * @param {Object} res response
+ */
 app.get('/client.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'client.js'));
 });
@@ -49,6 +89,7 @@ app.get('/hand_gesture.js', function (req, res) {
 
 /** This is triggered when a client is connected */
 io.on('connection', function (socket) {
+
   console.log('a user connected');
   console.log('connect socket id:' + `${socket.id}`);
 
@@ -104,6 +145,7 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () {
     console.log('a user disconnected');
   });
+
 });
 
 const server = http.listen(port, function (error) {
