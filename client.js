@@ -1,8 +1,10 @@
-// Copyright 2021 Google LLC
-
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
+/* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the MIT license that can be found in the LICENSE file or 
+ * at https://opensource.org/licenses/MIT.
+ * You should have received a copy of the MIT license with
+ * this file. If not, please write to: develop.nak@gmail.com, or visit https://github.com/SiddarthR56/spark/blob/main/README.md.
+ */
 
 /* eslint-disable no-unused-vars */
 /* global io, onResults, Gesture, Hands, Camera, gesturesEnabled:true*/
