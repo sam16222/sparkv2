@@ -14,9 +14,18 @@ var io = require('socket.io')(http, {
 });
 const path = require('path');
 
-const port = process.env.PORT || 3000;
+// rate limiter code adapted from https://codeql.github.com/codeql-query-help/javascript/js-missing-rate-limiting/
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 20
+});
 
-// app.use(express.static('public'));
+// apply rate limiter to all requests
+app.use(limiter);
+
+const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '/static')));
 
