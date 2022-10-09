@@ -144,7 +144,6 @@ btnGoRoom.onclick = function () {
  * Socket connects.
  * 
  * @event socket#connect
- * Function is triggered when a participant accesses the software.
  */
 socket.on('connect', function () {
   console.log('Connection acheived.');
