@@ -6,6 +6,7 @@
  
 [![Build](https://github.com/SiddarthR56/spark/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
 [![Lint](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
+[![test](https://github.com/SiddarthR56/spark/actions/workflows/test.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/test.yml)
 ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/SiddarthR56/c267cc7e00c619b7bd0e64cde19dad7b/raw/coverage.json)
 [![DOI](https://zenodo.org/badge/540260143.svg)](https://zenodo.org/badge/latestdoi/540260143)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
