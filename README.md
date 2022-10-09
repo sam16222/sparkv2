@@ -56,15 +56,9 @@ We have the best hands free solution to your presentation needs! Have you ever p
 
 Setup and installation instructions can be found in the [user-friendly install guide](INSTALL.md)
 
-## Testing 
+## Testing / Coverage
 
-Run ```npm run test``` in the command line to run the tests under the test folder.
-
-Test results
-
-### Code Coverage 
-
-Run ```npm run coverage``` in the command line to check code coverage
+Visit our [results page](/docs/results.md) for more information regarding running our test and code coverage scripts. 
 
 ## Directory Structure 
 
@@ -82,6 +76,7 @@ Run ```npm run coverage``` in the command line to check code coverage
 |   package-lock.json
 |   server.js 
 |   client.js
+|   hand_gesture.js
 |   webrtcpage.html
 |   
 +---.github
@@ -97,12 +92,19 @@ Run ```npm run coverage``` in the command line to check code coverage
 +---static
 |   \---css
 |       | style.css
+|
++---scripts
+|   cov_parser.py
+|   help.py
 |      
 +---docs
 |   |   filetree.txt
 |   |   project_roadmap.md
-|   |   self_evaluation.md
+|   |   proj1rubric.md
+|   |   proj1rubricComments.pdf
 |   |   troubleshooting_guide.md
+|   |   results.md
+|   |   spark_demo.mp4
 |   \---documentation_photos
 |           *lots of photos listed not shown here*
 |   
@@ -128,5 +130,5 @@ This project is made possible by the incredible donation of time from NC State P
 
 View some common issues users have identified in our [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md). We list tips and tricks for identifying where the issue may be coming from. Issue reports may be linked to this guide if you identify a bug that is a software limitation. 
   
-Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly.
+Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly. You can also email the development email to asked to be added to our subsriber list for updates regarding the project's development.
 
