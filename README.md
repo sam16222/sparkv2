@@ -64,7 +64,7 @@ Test results
 
 ### Code Coverage 
 
-TODO
+Run ```npm run coverage``` in the command line to check code coverage
 
 ## Directory Structure 
 
