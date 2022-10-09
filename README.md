@@ -2,14 +2,13 @@
   
   <img src="/docs/documentation_photos/project_name.jpg" alt="drawing" width="450"/>    
 
-  <a href="README.md">Overview</a>     |     <a href="INSTALL.md">Installation</a>    |       <a href="project_roadmap.md">Long Term Objectives</a>    
-  
-  [![Build](https://github.com/SiddarthR56/spark/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
+  <a href="README.md">Overview</a>     |     <a href="INSTALL.md">Installation</a>    |       <a href="/docs/project_roadmap.md">Long Term Objectives</a>    
+ 
+[![Build](https://github.com/SiddarthR56/spark/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
 [![Lint](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
 ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/SiddarthR56/c267cc7e00c619b7bd0e64cde19dad7b/raw/coverage.json)
 [![DOI](https://zenodo.org/badge/540260143.svg)](https://zenodo.org/badge/latestdoi/540260143)
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
- 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   
 </h3>
 
@@ -121,7 +120,7 @@ TODO
 
 Are you interested in contributing to this project? Visit [our contribution](CONTRIBUTING.md) documentation. 
   
-Need some ideas on what to contribute? Visit our [project roadmap](https://github.com/SiddarthR56/spark/blob/main/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking. 
+Need some ideas on what to contribute? Visit our [project roadmap](/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking. 
 
 This project is made possible by the incredible donation of time from NC State Project Contributors and the advice/support of CSC 510 teaching staff. NC State University has made the resources for this project possible, and will continue to support CSC 510 projects for the forseeable future. 
 
