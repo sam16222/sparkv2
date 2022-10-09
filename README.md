@@ -58,7 +58,7 @@ Setup and installation instructions can be found in the [user-friendly install g
 
 ## Testing 
 
-Run ```TODO``` in the command line to run the tests under the test folder.
+Run ```npm run test``` in the command line to run the tests under the test folder.
 
 Test results
 
