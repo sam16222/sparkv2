@@ -5,6 +5,7 @@
 // https://opensource.org/licenses/MIT.
 
 /* eslint-disable no-unused-vars */
+/* global io, onResults, Gesture, Hands, Camera, gesturesEnabled:true*/
 
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
@@ -48,19 +49,23 @@ function onGestureAction(results) {
     var gesture = onResults(results)
     switch (gesture) {
         case Gesture.RightSwipe: {
+            console.log("start share")
             start_share();
         } break;
         case Gesture.LeftSwipe: {
+            console.log("end share")
             end_share();
         } break;
         case Gesture.All5Fingers: {
             //pass
         } break;
         case Gesture.ThumbsUp: {
+            console.log("unmute audio")
             const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
             unmute(audioTrack);
         } break;
         case Gesture.ThumbsDown: {
+            console.log("mute audio")
             const audioTrack = localStream.getTracks().find(track => track.kind === 'audio');
             mute(audioTrack);
         } break;

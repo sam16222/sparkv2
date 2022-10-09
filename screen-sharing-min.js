@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* global Flashphoner*/
+
+
 var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
 var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var session;
@@ -5,6 +9,7 @@ var PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_a
 
 /** Init Flashphoner API on page load */
 function init_api() {
+    var shareBtn = document.getElementById("shareBtn")
     Flashphoner.init({});
     /** Connect to WCS server over websockets */
     session = Flashphoner.createSession({

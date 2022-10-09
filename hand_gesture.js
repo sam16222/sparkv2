@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 var start_tracking = false;
 var gesturesEnabled = true;
 var x1 = 0;
@@ -8,11 +10,10 @@ const Gesture = Object.freeze({"RightSwipe":1, "LeftSwipe":2, "All5Fingers":3, "
 function onResults(results) {
 
     if (results.multiHandLandmarks.length != 0) {
-
         var [lsit, box] = findhandpos(results.multiHandLandmarks[0]);
     }
     else {
-        var lsit = [];
+        lsit = [];
         if (start_tracking == true) {
             //Stop Tracking
             start_tracking = false;
@@ -125,4 +126,6 @@ function detect_fingersup(lmlist) {
 
 try {
     module.exports = {onResults, Gesture}
-} catch (error) {}
+} catch (error) {
+    //pass
+}
