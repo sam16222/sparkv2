@@ -19,10 +19,20 @@ jobs:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run coverage_ci
+    - run: echo "COV=$(python3 scripts/cov_parser.py ./cov)" >> $GITHUB_ENV
+    - name: create_badge
+      uses: schneegans/dynamic-badges-action@v1.4.0    
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run coverage
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: c267cc7e00c619b7bd0e64cde19dad7b
+        filename: coverage.json
+        label: Coverage
+        message: ${{ env.COV }}
+        color: orange
+ 
  

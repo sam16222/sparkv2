@@ -1,32 +1,36 @@
 ## Installation Guide
 
-This document gives the instructions to install a system that provides basic video conferenceing capabilities with the novel functionality of using gestures to control base functionality through ML approaches. 
+This document gives the instructions to install a system that provides basic video conferencing capabilities with the novel functionality of using gestures to control base functionality through ML approaches. 
 
 ### All systems (Linux, Mac OS X, and Windows)
 
-1. Create virtual enviornment and activate using python 3.10. (Need some help? Visit [here](https://docs.python.org/3/library/venv.html).)
+1. Clone the repository. 
 
 ```
-$ python3 -m venv webapp
-$ source webapp/bin/activate
+$ git clone https://github.com/SiddarthR56/spark.git
 ```
 
-2. Clone the repository. 
+2. Install requirements. The git repository is based on Express and includes a [package.json](package.json) and [package-lock.json](package-lock.json) with the needed dependencies. 
 
 ```
-(webapp) $ git clone https://github.com/SiddarthR56/spark.git
+$ cd spark 
+$ npm i
 ```
 
-3. Install requirements. The git repository is based on Express and includes a package.json with the needed dependencies. 
+3. To confirm the installation was successful, run the base suite of tests. Ensure that all tests are passing.
 
 ```
-(webapp) $ npm i
+$ npm run test
 ```
 
-4. Generate a local key/certificate for use in establishing a web connection. Both key and cert should be of type PEM. 
+4. Launch the application. This can be done using the startup sequence defined within [package.json](package.json) or through running the command directly with nodemon. After running, you should be able to open up ```localhost:3000``` in any browser to access the application. 
 
 ```
-(webapp) $ openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+# either use 
+$ npm run start 
+
+# or 
+$ nodemon server.js
 ```
 
 ## User Guide 
@@ -36,7 +40,11 @@ You can run the software after installation with the following core commands:
 - To launch the frontend and connect with another user utilizing the start script within the package.json: 
 
 ```
-(webapp) $ npm run start 
+# either use 
+$ npm run start 
+
+# or 
+$ nodemon server.js
 ```
 
 Then, the webapplication can be launched on port 3000. 
@@ -44,15 +52,39 @@ Then, the webapplication can be launched on port 3000.
 - From within the root of the repository, all test suites can be run with: 
 
 ```
-(webapp) $ FILL IN HERE
+$ npm run test
+```
+
+- And coverage can be determined by running: 
+
+```
+$ npm run coverage
 ```
 
 - For more details, visit the help page from within the terminal: 
 
 ```
-(webapp) $ FILL IN HERE
+$ npm run help
 ```
 
+## User workflows
+
+1. User is directed to the homepage where they are asked to enter a room number they would like to join. If the room does not already exist, a new room will be created for the user, for example, Room 2 is created in our case here.
+
+<img src="/docs/documentation_photos/ChooseRoomNo.png" alt="drawing" width="480" /> 
+
+2. If another person wishes to join the room, they can simply enter the same room number to join the room. Currently, the application supports volume functions for mute/ unmute, video on/off, and screen share functionality. Gesture recognition is enabled by default for the mute/unmute and screen sharing functionalities.
+
+<img src="/docs/documentation_photos/RoomWithOne.png" alt="drawing" width="480" /> 
+
+3. By showing thumbs up/ down action towards the camera, either of the two users will be able to mute/ unmute their microphones. Similarly swipe left/ right action towards the camera will allow the users to share their screens with each other. In addition, users will also be able to disable gesture recognition by clicking the <b>Disable Gestures<b> button.
+
+<img src="/docs/documentation_photos/MeetingWithTwo.png" alt="drawing" width="480" /> 
+
+<img src="/docs/documentation_photos/ScreenSharing.png" alt="drawing" width="480" /> 
+  
 ## Advanced details
 
-TODO
+Having issue with a dependency not being available? Try to install the needed dependency with ```npm -i module-name```. 
+
+Having an issue with the application functionality? Visit our [troubleshooting_guide](/docs/troubleshooting_guide.md) for advice and debugging options for common problems. 
