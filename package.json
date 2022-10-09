@@ -4,12 +4,11 @@
     "description": "Go handsfree with Spark and use hand gestures to increase your freedom and control the call.",
     "main": "server.js",
     "scripts": {
-        "coverage": "coverage-node client.js --env=jsdom",
         "lint": "eslint '*.js?(x)'",
         "start": "nodemon server.js",
         "format": "npx prettier --write \"**/*.js\"",
         "test": "mocha",
-        "test-coverage": "nyc mocha"
+        "coverage": "nyc mocha"
     },
     "author": "",
     "license": "MIT",
@@ -27,7 +26,6 @@
         "coverage-node": "^8.0.0",
         "eslint": "^8.24.0",
         "mocha": "^10.0.0",
-        "nyc": "^15.1.0",
-        "prettier": "^2.7.1"
+        "nyc": "^15.1.0"
     }
 }
