@@ -12,7 +12,7 @@ Total Score: TODO
 |DOI badge: exists| 3 | From GH within [README.md](README.md). It also is found within the citation document and about us section of repo.|
 |Docs: doco generated, format not ugly | TODO | |
 |Docs: what: point descriptions of each class/function (in isolation) | TODO |  | 
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| TODO | Mini tutorials included in [README.md](README.md).|
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z| 3 | Mini tutorials included in [README.md](README.md) and [INSTALL.md](https://github.com/SiddarthR56/spark/blob/main/INSTALL.md). In addition, our marketing 2 minute video contains a demo showcasing gesture recognition and app functionality.|
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing| 3 | [README.md](README.md) is engaging and includes eye catching images, phrases about how users can benefit from the software, and an overview of of setup/running the software. The linked video is clear and attracts users.|  
 |Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.| 3 | Great animated video on [README.md](README.md) that shows why people should use the tool and launches into a brief demo. Anouther copy of the video can be found within our [documentation folder](https://github.com/SiddarthR56/spark/blob/main/docs/spark_demo.mp4) | 
 |Use of version control tools| 3 | Git utilized. Over 14 branches utilized and some commits reverted to. Proper version control practices were upheld.| 
@@ -105,22 +105,22 @@ Total Score: TODO
 | Question 12.1: Do you have an automated test suite for your software? | | | 
 | Question 12.2: Do you have a framework to periodically (e.g. nightly) run your tests on the latest version of the source code? | | | 
 | Question 12.3: Do you use continuous integration, automatically running tests whenever changes are made to your source code? | | | 
-| Question 12.4: Are your test results publicly visible? | | | 
-| Question 12.5: Are all manually-run tests documented? | | | 
+| Question 12.4: Are your test results publicly visible? | 3 | Yes. Users can run the full set of test/coverage suites and results are listed within the [results.md](results.md) page.| 
+| Question 12.5: Are all manually-run tests documented? | TODO | | 
 | Question 13.1: Does your project have resources (e.g. blog, Twitter, RSS feed, Facebook page, wiki, mailing list) that are regularly updated with information about your software? | | | 
 | Question 13.2: Does your website state how many projects and users are associated with your project? | | | 
 | Question 13.3: Do you provide success stories on your website? | | | 
-| Question 13.4: Do you list your important partners and collaborators on your website? | | | 
-| Question 13.5: Do you list your project's publications on your website or link to a resource where these are available? | | | 
-| Question 13.6: Do you list third-party publications that refer to your software on your website or link to a resource where these are available? | | | 
-| Question 13.7: Can users subscribe to notifications to changes to your source code repository? | | | 
+| Question 13.4: Do you list your important partners and collaborators on your website? | 3| In the Readme, there is a section discussing resources provided by NC State teaching staff, the university and other developers. | 
+| Question 13.5: Do you list your project's publications on your website or link to a resource where these are available? | 3 | Zenodo link is provided, and will be a list of everywhere where this source code is cited. | 
+| Question 13.6: Do you list third-party publications that refer to your software on your website or link to a resource where these are available? | 3 |  Copyright of code is listed within software, which can be used to find a listing of publications tied to this work. | 
+| Question 13.7: Can users subscribe to notifications to changes to your source code repository? | Yes. | You can add alerts for changes within git or email the development address (develop.nak@gmail.com) to be added to a subscription list.| 
 | Question 13.8: If your software is developed as an open source project (and, not just a project developing open source software), do you have a governance model? | | | 
-| Question 14.1: Do you accept contributions (e.g. bug fixes, enhancements, documentation updates, tutorials) from people who are not part of your project? | | | 
+| Question 14.1: Do you accept contributions (e.g. bug fixes, enhancements, documentation updates, tutorials) from people who are not part of your project? | 3  | Yes, the repository is public and contributions can be made by many. However, the contribution must be approved by a developer of the project. This upholds the linux best practices. | 
 | Question 14.2: Do you have a contributions policy? | 3 |[Contribution]([CONTRIBUTION.md](CONTRIBUTING.md)) information is up to date. Links are included within the file to point to additional resources or areas on the git page that should be used when contributing.  | 
 | Question 14.3: Is your contributions' policy publicly available? |3 |[Contribution]([CONTRIBUTION.md](CONTRIBUTING.md)) information is pubically available. Links are included within the file to point to additional resources or areas on the git page that should be used when contributing.  | 
-| Question 14.4: Do contributors keep the copyright/IP of their contributions? | | | 
+| Question 14.4: Do contributors keep the copyright/IP of their contributions? | 3 | Yes. Under the MIT license, contributors keep their contribution IP but agree to allow it to be utilized in the ongoing project if they share it.| 
 | Question 15.1: Does your website and documentation clearly state the copyright owners of your software and documentation?| | | 
-| Question 15.2: Does each of your source code files include a copyright statement?| | | 
+| Question 15.2: Does each of your source code files include a copyright statement?| 3 | Yes. Each source file has a copyright statement that includes authors names and the license in which is being used. | 
 | Question 15.3: Does your website and documentation clearly state the licence of your software? | 3.  |Yes. License is stated in About tab and in [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE).| 
 | Question 15.4: Is your software released under an open source licence? | 3 | Yes. License is stated in About tab and in [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE). The license used is the MIT License. | 
 | Question 15.5: Is your software released under an OSI-approved open-source licence? | 3 | Yes. [LICENSE.md](https://github.com/SiddarthR56/spark/blob/main/LICENSE) includes the MIT License which is [approved](https://opensource.org/licenses/MIT) by OSI. | 
@@ -128,4 +128,4 @@ Total Score: TODO
 | Question 15.7: Do you have a recommended citation for your software | 3 | Yes. Citation is linked within the [CITATION.cff](https://github.com/SiddarthR56/spark/blob/main/CITATION.cff) file and can be found in the About tab of the repo as well. | 
 | Question 16.1: Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)? | 3 | Yes. Project roadmap has been developed with overarching goals. It is found [here](https://github.com/SiddarthR56/spark/blob/main/docs/project_roadmap.md) | 
 | Question 16.2: Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed? | 3 |No group is funding this project. A statement about supporting parties (contributing team members, course TA/staff/faculty and NC State course reasources) is listed in the contributing section of the readme and states *This project is made possible by the incredible donation of time from NC State Project Contributors and the advice/support of CSC 510 teaching staff. NC State University has made the resources for this project possible, and will continue to support CSC 510 projects for the forseeable future.*  | 
-| Question 16.3: Do you make timely announcements of the deprecation of components, APIs, etc.?| | | 
+| Question 16.3: Do you make timely announcements of the deprecation of components, APIs, etc.?| 3 | Announcements of depreciated components would be made. In this development cycle, no depreciations had occured. However, there is the ability to add these remarks by sending out announcments to our subscriber lists.  | 
