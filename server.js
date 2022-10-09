@@ -37,11 +37,6 @@ app.get('/close', (req, res) => {
     res.send("Http closed")
 })
 
-app.get('/share', function (req, res) {
-    res.sendFile(path.join(__dirname, 'screen-sharing-min.html'));
-});
-
-
 app.get('/client.js', function (req, res) {
     res.sendFile(path.join(__dirname, 'client.js'));
 });
@@ -95,21 +90,21 @@ io.on('connection', function (socket) {
 
     socket.on('answer-screen', function (event) {
         socket.broadcast.to(event.room).emit('answer-screen', event.sdp);
+    });
 
-        /** This function is triggered when server gets an offer from a person in the room */
-        socket.on('offer', function (event) {
-            socket.broadcast.to(event.room).emit('offer', event.sdp);
-        });
+    /** This function is triggered when server gets an offer from a person in the room */
+    socket.on('offer', function (event) {
+        socket.broadcast.to(event.room).emit('offer', event.sdp);
+    });
 
-        /** This function is triggered when server gets an answer from a person in the room */
-        socket.on('answer', function (event) {
-            socket.broadcast.to(event.room).emit('answer', event.sdp);
-        });
+    /** This function is triggered when server gets an answer from a person in the room */
+    socket.on('answer', function (event) {
+        socket.broadcast.to(event.room).emit('answer', event.sdp);
+    });
 
-        /** This function is triggered when a user disconnects */
-        socket.on('disconnect', function () {
-            console.log('a user disconnected');
-        });
+    /** This function is triggered when a user disconnects */
+    socket.on('disconnect', function () {
+        console.log('a user disconnected');
     });
 })
 

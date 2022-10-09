@@ -25,7 +25,6 @@ var localStream;
 var remoteStream;
 var screenStream;
 var rtcPeerConnection;
-var peerScreenConnection;
 
 /** Contains the stun server URL that will be used */
 var iceServers = {
@@ -42,6 +41,9 @@ const senders = [];
 
 var socket = io();
 
+/**
+ * Function is triggered when a gesture is recognized. 
+ */
 function onGestureAction(results) {
     var gesture = onResults(results)
     switch (gesture) {
@@ -71,7 +73,6 @@ function onGestureAction(results) {
 /**
  * Function is triggered when a participant tries to enter the room. 
  */
-
 btnGoRoom.onclick = function () {
     if (inputRoomNumber.value === '') {
         console.log("Please type a room number")
@@ -265,6 +266,7 @@ socket.on('ready', function () {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
+        console.log("track added")
         localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.createOffer()
             .then(sessionDescription => {
@@ -289,6 +291,7 @@ socket.on('offer', function (event) {
         rtcPeerConnection = new RTCPeerConnection(iceServers);
         rtcPeerConnection.onicecandidate = onIceCandidate;
         rtcPeerConnection.ontrack = onAddStream;
+        console.log("offer recieved. remote track being added.")
         localStream.getTracks().forEach(track => senders.push(rtcPeerConnection.addTrack(track, localStream)));
         rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
         rtcPeerConnection.createAnswer()
@@ -310,6 +313,7 @@ socket.on('offer', function (event) {
  * This function is triggered when an answer is received.
  */
 socket.on('answer', function (event) {
+    console.log("connection fully established. Both remote participants connection should be open.")
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
