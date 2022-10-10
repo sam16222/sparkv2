@@ -360,6 +360,7 @@ socket.on('offer', function (event) {
       .catch((error) => {
         console.log(error);
       });
+      screenShare.disabled = false;
   }
 });
 
@@ -372,6 +373,8 @@ socket.on('offer', function (event) {
 socket.on('answer', function (event) {
   console.log('connection fully established. Both remote participants connection should be open.');
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+  screenShare.disabled = false;
+
 });
 
 socket.on('full', function () {
