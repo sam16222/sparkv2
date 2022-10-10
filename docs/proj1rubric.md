@@ -94,7 +94,7 @@ Total Score: TODO
 | Question 10.3: Are releases tagged in the repository? | 3 | Releases are tagged on the front page of the repository. | 
 | Question 10.4: Is there a branch of the repository that is always stable? (i.e. tests always pass, code always builds successfully) | 2 | Upon initial development, this branch of the repository did not always pass. But after the first release occured, the branch was stable and builds/tests has always been passing. | 
 | Question 10.5: Do you back-up your repository? | 3 | Yes. Our repository is backed up on Zenodo prior to each release. | 
-| Question 11.1: Do you provide publicly-available instructions for building your software from the source code? | | |
+| Question 11.1: Do you provide publicly-available instructions for building your software from the source code? | 3 | yes |
 | Question 11.2: Can you build, or package, your software using an automated tool? | | | 
 | Question 11.3: Do you provide publicly-available instructions for deploying your software? | 3 | Visit the [installation guide](https://github.com/SiddarthR56/spark/blob/main/INSTALL.md) to learn how to run the software. These instructions are pubicly available. | 
 | Question 11.4: Does your documentation list all third-party dependencies? | 3 | Yes. All third-party dependencies are listing [here](https://github.com/SiddarthR56/spark/blob/doc-generation/docs/dependencies.md) | 
