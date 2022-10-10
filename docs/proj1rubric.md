@@ -1,4 +1,4 @@
-Total Score: 357
+Total Score: 358
 
 |Notes|Score|Links & Support|
 |-----|---------|---------|
@@ -37,7 +37,7 @@ Total Score: 357
 |Did the team publish case studies to show how the software has been used by team and others? | 2 | Yes. The software has information regarding how users have successfully used this software. However, this is on a small scale. Moving forward, beta testing should be conducted with a user pool to improve our success stories. | 
 |Is the name of the project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
 |Is the project/software name free from trademark violations? | 3 | No known trademark violations have been breached through this naming convention. | 
-|Is the software available as a package that can be deployed without building it? | 2 | The software is not packaged but can be deployed without the need for need for the user for building | 
+|Is the software available as a package that can be deployed without building it? | 3 | The software is also available as a package and can also be deployed without the need for the user for building (Evidence), although its always better to use repo instead of package due to compatibility issues.| 
 |Is the software available for free? | 3 |  [Licensed under MIT](https://github.com/SiddarthR56/spark/blob/main/LICENSE) | 
 |Is the source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | 3 | Public repo available for cloning and can be downloaded on Zenodo as well. |  
 |Is the software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)? | 3 | Hosted by GitHub and Zenodo | 
