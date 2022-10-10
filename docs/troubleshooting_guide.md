@@ -24,3 +24,10 @@ Solutions:
 - Check to see if the settings for the browser you are in are allowing microphone/camera connections. Enable them and it should work. Sometimes if the connection is disabled globally, it will not work within the app. You may also be able to change this access in the upper right hand side of the search bar for the browser. 
 - Try refreshing the page or rejoining the room. 
 - Still not working? Check the console logs to see if there is issues accessing the media devices. 
+
+__Gestures not working__:  
+
+Tips and Tricks
+- For thumbs up/down, try using your left hand for the signalling. It works best if you keep your hand within 2 feet of the screen with a blank background behind you. 
+- For screen share (swiping left/right), try using your left middle and index finger. Point them directly at the screen, one above the other, and move at an even pace to the right to start (or left to end) the screen share. 
+- Still not being recognized? Use chrome, launch the software and open up the developers tools. Try your gestures now. You should see the console logging which gestures are being recognized. Once you get the hang of it, you should be able to control the movements much more easily!
