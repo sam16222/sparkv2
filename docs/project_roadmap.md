@@ -20,9 +20,10 @@ We have developed three steps to complete all of the expansion opportunities:
 | Develop additional gestures | Milestone 1 | 1 months out | Begin by training the model with additional gestures. This allows easy integration with the to-be-developed features within the software | 
 | Add Virtual Background Option | Milestone 2 | 2 months out | Use of the mediapipe library can be used for image segmentation and addition of virtual background | 
 | Add Transcripts to the call  | Milestone 3 | 3 months out | Useing speech recognition library live transcripts can be displayed during the call. | 
-| Improve user experience | Milestone 4 | 3.5 months out | Ensure that all needed functionality are included. Potential ideas include messages, gifs, document sending, host controls, etc. This functionality needs to be implemented to have something to tie the gestures to. | 
-| Tie gestures to actions | Milestone 5 | 4 months out | Tie gestures into software so that a gesture causes an action. This merges the work from milestone 1 & 2 | 
-| Deploy software on sever for small scale / personal use | Milestone 6 | 6 months out |  To develop wide spread use capabilities, the software must be working on a server where users on different machines can interact. | 
-| Deploy software on sever for widespread use | Milestone 7 | 12 months out | Expand functionality from Milestone 4 to include multiple users, different simultaneous calls and user accounts for tracking activity | 
+| Add Broadcasting Option | Milestone 4 | 3.5 months out | Add call-flow option to boradcast video/audio | 
+| Improve user experience | Milestone 6 | 3.5 months out | Ensure that all needed functionality are included. Potential ideas include messages, gifs, document sending, host controls, etc. This functionality needs to be implemented to have something to tie the gestures to. | 
+| Tie gestures to actions | Milestone 7 | 4 months out | Tie gestures into software so that a gesture causes an action. This merges the work from milestone 1 & 2 | 
+| Deploy software on sever for small scale / personal use | Milestone 8 | 6 months out |  To develop wide spread use capabilities, the software must be working on a server where users on different machines can interact. | 
+| Deploy software on sever for widespread use | Milestone 9 | 12 months out | Expand functionality from Milestone 4 to include multiple users, different simultaneous calls and user accounts for tracking activity | 
 
 *Note: the estimated timeline is for a single hobbyist developing this software, for an established team software development could be heavily accelerated. It is anticipated that Project 2 should complete Milestone 1-3*
