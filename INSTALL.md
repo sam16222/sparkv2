@@ -85,6 +85,8 @@ $ npm run help
   
 ## Advanced details
 
+Still looking for more details about expected behavior? Look in our [black box testing suite](https://github.com/SiddarthR56/spark/blob/main/docs/blackBoxTests.pdf) to learn about manual tests you can conduct that will help you learn more about the software. 
+
 Having issue with a dependency not being available? Try to install the needed dependency with ```npm -i module-name```. 
 
 Having an issue with the application functionality? Visit our [troubleshooting_guide](/docs/troubleshooting_guide.md) for advice and debugging options for common problems. 
