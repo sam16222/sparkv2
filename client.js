@@ -22,6 +22,7 @@ var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var toggleGesture = document.getElementById('gestures');
 var screenShare = document.getElementById('screen-share');
+var disconnectcall = document.getElementById('disconnect-call');
 
 var roomNumber;
 var localStream;
@@ -205,6 +206,10 @@ toggleGesture.addEventListener('click', () => {
   } else {
     enable_gestures();
   }
+});
+
+disconnectcall.addEventListener('click', () => {
+ 
 });
 
 screenShare.addEventListener('click', () => {
