@@ -19,7 +19,7 @@ Possible Future Features:
 |------|-----------|----------------|-----------|
 | Develop additional gestures | Milestone 1 | 10 Days | Begin by training the model with additional gestures. This allows easy integration with the to-be-developed features within the software | 
 | Add Virtual Background Option | Milestone 2 | 10 Days | Use of the mediapipe library can be used for image segmentation and addition of virtual background | 
-| Add Transcripts to the call  | Milestone 3 | 1 Week | Useing speech recognition library live transcripts can be displayed during the call. | 
+| Add Transcripts to the call  | Milestone 3 | 1 Week | Using speech recognition library live transcripts can be displayed during the call | 
 | Add Broadcasting Option | Milestone 4 | 10 Days | Add call-flow option to boradcast video/audio | 
 | Improve user experience | Milestone 5 | 1 Week | Ensure that all needed functionality are included. Potential ideas include messages, gifs, document sending, host controls, etc. This functionality needs to be implemented to have something to tie the gestures to | 
 | Add User login page | Milestone 6 | 3 weeks | Add landing page for user to create an account and login, store credentials, etc | 
