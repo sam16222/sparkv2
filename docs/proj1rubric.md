@@ -1,4 +1,4 @@
-Total Score: 353
+Total Score: 356
 
 |Notes|Score|Links & Support|
 |-----|---------|---------|
