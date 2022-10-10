@@ -1,6 +1,6 @@
 /* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
  * You may use, distribute and modify this code under the
- * terms of the MIT license that can be found in the LICENSE file or 
+ * terms of the MIT license that can be found in the LICENSE file or
  * at https://opensource.org/licenses/MIT.
  * You should have received a copy of the MIT license with
  * this file. If not, please write to: develop.nak@gmail.com, or visit https://github.com/SiddarthR56/spark/blob/main/README.md.
@@ -37,7 +37,7 @@ var iceServers = {
 
 var streamConstraints = { audio: true, video: true };
 var isCaller;
-var startedStream;
+var startedStream = false;
 const senders = [];
 
 /**
@@ -143,7 +143,7 @@ btnGoRoom.onclick = function () {
 
 /**
  * Socket connects.
- * 
+ *
  * @event socket#connect
  */
 socket.on('connect', function () {
@@ -154,11 +154,11 @@ socket.on('connect', function () {
 });
 
 /**
-  * Socket creating a room.
-  * 
-  * @event socket#created
-  * @param {number} room - Room number
-  * 
+ * Socket creating a room.
+ *
+ * @event socket#created
+ * @param {number} room - Room number
+ *
  */
 socket.on('created', function (room) {
   console.log('You are the first one in the room. Room created.');
@@ -209,11 +209,10 @@ toggleGesture.addEventListener('click', () => {
 });
 
 disconnectcall.addEventListener('click', () => {
-  //Disconnecting the call 
-  rtcPeerConnection.close()
+  //Disconnecting the call
+  rtcPeerConnection.close();
   socket.emit('disconnect-call', roomNumber);
-  location.reload()
-  
+  location.reload();
 });
 
 screenShare.addEventListener('click', () => {
@@ -225,25 +224,37 @@ screenShare.addEventListener('click', () => {
 });
 
 function mute(audioTrack) {
-  audioTrack.enabled = false;
-  toggleMic.innerHTML = 'Unmute microphone';
+  if (audioTrack.enabled === true) {
+    audioTrack.enabled = false;
+    toggleMic.innerHTML = 'Unmute microphone';
+  }
 }
 
 function unmute(audioTrack) {
-  audioTrack.enabled = true;
-  toggleMic.innerHTML = 'Mute microphone';
+  if (audioTrack.enabled === false) {
+    audioTrack.enabled = true;
+    toggleMic.innerHTML = 'Mute microphone';
+  }
 }
 
 function end_share() {
-  console.log('Ending screen share.');
-  screenShare.innerHTML = 'Share Screen';
-  divConsultingRoomwSharing.style = 'display: none';
-  remoteVideo.className = 'video-large';
-  senders.find((sender) => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1]);
-  startedStream = false;
+  if (startedStream) {
+    console.log('Ending screen share.');
+    screenShare.innerHTML = 'Share Screen';
+    divConsultingRoomwSharing.style = 'display: none';
+    remoteVideo.className = 'video-large';
+    senders.find((sender) => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1]);
+    startedStream = false;
+  } else {
+    console.log('No Stream started yet.');
+  }
 }
 
 function start_share() {
+  if (startedStream) {
+    console.log('share in progress');
+    return;
+  }
   console.log('Beginning screen share.');
   screenShare.innerHTML = 'Stop Sharing';
   console.log('screen sharing chain enabled');
@@ -267,23 +278,31 @@ function start_share() {
 }
 
 function disable_gestures() {
-  console.log('Disabling gestures.');
-  gesturesEnabled = false;
-  toggleGesture.innerHTML = 'Enable Gestures';
+  if (gesturesEnabled) {
+    console.log('Disabling gestures.');
+    gesturesEnabled = false;
+    toggleGesture.innerHTML = 'Enable Gestures';
+  } else {
+    console.log('Gestures already disabled');
+  }
 }
 
 function enable_gestures() {
-  console.log('Enabling gestures.');
-  gesturesEnabled = true;
-  toggleGesture.innerHTML = 'Disable Gestures';
+  if (gesturesEnabled === false) {
+    console.log('Enabling gestures.');
+    gesturesEnabled = true;
+    toggleGesture.innerHTML = 'Disable Gestures';
+  } else {
+    console.log('Gestures Already Enabled');
+  }
 }
 
 /**
-  * Socket joining a room.
-  * 
-  * @event socket#joined
-  * @param {number} room - Room number
-  * 
+ * Socket joining a room.
+ *
+ * @event socket#joined
+ * @param {number} room - Room number
+ *
  */
 socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
@@ -301,7 +320,7 @@ socket.on('joined', function (room) {
 
 /**
  * Function is triggered when it receives an ice candidate.
- * 
+ *
  * @event socket#candidate
  * @param {*} event event
  */
@@ -315,7 +334,7 @@ socket.on('candidate', function (event) {
 
 /**
  * This function is triggered when a person joins the room and is ready to communicate.
- * 
+ *
  * @event socket#ready
  */
 socket.on('ready', function () {
@@ -344,7 +363,7 @@ socket.on('ready', function () {
 
 /**
  * This function is triggered when an offer is received.
- * 
+ *
  * @event socket#offer
  * @param {*} event event
  */
@@ -369,14 +388,14 @@ socket.on('offer', function (event) {
       .catch((error) => {
         console.log(error);
       });
-      screenShare.disabled = false;
-      disconnectcall.disabled = false;
+    screenShare.disabled = false;
+    disconnectcall.disabled = false;
   }
 });
 
 /**
  * This function is triggered when an answer is received.
- * 
+ *
  * @event socket#answer
  * @param {*} event event
  */
@@ -385,7 +404,6 @@ socket.on('answer', function (event) {
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
   screenShare.disabled = false;
   disconnectcall.disabled = false;
-
 });
 
 socket.on('full', function () {
@@ -396,10 +414,9 @@ socket.on('full', function () {
  * @event socket#disconnect
  */
 socket.on('disconnect-call', function () {
-  rtcPeerConnection.close()
+  rtcPeerConnection.close();
   console.log('disconnected to client');
-  location.reload()
-  
+  location.reload();
 });
 
 /**

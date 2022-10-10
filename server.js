@@ -1,6 +1,6 @@
 /* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
  * You may use, distribute and modify this code under the
- * terms of the MIT license that can be found in the LICENSE file or 
+ * terms of the MIT license that can be found in the LICENSE file or
  * at https://opensource.org/licenses/MIT.
  * You should have received a copy of the MIT license with
  * this file. If not, please write to: develop.nak@gmail.com, or visit https://github.com/SiddarthR56/spark/blob/main/README.md.
@@ -50,18 +50,18 @@ app.use(limiter);
 const port = process.env.PORT || 3000;
 
 /**
-  * app use the dir.
-  * 
-  * @event app#use
+ * app use the dir.
+ *
+ * @event app#use
  */
 app.use(express.static(path.join(__dirname, '/static')));
 
 /**
-  * app get page.
-  * 
-  * @event app#get
-  * @param {Object} req request
-  * @param {Object} res response
+ * app get page.
+ *
+ * @event app#get
+ * @param {Object} req request
+ * @param {Object} res response
  */
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'webrtcpage.html'));
@@ -73,11 +73,11 @@ app.get('/close', (req, res) => {
 });
 
 /**
-  * app get page.
-  * 
-  * @event app#get
-  * @param {Object} req request
-  * @param {Object} res response
+ * app get page.
+ *
+ * @event app#get
+ * @param {Object} req request
+ * @param {Object} res response
  */
 app.get('/client.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'client.js'));
@@ -89,7 +89,6 @@ app.get('/hand_gesture.js', function (req, res) {
 
 /** This is triggered when a client is connected */
 io.on('connection', function (socket) {
-
   console.log('a user connected');
   console.log('connect socket id:' + `${socket.id}`);
 
@@ -145,9 +144,7 @@ io.on('connection', function (socket) {
   socket.on('disconnect-call', function (room) {
     socket.broadcast.to(room).emit('disconnect-call');
     console.log('a user disconnected');
-    
   });
-
 });
 
 const server = http.listen(port, function (error) {
