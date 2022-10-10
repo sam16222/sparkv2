@@ -1,4 +1,4 @@
-Total Score: TODO
+Total Score: 353
 
 |Notes|Score|Links & Support|
 |-----|---------|---------|
