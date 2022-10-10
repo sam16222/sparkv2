@@ -142,8 +142,10 @@ io.on('connection', function (socket) {
   });
 
   /** This function is triggered when a user disconnects */
-  socket.on('disconnect', function () {
+  socket.on('disconnect-call', function (room) {
+    socket.broadcast.to(room).emit('disconnect-call');
     console.log('a user disconnected');
+    
   });
 
 });

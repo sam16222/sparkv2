@@ -22,6 +22,7 @@ var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var toggleGesture = document.getElementById('gestures');
 var screenShare = document.getElementById('screen-share');
+var disconnectcall = document.getElementById('disconnect-call');
 
 var roomNumber;
 var localStream;
@@ -207,6 +208,14 @@ toggleGesture.addEventListener('click', () => {
   }
 });
 
+disconnectcall.addEventListener('click', () => {
+  //Disconnecting the call 
+  rtcPeerConnection.close()
+  socket.emit('disconnect-call', roomNumber);
+  location.reload()
+  
+});
+
 screenShare.addEventListener('click', () => {
   if (document.getElementById('consultingRoomwSharing').style.cssText == 'display: block;') {
     end_share();
@@ -360,6 +369,8 @@ socket.on('offer', function (event) {
       .catch((error) => {
         console.log(error);
       });
+      screenShare.disabled = false;
+      disconnectcall.disabled = false;
   }
 });
 
@@ -372,6 +383,9 @@ socket.on('offer', function (event) {
 socket.on('answer', function (event) {
   console.log('connection fully established. Both remote participants connection should be open.');
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
+  screenShare.disabled = false;
+  disconnectcall.disabled = false;
+
 });
 
 socket.on('full', function () {
@@ -381,8 +395,11 @@ socket.on('full', function () {
  * This function is triggered when a user is disconnected.
  * @event socket#disconnect
  */
-socket.on('disconnect', function () {
-  console.log('disconnected to server');
+socket.on('disconnect-call', function () {
+  rtcPeerConnection.close()
+  console.log('disconnected to client');
+  location.reload()
+  
 });
 
 /**
