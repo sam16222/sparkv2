@@ -1,4 +1,4 @@
-Total Score: 356
+Total Score: 357
 
 |Notes|Score|Links & Support|
 |-----|---------|---------|
@@ -64,7 +64,7 @@ Total Score: 356
 | Question 1.3: Do you publish case studies to show how your software has been used by yourself and others? | 2 | Yes. The software has information regarding how users have successfully used this software. However, this is on a small scale. Moving forward, beta testing should be conducted with a user pool to improve our success stories.| 
 | Question 2.1: Is the name of your project/software unique? | 3 | Yes! We thought having gestures integrated in web conferencing would *spark* new conversation, and thus the name was born. | 
 | Question 2.2: Is your project/software name free from trademark violations? | 3 | No known trademark violations have been breached through this naming convention. | 
-| Question 3.1: Is your software available as a package that can be deployed without building it?| 2 | The software is not packaged but can be deployed without the need for need for the user for building| 
+| Question 3.1: Is your software available as a package that can be deployed without building it?| 3 | The software is also available as a package and can also be deployed without the need for the user for building ([Evidence](https://github.com/SiddarthR56/spark/releases/tag/v1.1)), although its always better to use repo instead of package due to compatibility issues. | 
 | Question 3.2: Is your software available for free? | 3 | Yes, software can be cloned on a server to use between users of interest.| 
 | Question 3.3: Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository? | 3 |  Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
 | Question 3.4: Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?| 3 | Public repo available for cloning and can be downloaded on [Zenodo](https://zenodo.org/badge/latestdoi/540260143) as well. | 
