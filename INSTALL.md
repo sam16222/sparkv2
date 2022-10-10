@@ -14,7 +14,7 @@ $ git clone https://github.com/SiddarthR56/spark.git
 
 ```
 $ cd spark 
-$ npm i
+$ npm install
 ```
 
 3. To confirm the installation was successful, run the base suite of tests. Ensure that all tests are passing.
