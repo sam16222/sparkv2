@@ -209,7 +209,9 @@ toggleGesture.addEventListener('click', () => {
 });
 
 disconnectcall.addEventListener('click', () => {
- 
+  rtcPeerConnection.close()
+  socket.emit('disconnect', roomNumber);
+
 });
 
 screenShare.addEventListener('click', () => {
