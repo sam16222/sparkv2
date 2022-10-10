@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "lint": "eslint '*.js?(x)'",
-        "start": "nodemon server.js",
+        "start": "node server.js",
         "format": "npx prettier --write \"**/*.js\"",
         "test": "mocha",
         "coverage": "nyc mocha",
