@@ -84,8 +84,8 @@ Total Score: TODO
 | Question 5.6: Is your project's ticketing system publicly visible to your users, so they can view bug reports and feature requests? | 3 | Yes, bug reports are publically available [here](https://github.com/SiddarthR56/spark/tree/main/.github/ISSUE_TEMPLATE) | 
 | Question 6.1: Is your software’s architecture and design modular? | 3 | Yes! The design is modular. Functionality is abstracted into server and client classes. In additional gesture recognition has its own js section. This ensures that updating either the user experience or the gesture recognition can be done in an isolated fashion. | 
 | Question 6.2: Does your software use an accepted coding standard or convention? | 3 | Yes. Our software integrates [lint](https://github.com/SiddarthR56/spark/blob/main/.github/workflows/lint.yml) to check coding conventions. We have a check run between each addition of software to main to prevent regressions. | 
-| Question 7.1: Does your software allow data to be imported and exported using open data formats? | | | 
-| Question 7.2: Does your software allow communications using open communications protocols? | | | 
+| Question 7.1: Does your software allow data to be imported and exported using open data formats? | 3 | NA | 
+| Question 7.2: Does your software allow communications using open communications protocols? | 3 | yes | 
 | Question 8.1: Is your software cross-platform compatible? | 3 | Yes. The system runs in your browser and can be deployed locally or on a server. The browser can be flexible (including but not limited to Safari, Firefox and Chrome) | 
 | Question 9.1: Does your software adhere to appropriate accessibility conventions or standards? | 2 | Yes. Our software remains accessible. The layout of the page is supported by page-to-speak extentions and the colors are within the proper conventions. There could be improvmenets to the user expeirence for people with disabilities. | 
 | Question 9.2: Does your documentation adhere to appropriate accessibility conventions or standards? | 3 | Yes. Our documentation has light/dark capabilities (within both the repo and on our documentation website). | 
