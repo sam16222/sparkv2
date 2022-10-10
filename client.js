@@ -209,9 +209,11 @@ toggleGesture.addEventListener('click', () => {
 });
 
 disconnectcall.addEventListener('click', () => {
+  //Disconnecting the call 
   rtcPeerConnection.close()
-  socket.emit('disconnect', roomNumber);
-
+  socket.emit('disconnect-call', roomNumber);
+  location.reload()
+  
 });
 
 screenShare.addEventListener('click', () => {
@@ -368,6 +370,7 @@ socket.on('offer', function (event) {
         console.log(error);
       });
       screenShare.disabled = false;
+      disconnectcall.disabled = false;
   }
 });
 
@@ -381,6 +384,7 @@ socket.on('answer', function (event) {
   console.log('connection fully established. Both remote participants connection should be open.');
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
   screenShare.disabled = false;
+  disconnectcall.disabled = false;
 
 });
 
@@ -391,8 +395,11 @@ socket.on('full', function () {
  * This function is triggered when a user is disconnected.
  * @event socket#disconnect
  */
-socket.on('disconnect', function () {
-  console.log('disconnected to server');
+socket.on('disconnect-call', function () {
+  rtcPeerConnection.close()
+  console.log('disconnected to client');
+  location.reload()
+  
 });
 
 /**
