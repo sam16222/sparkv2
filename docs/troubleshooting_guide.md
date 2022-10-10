@@ -31,3 +31,7 @@ Tips and Tricks
 - For thumbs up/down, try using your left hand for the signalling. It works best if you keep your hand within 2 feet of the screen with a blank background behind you. 
 - For screen share (swiping left/right), try using your left middle and index finger. Point them directly at the screen, one above the other, and move at an even pace to the right to start (or left to end) the screen share. 
 - Still not being recognized? Use chrome, launch the software and open up the developers tools. Try your gestures now. You should see the console logging which gestures are being recognized. Once you get the hang of it, you should be able to control the movements much more easily!
+
+__Website Documentation Not Comprehensive__: 
+
+Accessing the website with full function documentation but missing the home page? You may have overwritten the index.html file by running the generate-documentation script. To open index.html, click the file from your file tree and it will open in a browser. No need to regenerate the documents unless you have additional functionality to describe. If you do, make sure to readd in the HTML within the main-content wrapper in the index.html file after running the script.
