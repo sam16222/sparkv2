@@ -25,7 +25,12 @@ const express = require('express');
  */
 const app = express();
 
-var http = require('http').Server(app);
+var privateKey = fs.readFileSync('sslcert/key.pem').toString();
+var certificate = fs.readFileSync('sslcert/cert.pem').toString();
+
+var credentials = {key: privateKey, cert: certificate}
+
+var http = require('http').Server(credentials, app);
 var io = require('socket.io')(http, {
   cors: {
     origin: '*',
@@ -148,7 +153,7 @@ io.on('connection', function (socket) {
 });
 
 const server = http.listen(port, function (error) {
-  if (!error) console.log('listening on', port, '\nTap on http://localhost:3000/');
+  if (!error) console.log('listening on', port, '\nTap on https://localhost:3000/');
   else console.log('Error occurred.', error);
 });
 
