@@ -23,7 +23,15 @@ $ npm install
 $ npm run test
 ```
 
-4. Launch the application. This can be done using the startup sequence defined within [package.json](package.json) or through running the command directly with nodemon. After running, you should be able to open up ```localhost:3000``` in any browser to access the application. 
+4. To create a SSL Certificate
+```
+mkdir sslcert && cd sslcert
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+```
+
+5. Launch the application. This can be done using the startup sequence defined within [package.json](package.json) or through running the command directly with nodemon. After running, you should be able to open up ```localhost:3000``` in any browser to access the application. 
 
 ```
 # either use 
