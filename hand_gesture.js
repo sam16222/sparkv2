@@ -19,6 +19,10 @@ const Gesture = Object.freeze({
   ThumbsDown: 4,
   ThumbsUp: 5,
   NoDetection: 6,
+  UpSwipe: 7,
+  DownSwipe: 8,
+  Twofingers: 9,
+  ClosedFist: 10
 });
 
 function onResults(results) {
@@ -41,12 +45,31 @@ function onResults(results) {
     }
   }
 
+  /*if (results.multiHandLandmarks.length != 0) {
+    var [lsit, box] = findhandpos(results.multiHandLandmarks[0]);
+  } else {
+    lsit = [];
+    if (start_tracking == true) {
+      //Stop Tracking
+      start_tracking = false;
+      if (gesturesEnabled == true) {
+        if (y1[0] > y2[0]) {
+          //Gesture 1 'Up swipe';
+          return Gesture.UpSwipe;
+        } else {
+          //Gesture 2 'Down swipe'
+          return Gesture.DownSwipe;
+        }
+      }
+    }
+  }*/
+
   if (lsit.length != 0) {
     var fings = detect_fingersup(lsit);
 
     // console.log(fings);
 
-    if (fings[1] == true && fings[3] == false && fings[4] == false) {
+    if (fings[1] === 1 && fings[3] === 0 && fings[4] === 0) {
       if (start_tracking == false) {
         //start tracking
         start_tracking = true;
@@ -58,10 +81,10 @@ function onResults(results) {
     } else {
       start_tracking = false;
 
-      if (fings[0] == true && fings[1] == true && fings[2] == true && fings[3] == true && fings[4] == true) {
+      if (fings[0] === 1 && fings[1] === 1 && fings[2] === 1 && fings[3] === 1 && fings[4] === 1) {
         //Gesture 3 'all five fingers';
         return Gesture.All5Fingers;
-      } else if (fings[0] == true && fings[1] == false && fings[2] == false && fings[3] == false && fings[4] == false) {
+      } else if (fings[0] === 1 && fings[1] === 0 && fings[2] === 0 && fings[3] === 0 && fings[4] === 0) {
         var y1 = lsit[4].slice(2, 3);
         var y2 = lsit[2].slice(2, 3);
         if (gesturesEnabled == true) {
@@ -73,6 +96,12 @@ function onResults(results) {
             return Gesture.ThumbsUp;
           }
         }
+      }
+      else if(fings[0] === 1 && fings[1] === 0 && fings[2] === 0 && fings[3] === 0 && fings[4] === 1) {
+        return Gesture.TwoFingers;
+      }
+      else if(fings[0] === 0 && fings[1] === 0 && fings[2] === 0 && fings[3] === 0 && fings[4] === 0) {
+        return Gesture.ClosedFist;
       }
     }
   }
