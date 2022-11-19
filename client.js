@@ -21,6 +21,7 @@ var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var toggleGesture = document.getElementById('gestures');
+var toastButton = document.getElementById('toastbtn');
 var screenShare = document.getElementById('screen-share');
 var disconnectcall = document.getElementById('disconnect-call');
 
@@ -39,6 +40,39 @@ var streamConstraints = { audio: true, video: true };
 var isCaller;
 var startedStream = false;
 const senders = [];
+
+class ToastClass {
+
+  constructor() {
+      this.hideTimeout = null;
+      this.el = document.createElement('div');
+      this.el.className = 'toast';
+      document.body.appendChild(this.el);
+  }
+
+  /**
+   * @param {string} message - Toast Message
+   * @param {string} state   - Toast State (success, error)
+   * @param {boolean} longToast   - Keep toast for longer period of time
+  */
+  show(message, state, longToast=false) {
+      clearTimeout(this.hideTimeout);
+      this.el.textContent = message;
+      this.el.classList.add('show');
+
+      if (state) {
+          this.el.classList.add(state);
+      }
+
+      this.hideTimeout = setTimeout(() => {
+        this.el.classList.remove('show');
+        this.el.classList.remove(state);
+      }, longToast ? 4000 : 2000);
+  }
+};
+
+var Toast = new ToastClass();
+document.addEventListener('DOMContentLoaded', () => Toast);
 
 /**
  * The socket instance.
@@ -67,12 +101,14 @@ function onGestureAction(results) {
     case Gesture.RightSwipe:
       {
         console.log('start share');
+        Toast.show('Screen share start', 'success');
         start_share();
       }
       break;
     case Gesture.LeftSwipe:
       {
         console.log('end share');
+        Toast.show('Screen share end', 'success');
         end_share();
       }
       break;
@@ -84,6 +120,7 @@ function onGestureAction(results) {
     case Gesture.ThumbsUp:
       {
         console.log('unmute audio');
+        Toast.show('Audio Unmuted', 'success');
         const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
         unmute(audioTrack);
       }
@@ -91,6 +128,7 @@ function onGestureAction(results) {
     case Gesture.ThumbsDown:
       {
         console.log('mute audio');
+        Toast.show('Audio Muted', 'success');
         const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
         mute(audioTrack);
       }
@@ -162,6 +200,7 @@ socket.on('connect', function () {
  */
 socket.on('created', function (room) {
   console.log('You are the first one in the room. Room created.');
+  Toast.show('Room created. You are the first participant.', 'success', true);
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
     .then(function (stream) {
@@ -171,6 +210,7 @@ socket.on('created', function (room) {
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
+      Toast.show('Oops, an error ocurred when accessing media devices!', 'error', true);
     });
 });
 
@@ -212,6 +252,7 @@ disconnectcall.addEventListener('click', () => {
   //Disconnecting the call
   rtcPeerConnection.close();
   socket.emit('disconnect-call', roomNumber);
+  Toast.show('Call disconnected', 'error');
   location.reload();
 });
 
@@ -240,6 +281,7 @@ function unmute(audioTrack) {
 function end_share() {
   if (startedStream) {
     console.log('Ending screen share.');
+    Toast.show('Ending screen share.', 'success');
     screenShare.innerHTML = 'Share Screen';
     divConsultingRoomwSharing.style = 'display: none';
     remoteVideo.className = 'video-large';
@@ -253,6 +295,7 @@ function end_share() {
 function start_share() {
   if (startedStream) {
     console.log('share in progress');
+    Toast.show('Screen share in progress', 'success', true);
     return;
   }
   console.log('Beginning screen share.');
@@ -280,20 +323,24 @@ function start_share() {
 function disable_gestures() {
   if (gesturesEnabled) {
     console.log('Disabling gestures.');
+    Toast.show('Disabling the gestures ... ', 'success');
     gesturesEnabled = false;
     toggleGesture.innerHTML = 'Enable Gestures';
   } else {
     console.log('Gestures already disabled');
+    Toast.show('Gestures are already disabled', 'success', true);
   }
 }
 
 function enable_gestures() {
   if (gesturesEnabled === false) {
     console.log('Enabling gestures.');
+    Toast.show('Enabling the gestures ... ', 'success');
     gesturesEnabled = true;
     toggleGesture.innerHTML = 'Disable Gestures';
   } else {
     console.log('Gestures Already Enabled');
+    Toast.show('Gestures are already ensabled', 'success', true);
   }
 }
 
@@ -306,6 +353,7 @@ function enable_gestures() {
  */
 socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
+  Toast.show('You have joined the room', 'success', true);
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
     .then(function (stream) {
@@ -315,6 +363,7 @@ socket.on('joined', function (room) {
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
+      Toast.show('Oops, An error ocurred when accessing media devices', 'error', true);
     });
 });
 
@@ -340,6 +389,7 @@ socket.on('candidate', function (event) {
 socket.on('ready', function () {
   if (isCaller) {
     console.log('Attempting to access video log of joined user.');
+    Toast.show('Attempting to access video log of joined user.', 'success');
     rtcPeerConnection = new RTCPeerConnection(iceServers);
     rtcPeerConnection.onicecandidate = onIceCandidate;
     rtcPeerConnection.ontrack = onAddStream;
@@ -408,6 +458,7 @@ socket.on('answer', function (event) {
 
 socket.on('full', function () {
   console.log('Room is full. You can not enter this room right now.');
+  Toast.show('Room is full hence you can not enter the meeting room', 'error', true);
 });
 /**
  * This function is triggered when a user is disconnected.
@@ -416,6 +467,7 @@ socket.on('full', function () {
 socket.on('disconnect-call', function () {
   rtcPeerConnection.close();
   console.log('disconnected to client');
+  Toast.show('Call disconnected', 'success', true);
   location.reload();
 });
 
