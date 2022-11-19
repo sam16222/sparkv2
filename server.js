@@ -31,7 +31,7 @@ var certificate = fs.readFileSync('sslcert/cert.pem').toString();
 
 var credentials = {key: privateKey, cert: certificate}
 
-var http = require('http').Server(credentials, app);
+var http = require('https').Server(credentials, app);
 var io = require('socket.io')(http, {
   cors: {
     origin: '*',
