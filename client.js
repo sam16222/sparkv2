@@ -114,7 +114,7 @@ function onGestureAction(results) {
       break;
     case Gesture.All5Fingers:
       {
-        //pass
+        console.log('Five Fingers');
       }
       break;
     case Gesture.ThumbsUp:
@@ -131,6 +131,30 @@ function onGestureAction(results) {
         Toast.show('Audio Muted', 'success');
         const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
         mute(audioTrack);
+      }
+      break;
+    case Gesture.UpSwipe:
+      {
+        console.log('Up Swipe unmute audion');
+        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
+        unmute(audioTrack);
+      }
+      break;
+    case Gesture.DownSwipe:
+      {
+        console.log('Down Swipe mute audio');
+        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
+        mute(audioTrack);
+      }
+      break;
+    case Gesture.TwoFingers:
+      {
+        console.log('Two Fingers');
+      }
+      break;
+    case Gesture.ClosedFist:
+      {
+        console.log('Closed Fist');
       }
       break;
     default: {
