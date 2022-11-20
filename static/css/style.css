@@ -139,9 +139,9 @@ input[type=submit] {
 
 .toast {
     visibility: hidden; /* Hidden by default. Visible on click */
-    height: '15vh';
-    max-width: '35vw' !important;
-    min-width: '35vw' !important;
+    height: 15vh;
+    max-width: 35vw !important;
+    min-width: 35vw !important;
     overflow: scroll;
     margin-left: -125px; /* Divide value of min-width by 2 */
     background-color: #333; /* Black background color */
