@@ -33,7 +33,15 @@ var rtcPeerConnection;
 
 /** Contains the stun server URL that will be used */
 var iceServers = {
-  iceServers: [{ urls: 'stun:stun.services.mozilla.com' }, { urls: 'stun:stun.l.google.com:19302' }],
+  iceServers: [
+    { urls: 'stun:stun.services.mozilla.com' }, 
+    { urls: 'stun:stun.l.google.com:19302' }
+    // {
+    //   urls: "turn:turnserver.example.org",
+    //   username: "webrtc",
+    //   credential: "turnpassword"
+    // }
+  ],
 };
 
 var streamConstraints = { audio: true, video: true };
@@ -64,10 +72,18 @@ class ToastClass {
           this.el.classList.add(state);
       }
 
-      this.hideTimeout = setTimeout(() => {
-        this.el.classList.remove('show');
-        this.el.classList.remove(state);
-      }, longToast ? 4000 : 2000);
+      if (longToast) {
+        this.hideTimeout = setTimeout(() => {
+          this.el.classList.remove('show');
+          this.el.classList.remove(state);
+        }, 4000);
+      } else {
+        this.hideTimeout = setTimeout(() => {
+          this.el.classList.remove('show');
+          this.el.classList.remove(state);
+        }, 2000);
+      }
+      
   }
 };
 
@@ -115,6 +131,13 @@ function onGestureAction(results) {
     case Gesture.All5Fingers:
       {
         console.log('Five Fingers');
+        const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
+        if (!videoTrack.enabled) {
+          videoTrack.enabled = true;
+          console.log('Camera is on!');
+        } else {
+          console.log('Camera is already on!');
+        }
       }
       break;
     case Gesture.ThumbsUp:
@@ -150,11 +173,27 @@ function onGestureAction(results) {
     case Gesture.TwoFingers:
       {
         console.log('Two Fingers');
+        if (!disconnectcall.disabled) {
+          //Disconnecting the call
+          rtcPeerConnection.close();
+          socket.emit('disconnect-call', roomNumber);
+          Toast.show('Call disconnected', 'error');
+          location.reload();
+        } else {
+          console.log('Call connection not found, hence cannot disconnect.');
+        }
       }
       break;
     case Gesture.ClosedFist:
       {
         console.log('Closed Fist');
+        const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
+        if (videoTrack.enabled) {
+          videoTrack.enabled = false;
+          console.log('Camera turned off!');
+        } else {
+          console.log('Camera is already off!');
+        }
       }
       break;
     default: {
