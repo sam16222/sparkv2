@@ -31,8 +31,11 @@ var remoteStream;
 var screenStream;
 var rtcPeerConnection;
 
+var origContentHeight = document.getElementsByClassName('content')[0].clientHeight-40;
+var origContentWidth = document.getElementsByClassName('content')[0].clientWidth-40;
+
 const localUuid = createUUID();
-const localDisplayName = prompt('Enter your name', 'Guest');
+var localDisplayName;
 var peerConnections = {};
 
 /** Contains the stun server URL that will be used */
@@ -48,7 +51,14 @@ var iceServers = {
   ],
 };
 
-var streamConstraints = { audio: true, video: true };
+var streamConstraints = { 
+  audio: true, 
+  video: {
+    width: {max: 320},
+    height: {max: 240},
+    frameRate: {max: 30},
+  }, 
+};
 var isCaller;
 var startedStream = false;
 const senders = [];
@@ -395,10 +405,50 @@ btnGoRoom.onclick = function () {
  */
 socket.on('connect', function () {
   console.log('Connection acheived.');
+  if(sessionStorage.getItem('sparkName')){
+    localDisplayName = sessionStorage.getItem('sparkName');
+  }
+  else{
+    localDisplayName = prompt('Enter your name', 'Guest')
+    sessionStorage.setItem('sparkName', localDisplayName);
+  }
+  document.getElementById('hello-text').innerHTML = 'Hello ' + localDisplayName+'!';
   // divSelectRoom.style = "display: none;";
   divConsultingRoom.style = 'display: block;';
   divConsultingControls.style = 'display: block;';
 });
+
+function makeLabel(label) {
+  var vidLabel = document.createElement('div');
+  vidLabel.appendChild(document.createTextNode(label));
+  vidLabel.setAttribute('class', 'videoLabel');
+  return vidLabel;
+}
+
+function updateLayout() {
+  // update CSS grid based on number of diplayed videos
+
+  var contentHeight = origContentHeight;
+  var contentWidth = origContentWidth;
+  var gridCount = 1;
+  var numVideos = Object.keys(peerConnections).length + 1; // add one to include local video
+
+  if (numVideos > 1 && numVideos <= 4) { // 2x2 grid
+    contentHeight = origContentHeight/2;
+    contentWidth = origContentWidth/2;
+    gridCount = Math.ceil(numVideos/2);
+  } else if (numVideos > 4) { // 3x3 grid
+    contentHeight = origContentHeight/3;
+    contentWidth = origContentWidth/3;
+    gridCount = Math.ceil(numVideos/3);
+  }
+  var rowHeight = contentHeight+'px';
+  var colWidth = contentWidth+'px';
+  console.log(document.documentElement.style);
+  document.documentElement.style.setProperty(`--rowHeight`, rowHeight);
+  document.documentElement.style.setProperty(`--colWidth`, colWidth);
+  document.documentElement.style.setProperty(`--gridCount`, gridCount);
+}
 
 /**
  * Socket creating a room.
@@ -432,7 +482,9 @@ function setupLocalScream(selfInitiated = false) {
     .then(function (stream) {
       localStream = stream;
       localVideo.srcObject = stream;
+      document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
       selfInitiated ? isCaller = true : socket.emit('ready', createMessage());
+      updateLayout();
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
@@ -449,7 +501,7 @@ function setUpPeer(peerUuid, displayName, initCall = false){
   const peerConnection = new RTCPeerConnection(iceServers);
   peerConnections[peerUuid] = peerConnection;
   peerConnection.onicecandidate = event => onIceCandidate(event, peerUuid);
-  peerConnection.ontrack = event => onAddStream(event, peerUuid);
+  peerConnection.ontrack = event => onAddStream(event, peerUuid, displayName);
   peerConnection.oniceconnectionstatechange = event => onIceStateChange(event, peerUuid);
   localStream.getTracks().forEach((track) => senders.push(peerConnection.addTrack(track, localStream)));
   // peerConnection.addStream(localStream);
@@ -467,20 +519,6 @@ function setUpPeer(peerUuid, displayName, initCall = false){
             dest: peerUuid,
           });
         }).catch(errorHandler);
-  }
-}
-
-function onIceStateChange(event, peerUuid) {
-  console.log(`${peerUuid} exited the room`);
-  console.log(`ICE state change event: ${event}`);
-  if (peerConnections[peerUuid]) {
-    var state = peerConnections[peerUuid].iceConnectionState;
-    console.log(`connection with peer ${peerUuid} ${state}`);
-    if (state === "failed" || state === "closed" || state === "disconnected") {
-      delete peerConnections[peerUuid];
-      document.getElementById('video-grid').removeChild(document.getElementById('remoteVideo-' + peerUuid));
-    }
-    console.log('remaining connections ',peerConnections);
   }
 }
 
@@ -561,8 +599,9 @@ socket.on('full', function () {
 socket.on('disconnect-call', function (message) {
   console.log('disconnected', message);
   if(message.uuid == localUuid) return;
+  console.log(peerConnections);
   peerConnections[message.uuid].close();
-  console.log('disconnected to client');
+  onIceStateChange(null, message.uuid);
   Toast.show('Call disconnected', 'success', true);
   // location.reload();
 });
@@ -604,24 +643,58 @@ function onIceCandidate(event, peerUuid) {
   }
 }
 
+function onIceStateChange(event, peerUuid) {
+  console.log(`${peerUuid} exited the room`);
+  console.log(peerConnections);
+  if (peerConnections[peerUuid]) {
+    var state = peerConnections[peerUuid].iceConnectionState;
+    console.log(`connection with peer ${peerUuid} ${state}`);
+    if (state === "failed" || state === "closed" || state === "disconnected") {
+      delete peerConnections[peerUuid];
+      document.getElementById('video-grid').removeChild(document.getElementById('remoteVideo-' + peerUuid));
+      updateLayout();
+      if(Object.keys(peerConnections).length == 0){
+        inputRoomNumber.value = '';
+        //TODO: create a leave room function to disable buttons and stuff
+      }
+    }
+    console.log('remaining connections ',peerConnections);
+  }
+}
+
 /**
  * Implements the onAddStrean function that takes an event as an input
  * @param {*} event event
  */
-function onAddStream(event, peerUuid) {
+function onAddStream(event, peerUuid, displayName) {
   console.log(`got remote stream, peer ${peerUuid}`);
 
   var ele = document.getElementById('remoteVideo-'+peerUuid);
   if(ele == null){
     //assign stream to new HTML video element
+    // var vidElement = document.createElement('video');
+    // vidElement.setAttribute('autoplay', '');
+    // vidElement.setAttribute('muted', '');
+    // vidElement.setAttribute('class', 'video-small');
+    // vidElement.setAttribute('id', 'remoteVideo-'+peerUuid);
+    // vidElement.srcObject = event.streams[0];
+    // console.log(event)
+    // document.getElementById('video-grid').appendChild(vidElement);
+
     var vidElement = document.createElement('video');
     vidElement.setAttribute('autoplay', '');
     vidElement.setAttribute('muted', '');
-    vidElement.setAttribute('class', 'video-small');
-    vidElement.setAttribute('id', 'remoteVideo-'+peerUuid);
     vidElement.srcObject = event.streams[0];
-    console.log(event)
-    document.getElementById('video-grid').appendChild(vidElement);
+
+    var vidContainer = document.createElement('div');
+    vidContainer.setAttribute('id', 'remoteVideo-' + peerUuid);
+    vidContainer.setAttribute('class', 'videoContainer');
+    vidContainer.appendChild(vidElement);
+    vidContainer.appendChild(makeLabel(displayName));
+
+    document.getElementById('video-grid').appendChild(vidContainer);
+
+    updateLayout();
   }
   screenShare.disabled = false;
   disconnectcall.disabled = false;

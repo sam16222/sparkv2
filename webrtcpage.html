@@ -25,7 +25,7 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
 
-    <title> S p a r k </title>
+    <title>SparkV2</title>
     
     <meta charset="utf-8">
       <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -42,7 +42,7 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
             <hr class="header-top__seperator"/>
         </nav>
         <section class="subheader">
-            <h3>- Videocalls on the go</h3>
+            <h3 id="hello-text">Videocalls on the go</h3>
             <hr class="header-top__seperator"/>
         </section>
         
@@ -79,11 +79,16 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
 
         <div class="box content">
             <div  id="consultingRoom" style="display:none">
-                <div id="video-grid" style="display: flex;">
+                <!-- <div id="video-grid" style="display: flex;">
                     <video style="display:none" class="video-small" id="remoteVideo" autoplay></video>
                 </div>
                 <br>
-                <video class="video-large" id="localVideo" autoplay muted></video>
+                <video class="video-large" id="localVideo" autoplay muted></video> -->
+                <div id="video-grid" class="videos">
+                    <div id="localVideoContainer" class="videoContainer">
+                      <video id="localVideo" autoplay muted></video>
+                    </div>
+                </div>
             </div>
             <div  id="consultingRoomwSharing" style="display:none">
                 <video class="video-large" id="screen-sharing" autoplay ></video>

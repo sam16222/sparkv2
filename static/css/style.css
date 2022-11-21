@@ -24,12 +24,48 @@ body {
     
 }
 
+.videos { 
+  
+    display: grid;
+    grid-gap: 5px;
+    grid-auto-flow: row;
+    
+    grid-template-columns: repeat(var(--gridCount), minmax(var(--colWidth), 1fr)) ;
+}
+
+.videoContainer {
+    position: relative;
+    overflow: hidden;
+    
+    min-height: var(--rowHeight);
+    min-width: var(--colWidth);
+}
+
+.videoContainer video {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+}
+
+.videoLabel {
+    color: white;
+    font: bold 18px Arial, Sans-Serif;
+    line-height: 20px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.55);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 4px 10px;
+}
+
 .subheader {
     margin-top: 20px;
     margin-right: 30px;
     grid-area: subheader;
     text-align: right;
-    font-style: italic;
 }
 
 .header-top__seperator {
