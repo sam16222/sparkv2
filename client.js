@@ -31,6 +31,10 @@ var remoteStream;
 var screenStream;
 var rtcPeerConnection;
 
+const localUuid = createUUID();
+const localDisplayName = prompt('Enter your name', 'Guest');
+var peerConnections = {};
+
 /** Contains the stun server URL that will be used */
 var iceServers = {
   iceServers: [
@@ -108,10 +112,13 @@ document.addEventListener('DOMContentLoaded', () => Toast);
  */
 var socket = io();
 
+//#region Gestures and DOM Events
+
 /**
  * Function is triggered when a gesture is recognized.
  */
 function onGestureAction(results) {
+  if(!gesturesEnabled) return;
   var gesture = onResults(results);
   switch (gesture) {
     case Gesture.RightSwipe:
@@ -131,54 +138,40 @@ function onGestureAction(results) {
     case Gesture.All5Fingers:
       {
         console.log('Five Fingers');
-        const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
-        if (!videoTrack.enabled) {
-          videoTrack.enabled = true;
-          console.log('Camera is on!');
-        } else {
-          console.log('Camera is already on!');
-        }
+        toggleVideo(true);
       }
       break;
     case Gesture.ThumbsUp:
       {
         console.log('unmute audio');
         Toast.show('Audio Unmuted', 'success');
-        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
-        unmute(audioTrack);
+        unmute();
       }
       break;
     case Gesture.ThumbsDown:
       {
         console.log('mute audio');
         Toast.show('Audio Muted', 'success');
-        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
-        mute(audioTrack);
+        mute();
       }
       break;
     case Gesture.UpSwipe:
       {
         console.log('Up Swipe unmute audion');
-        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
-        unmute(audioTrack);
+        unmute();
       }
       break;
     case Gesture.DownSwipe:
       {
         console.log('Down Swipe mute audio');
-        const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
-        mute(audioTrack);
+        mute();
       }
       break;
     case Gesture.TwoFingers:
       {
         console.log('Two Fingers');
         if (!disconnectcall.disabled) {
-          //Disconnecting the call
-          rtcPeerConnection.close();
-          socket.emit('disconnect-call', roomNumber);
-          Toast.show('Call disconnected', 'error');
-          location.reload();
+          disconnectcall.click();
         } else {
           console.log('Call connection not found, hence cannot disconnect.');
         }
@@ -187,13 +180,7 @@ function onGestureAction(results) {
     case Gesture.ClosedFist:
       {
         console.log('Closed Fist');
-        const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
-        if (videoTrack.enabled) {
-          videoTrack.enabled = false;
-          console.log('Camera turned off!');
-        } else {
-          console.log('Camera is already off!');
-        }
+        toggleVideo(true);
       }
       break;
     default: {
@@ -202,139 +189,73 @@ function onGestureAction(results) {
   }
 }
 
-/**
- * Function is triggered when a participant tries to enter the room.
- */
-btnGoRoom.onclick = function () {
-  if (inputRoomNumber.value === '') {
-    console.log('Please type a room number');
-  } else {
-    roomNumber = inputRoomNumber.value;
-    console.log('Room number ' + roomNumber + ' gathered');
-    console.log('connect socket id:' + `${socket.id}`);
-    socket.emit('create or join', roomNumber);
-    divConsultingRoom.style = 'display: block;';
-    divConsultingControls.style = 'display: block;';
+function toggleVideo(disable = false) {
+    const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
+    if (videoTrack.enabled || disable === true) {
+      videoTrack.enabled = false;
+      toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
+    } else {
+      videoTrack.enabled = true;
+      toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
+    }
+}
 
-    //Hand Gesture
-    const hands = new Hands({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-      },
-    });
-    hands.setOptions({
-      maxNumHands: 1,
-      modelComplexity: 1,
-      minDetectionConfidence: 0.8,
-      minTrackingConfidence: 0.7,
-    });
-
-    hands.onResults(onGestureAction);
-
-    const camera = new Camera(localVideo, {
-      onFrame: async () => {
-        await hands.send({ image: localVideo });
-      },
-      width: 640,
-      height: 320,
-    });
-    camera.start();
-  }
-};
-
-/**
- * Socket connects.
- *
- * @event socket#connect
- */
-socket.on('connect', function () {
-  console.log('Connection acheived.');
-  // divSelectRoom.style = "display: none;";
-  divConsultingRoom.style = 'display: block;';
-  divConsultingControls.style = 'display: block;';
-});
-
-/**
- * Socket creating a room.
- *
- * @event socket#created
- * @param {number} room - Room number
- *
- */
-socket.on('created', function (room) {
-  console.log('You are the first one in the room. Room created.');
-  Toast.show('Room created. You are the first participant.', 'success', true);
-  navigator.mediaDevices
-    .getUserMedia(streamConstraints)
-    .then(function (stream) {
-      localStream = stream;
-      localVideo.srcObject = stream;
-      isCaller = true;
-    })
-    .catch(function (err) {
-      console.log('An error ocurred when accessing media devices', err);
-      Toast.show('Oops, an error ocurred when accessing media devices!', 'error', true);
-    });
-});
-
-/**
- * Function is triggered when the video on/off button is clicked.
- */
-toggleButton.addEventListener('click', () => {
-  const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
-  if (videoTrack.enabled) {
-    videoTrack.enabled = false;
-    toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
-  } else {
-    videoTrack.enabled = true;
-    toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
-  }
-});
-
-/**
- * Function is triggered when when the audio mute/unmute button is clicked.
- */
-toggleMic.addEventListener('click', () => {
+function toggleAudio() {
   const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
   if (audioTrack.enabled) {
-    mute(audioTrack);
+    mute();
   } else {
-    unmute(audioTrack);
+    unmute();
   }
-});
+}
 
-toggleGesture.addEventListener('click', () => {
+function toggleGestures() {
   if (gesturesEnabled == true) {
     disable_gestures();
   } else {
     enable_gestures();
   }
-});
+}
 
-disconnectcall.addEventListener('click', () => {
-  //Disconnecting the call
-  rtcPeerConnection.close();
-  socket.emit('disconnect-call', roomNumber);
+function disconnectCall() {
+  socket.emit('disconnect-call', createMessage());
   Toast.show('Call disconnected', 'error');
-  location.reload();
-});
+}
 
-screenShare.addEventListener('click', () => {
+function toggleScreenShare() {
   if (document.getElementById('consultingRoomwSharing').style.cssText == 'display: block;') {
     end_share();
   } else {
     start_share();
   }
-});
+}
 
-function mute(audioTrack) {
+/**
+ * Function is triggered when the video on/off button is clicked.
+ */
+ toggleButton.addEventListener('click', toggleVideo);
+
+/**
+ * Function is triggered when when the audio mute/unmute button is clicked.
+ */
+toggleMic.addEventListener('click', toggleAudio);
+
+toggleGesture.addEventListener('click', toggleGestures);
+
+disconnectcall.addEventListener('click', disconnectCall);
+
+screenShare.addEventListener('click', toggleScreenShare);
+
+function mute() {
+  const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
   if (audioTrack.enabled === true) {
     audioTrack.enabled = false;
     toggleMic.innerHTML = '<i class="material-icons">mic_off</i>';
   }
 }
 
-function unmute(audioTrack) {
+function unmute() {
+  const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
   if (audioTrack.enabled === false) {
     audioTrack.enabled = true;
     toggleMic.innerHTML = '<i class="material-icons">mic</i>';
@@ -347,7 +268,7 @@ function end_share() {
     Toast.show('Ending screen share.', 'success');
     screenShare.innerHTML = '<i class="material-icons">screen_share</i>';
     divConsultingRoomwSharing.style = 'display: none';
-    remoteVideo.className = 'video-large';
+    localVideo.className = 'video-large';
     senders.find((sender) => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1]);
     startedStream = false;
   } else {
@@ -365,7 +286,7 @@ function start_share() {
   screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
   console.log('screen sharing chain enabled');
 
-  remoteVideo.className = 'video-small';
+  localVideo.className = 'video-small';
   divConsultingRoomwSharing.style = 'display: block;';
 
   navigator.mediaDevices
@@ -407,6 +328,91 @@ function enable_gestures() {
   }
 }
 
+//#endregion
+
+function createMessage(dest = 'all') {
+  return {
+    'room' : roomNumber,
+    'uuid' : localUuid,
+    'dest' : dest,
+    'displayName' : localDisplayName,
+  }
+}
+
+function createUUID() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
+
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+/**
+ * Function is triggered when a participant tries to enter the room.
+ */
+btnGoRoom.onclick = function () {
+  if (inputRoomNumber.value === '') {
+    console.log('Please type a room number');
+  } else {
+    roomNumber = inputRoomNumber.value;
+    console.log('Room number ' + roomNumber + ' gathered');
+    console.log('connect socket id:' + `${socket.id}`);
+
+    socket.emit('create or join', createMessage());
+    divConsultingRoom.style = 'display: block;';
+    divConsultingControls.style = 'display: block;';
+
+    //Hand Gesture
+    const hands = new Hands({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      },
+    });
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.8,
+      minTrackingConfidence: 0.7,
+    });
+
+    hands.onResults(onGestureAction);
+
+    const camera = new Camera(localVideo, {
+      onFrame: async () => {
+        await hands.send({ image: localVideo });
+      },
+      width: 640,
+      height: 320,
+    });
+    camera.start();
+    disable_gestures();
+  }
+};
+
+/**
+ * Socket connects.
+ *
+ * @event socket#connect
+ */
+socket.on('connect', function () {
+  console.log('Connection acheived.');
+  // divSelectRoom.style = "display: none;";
+  divConsultingRoom.style = 'display: block;';
+  divConsultingControls.style = 'display: block;';
+});
+
+/**
+ * Socket creating a room.
+ *
+ * @event socket#created
+ * @param {number} room - Room number
+ *
+ */
+socket.on('created', function (room) {
+  console.log('You are the first one in the room. Room created.');
+  Toast.show('Room created. You are the first participant.', 'success', true);
+  setupLocalScream(true)
+});
+
 /**
  * Socket joining a room.
  *
@@ -417,61 +423,109 @@ function enable_gestures() {
 socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
   Toast.show('You have joined the room', 'success', true);
+  setupLocalScream(false)
+});
+
+function setupLocalScream(selfInitiated = false) {
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
     .then(function (stream) {
       localStream = stream;
       localVideo.srcObject = stream;
-      socket.emit('ready', roomNumber);
+      selfInitiated ? isCaller = true : socket.emit('ready', createMessage());
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
       Toast.show('Oops, An error ocurred when accessing media devices', 'error', true);
-    });
-});
-
-/**
- * Function is triggered when it receives an ice candidate.
- *
- * @event socket#candidate
- * @param {*} event event
- */
-socket.on('candidate', function (event) {
-  var candidate = new RTCIceCandidate({
-    sdpMLineIndex: event.label,
-    candidate: event.candidate,
   });
-  rtcPeerConnection.addIceCandidate(candidate);
-});
+}
+
+function setUpPeer(peerUuid, displayName, initCall = false){
+  if(peerConnections[peerUuid]){
+    console.log('Peer already exists');
+    return;
+  }
+  console.log(`Setting up peer connection for ${displayName} with uuid: ${peerUuid}`);
+  const peerConnection = new RTCPeerConnection(iceServers);
+  peerConnections[peerUuid] = peerConnection;
+  peerConnection.onicecandidate = event => onIceCandidate(event, peerUuid);
+  peerConnection.ontrack = event => onAddStream(event, peerUuid);
+  peerConnection.oniceconnectionstatechange = event => onIceStateChange(event, peerUuid);
+  localStream.getTracks().forEach((track) => senders.push(peerConnection.addTrack(track, localStream)));
+  // peerConnection.addStream(localStream);
+  if (initCall) {
+    peerConnection
+      .createOffer()
+      .then(sessionDescription => 
+        {
+          peerConnection.setLocalDescription(sessionDescription);
+          socket.emit('offer', {
+            type: 'offer',
+            sdp: sessionDescription,
+            room: roomNumber,
+            uuid: localUuid,
+            dest: peerUuid,
+          });
+        }).catch(errorHandler);
+  }
+}
+
+function onIceStateChange(event, peerUuid) {
+  console.log(`${peerUuid} exited the room`);
+  console.log(`ICE state change event: ${event}`);
+  if (peerConnections[peerUuid]) {
+    var state = peerConnections[peerUuid].iceConnectionState;
+    console.log(`connection with peer ${peerUuid} ${state}`);
+    if (state === "failed" || state === "closed" || state === "disconnected") {
+      delete peerConnections[peerUuid];
+      document.getElementById('video-grid').removeChild(document.getElementById('remoteVideo-' + peerUuid));
+    }
+    console.log('remaining connections ',peerConnections);
+  }
+}
+
+function handleReadyOfferAnswer(message) {
+  var peerUuid = message.uuid;
+  if (peerUuid == localUuid || (message.dest != localUuid && message.dest != 'all')) return;
+  if (message.displayName && message.dest == 'all') {
+    // set up peer connection object for a newcomer peer
+    setUpPeer(peerUuid, message.displayName);
+    socket.emit('ready', createMessage(peerUuid))
+
+  } else if (message.displayName && message.dest == localUuid) {
+    // initiate call if we are the newcomer peer
+    setUpPeer(peerUuid, message.displayName, true);
+  } else if(message.sdp) {
+    // handle offer
+    peerConnections[peerUuid].setRemoteDescription(new RTCSessionDescription(message.sdp)).then(function () {
+      // Only create answers in response to offers
+      if (message.type == 'offer') {
+        peerConnections[peerUuid]
+          .createAnswer()
+          .then(sessionDescription => 
+            {
+              peerConnections[peerUuid].setLocalDescription(sessionDescription);
+              socket.emit('answer', {
+                type: 'answer',
+                sdp: sessionDescription,
+                room: roomNumber,
+                uuid: localUuid,
+                dest: peerUuid,
+              });
+            }).catch(errorHandler);
+      }
+    }).catch(errorHandler);
+  }
+}
 
 /**
  * This function is triggered when a person joins the room and is ready to communicate.
  *
  * @event socket#ready
  */
-socket.on('ready', function () {
-  if (isCaller) {
-    console.log('Attempting to access video log of joined user.');
-    Toast.show('Attempting to access video log of joined user.', 'success');
-    rtcPeerConnection = new RTCPeerConnection(iceServers);
-    rtcPeerConnection.onicecandidate = onIceCandidate;
-    rtcPeerConnection.ontrack = onAddStream;
-    console.log('track added');
-    localStream.getTracks().forEach((track) => senders.push(rtcPeerConnection.addTrack(track, localStream)));
-    rtcPeerConnection
-      .createOffer()
-      .then((sessionDescription) => {
-        rtcPeerConnection.setLocalDescription(sessionDescription);
-        socket.emit('offer', {
-          type: 'offer',
-          sdp: sessionDescription,
-          room: roomNumber,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+socket.on('ready', function (message) {
+  console.log('ready signal received', message);
+  handleReadyOfferAnswer(message);
 });
 
 /**
@@ -480,30 +534,9 @@ socket.on('ready', function () {
  * @event socket#offer
  * @param {*} event event
  */
-socket.on('offer', function (event) {
-  if (!isCaller) {
-    rtcPeerConnection = new RTCPeerConnection(iceServers);
-    rtcPeerConnection.onicecandidate = onIceCandidate;
-    rtcPeerConnection.ontrack = onAddStream;
-    console.log('offer recieved. remote track being added.');
-    localStream.getTracks().forEach((track) => senders.push(rtcPeerConnection.addTrack(track, localStream)));
-    rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-    rtcPeerConnection
-      .createAnswer()
-      .then((sessionDescription) => {
-        rtcPeerConnection.setLocalDescription(sessionDescription);
-        socket.emit('answer', {
-          type: 'answer',
-          sdp: sessionDescription,
-          room: roomNumber,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    screenShare.disabled = false;
-    disconnectcall.disabled = false;
-  }
+socket.on('offer', function (message) {
+  console.log('offer received', message);
+  handleReadyOfferAnswer(message);
 });
 
 /**
@@ -512,11 +545,9 @@ socket.on('offer', function (event) {
  * @event socket#answer
  * @param {*} event event
  */
-socket.on('answer', function (event) {
-  console.log('connection fully established. Both remote participants connection should be open.');
-  rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
-  screenShare.disabled = false;
-  disconnectcall.disabled = false;
+socket.on('answer', function (message) {
+  console.log('connection fully established. Both remote participants connection should be open.', message);
+  handleReadyOfferAnswer(message);
 });
 
 socket.on('full', function () {
@@ -527,11 +558,29 @@ socket.on('full', function () {
  * This function is triggered when a user is disconnected.
  * @event socket#disconnect
  */
-socket.on('disconnect-call', function () {
-  rtcPeerConnection.close();
+socket.on('disconnect-call', function (message) {
+  console.log('disconnected', message);
+  if(message.uuid == localUuid) return;
+  peerConnections[message.uuid].close();
   console.log('disconnected to client');
   Toast.show('Call disconnected', 'success', true);
-  location.reload();
+  // location.reload();
+});
+
+/**
+ * Function is triggered when it receives an ice candidate.
+ *
+ * @event socket#candidate
+ * @param {*} event event
+ */
+ socket.on('candidate', function (event) {
+  var peerUuid = event.uuid;
+  if (peerUuid == localUuid) return;
+  var candidate = new RTCIceCandidate({
+    sdpMLineIndex: event.label,
+    candidate: event.candidate,
+  });
+  peerConnections[peerUuid].addIceCandidate(candidate);
 });
 
 /**
@@ -539,16 +588,18 @@ socket.on('disconnect-call', function () {
  * which is part of RTCPeerConnection
  * @param {*} event event
  */
-function onIceCandidate(event) {
-  console.log(event);
+function onIceCandidate(event, peerUuid) {
+  // console.log(event);
   if (event.candidate) {
-    console.log('sending ice candidate');
+    // console.log('sending ice candidate');
     socket.emit('candidate', {
       type: 'candidate',
       label: event.candidate.sdpMLineIndex,
       id: event.candidate.sdpMid,
       candidate: event.candidate.candidate,
       room: roomNumber,
+      uuid: localUuid,
+      dest: peerUuid,
     });
   }
 }
@@ -557,8 +608,25 @@ function onIceCandidate(event) {
  * Implements the onAddStrean function that takes an event as an input
  * @param {*} event event
  */
-function onAddStream(event) {
-  console.log('Remote video is being connected to the current client.');
-  remoteVideo.srcObject = event.streams[0];
-  remoteStream = event.stream;
+function onAddStream(event, peerUuid) {
+  console.log(`got remote stream, peer ${peerUuid}`);
+
+  var ele = document.getElementById('remoteVideo-'+peerUuid);
+  if(ele == null){
+    //assign stream to new HTML video element
+    var vidElement = document.createElement('video');
+    vidElement.setAttribute('autoplay', '');
+    vidElement.setAttribute('muted', '');
+    vidElement.setAttribute('class', 'video-small');
+    vidElement.setAttribute('id', 'remoteVideo-'+peerUuid);
+    vidElement.srcObject = event.streams[0];
+    console.log(event)
+    document.getElementById('video-grid').appendChild(vidElement);
+  }
+  screenShare.disabled = false;
+  disconnectcall.disabled = false;
+}
+
+function errorHandler(error) {
+  console.error(error);
 }

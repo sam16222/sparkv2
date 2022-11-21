@@ -79,9 +79,11 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
 
         <div class="box content">
             <div  id="consultingRoom" style="display:none">
-                <video class="video-small" id="localVideo" autoplay muted></video>
+                <div id="video-grid" style="display: flex;">
+                    <video style="display:none" class="video-small" id="remoteVideo" autoplay></video>
+                </div>
                 <br>
-                <video class="video-large" id="remoteVideo" autoplay></video>
+                <video class="video-large" id="localVideo" autoplay muted></video>
             </div>
             <div  id="consultingRoomwSharing" style="display:none">
                 <video class="video-large" id="screen-sharing" autoplay ></video>
