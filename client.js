@@ -284,10 +284,10 @@ toggleButton.addEventListener('click', () => {
   const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
   if (videoTrack.enabled) {
     videoTrack.enabled = false;
-    toggleButton.innerHTML = 'Show cam';
+    toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
   } else {
     videoTrack.enabled = true;
-    toggleButton.innerHTML = 'Hide cam';
+    toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
   }
 });
 
@@ -330,14 +330,14 @@ screenShare.addEventListener('click', () => {
 function mute(audioTrack) {
   if (audioTrack.enabled === true) {
     audioTrack.enabled = false;
-    toggleMic.innerHTML = 'Unmute microphone';
+    toggleMic.innerHTML = '<i class="material-icons">mic_off</i>';
   }
 }
 
 function unmute(audioTrack) {
   if (audioTrack.enabled === false) {
     audioTrack.enabled = true;
-    toggleMic.innerHTML = 'Mute microphone';
+    toggleMic.innerHTML = '<i class="material-icons">mic</i>';
   }
 }
 
@@ -345,7 +345,7 @@ function end_share() {
   if (startedStream) {
     console.log('Ending screen share.');
     Toast.show('Ending screen share.', 'success');
-    screenShare.innerHTML = 'Share Screen';
+    screenShare.innerHTML = '<i class="material-icons">screen_share</i>';
     divConsultingRoomwSharing.style = 'display: none';
     remoteVideo.className = 'video-large';
     senders.find((sender) => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1]);
@@ -362,7 +362,7 @@ function start_share() {
     return;
   }
   console.log('Beginning screen share.');
-  screenShare.innerHTML = 'Stop Sharing';
+  screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
   console.log('screen sharing chain enabled');
 
   remoteVideo.className = 'video-small';
