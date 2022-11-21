@@ -16,14 +16,16 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
      <!-- Bootstrap CSS -->
+     <link rel="shortcut icon" href="#">
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-     <link type="text/css" rel="stylesheet" href='/css/style.css'>
+     <link type="text/css" rel="stylesheet" href='css/style.css'>
      <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
 
-    <title>Videocall Application</title>
+    <title>SparkV2</title>
     
     <meta charset="utf-8">
       <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -35,36 +37,41 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
 <body>
     <!-- used to create a header, sidebar and main section  -->
     <div class="wrapper">
-        <nav class="box header navbar navbar-expand-md navbar-light bg-light">
-            <h1>Videocall Application</h1>
+        <nav class="header">
+            <h1> S p a r k </h1> 
+            <hr class="header-top__seperator"/>
         </nav>
-
+        <section class="subheader">
+            <h3 id="hello-text">Videocalls on the go</h3>
+            <hr class="header-top__seperator"/>
+        </section>
+        
         <div class="box sidebar">
         <!-- use SIDEBAR to specify all comparitive charts, statments, query/export, widgets, etc. -->
             <div id="selectRoom">
-                <label title="switch rooms by entering a new number">Choose a room number to enter:</label>
-                <span><input id="roomNumber" type="text" placeholder="1"></input></span>
-                <button id="goRoom" class="btn btn-dark btn-sm" type="submit">Enter Room</button>
+                <span><input id="roomNumber" type="text" placeholder="Enter room number" style="font-size: 15px;"></input></span>
+                <button id="goRoom" class="btn btn-success btn-sm" type="submit">Join Room</button>
             </div>
 
             <hr> 
 
             <div  id="consultingControls" style="display:none">
-                <label>Control your web sharing capabilities here: </label>
-                <button type="submit" class="btn btn-dark btn-sm" id="toggle-cam">Hide cam</button>
-                <button type="submit" class="btn btn-dark btn-sm" id="toggle-mic">Mute microphone</button>
+                <label>User Options: </label>
+                
+                <button type="submit" class="btn btn-outline-primary btn-sm btn-icon" id="toggle-cam"><i class="material-icons">videocam</i></button>
+                <button type="submit" class="btn btn-outline-primary btn-sm btn-icon" id="toggle-mic"><i class="material-icons">mic</i></button>
                 
                 <br> 
                 <label>Share your screen: </label>
-                <button type="submit" class="btn btn-dark btn-sm" id="screen-share" disabled>Share Screen</button>
+                <button type="submit" class="btn btn-outline-info btn-sm btn-icon" id="screen-share" disabled><i class="material-icons">screen_share</i></button>
 
                 <br> 
                 <label>Disconnect the Call: </label>
-                <button type="submit" class="btn btn-dark btn-sm" id="disconnect-call" disabled>Disconnect</button>
+                <button type="submit" class="btn btn-outline-danger btn-sm btn-icon" id="disconnect-call" disabled><i class="material-icons">call_end</i></button>
 
                 <hr> 
-                <label>Disable gesture recognition </label>
-                <button type="submit" class="btn btn-dark btn-sm" id="gestures">Disable Gestures</button>
+                <label>Gesture Control:</label>
+                <button type="submit" class="btn btn-warning btn-sm" id="gestures">Disable Gestures</button>
 
             </div>
 
@@ -72,9 +79,16 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
 
         <div class="box content">
             <div  id="consultingRoom" style="display:none">
-                <video class="video-small" id="localVideo" autoplay muted></video>
+                <!-- <div id="video-grid" style="display: flex;">
+                    <video style="display:none" class="video-small" id="remoteVideo" autoplay></video>
+                </div>
                 <br>
-                <video class="video-large" id="remoteVideo" autoplay></video>
+                <video class="video-large" id="localVideo" autoplay muted></video> -->
+                <div id="video-grid" class="videos">
+                    <div id="localVideoContainer" class="videoContainer">
+                      <video id="localVideo" autoplay muted></video>
+                    </div>
+                </div>
             </div>
             <div  id="consultingRoomwSharing" style="display:none">
                 <video class="video-large" id="screen-sharing" autoplay ></video>

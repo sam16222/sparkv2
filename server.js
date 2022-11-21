@@ -99,28 +99,27 @@ io.on('connection', function (socket) {
   console.log('connect socket id:' + `${socket.id}`);
 
   /** This function is triggered when someone clicks to join the room */
-  socket.on('create or join', function (room) {
+  socket.on('create or join', function (message) {
+    var room = message.room
     console.log('create or join to room ', room);
 
     var myRoom = io.of('/').adapter.rooms.get(room);
 
     if (myRoom === undefined || myRoom.size == 0) {
-      console.log('a room has been created. no participants to join.');
+      console.log(`Room ${room} has been created.`);
       socket.join(room);
       socket.emit('created', room);
-      console.log(io.of('/').adapter.rooms.get(room).size);
-    } else if (myRoom.size == 1) {
-      console.log('a participants to join available room');
+      console.log(io.of('/').adapter.rooms);
+    } else if (myRoom.size <= 5) {
+      console.log(`Participant ${socket.id} has joined room ${room}.`);
       socket.join(room);
       socket.emit('joined', room);
-    } else {
-      socket.emit('full', room);
     }
   });
 
   /** This function is triggered when the person in the room is ready to communicate */
-  socket.on('ready', function (room) {
-    socket.broadcast.to(room).emit('ready');
+  socket.on('ready', function (message) {
+    socket.broadcast.to(message.room).emit('ready', message);
   });
 
   socket.on('screen-shared', function (room) {
@@ -137,19 +136,20 @@ io.on('connection', function (socket) {
   });
 
   /** This function is triggered when server gets an offer from a person in the room */
-  socket.on('offer', function (event) {
-    socket.broadcast.to(event.room).emit('offer', event.sdp);
+  socket.on('offer', function (message) {
+    socket.broadcast.to(message.room).emit('offer', message);
   });
 
   /** This function is triggered when server gets an answer from a person in the room */
-  socket.on('answer', function (event) {
-    socket.broadcast.to(event.room).emit('answer', event.sdp);
+  socket.on('answer', function (message) {
+    socket.broadcast.to(message.room).emit('answer', message);
   });
 
   /** This function is triggered when a user disconnects */
-  socket.on('disconnect-call', function (room) {
-    socket.broadcast.to(room).emit('disconnect-call');
-    console.log('a user disconnected');
+  socket.on('disconnect-call', function (message) {
+    console.log(message)
+    socket.broadcast.to(message.room).emit('disconnect-call', message);
+    console.log(`user ${socket.id} disconnected`);
   });
 });
 

@@ -15,16 +15,66 @@ body {
 
 .sidebar {
     grid-area: sidebar;
+    background-color: rgb(238, 249, 250);
 }
 
 .content {
     grid-area: content;
+    background-color: rgb(2, 40, 43);
+    
 }
 
-.header {
-    grid-area: header;
-    align-items: right;
+.videos { 
+  
+    display: grid;
+    grid-gap: 5px;
+    grid-auto-flow: row;
+    
+    grid-template-columns: repeat(var(--gridCount), minmax(var(--colWidth), 1fr)) ;
 }
+
+.videoContainer {
+    position: relative;
+    overflow: hidden;
+    
+    min-height: var(--rowHeight);
+    min-width: var(--colWidth);
+}
+
+.videoContainer video {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+}
+
+.videoLabel {
+    color: white;
+    font: bold 18px Arial, Sans-Serif;
+    line-height: 20px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.55);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 4px 10px;
+}
+
+.subheader {
+    margin-top: 20px;
+    margin-right: 30px;
+    grid-area: subheader;
+    text-align: right;
+}
+
+.header-top__seperator {
+    width: 100%;
+    border: none;
+    height: 2px;
+    margin-top: 2px;
+    background-color: #f2f4f4;
+  }
 
 .wrapper {
     display: grid;
@@ -32,7 +82,7 @@ body {
     grid-template-columns: 28% auto;
     grid-template-rows: 72px  auto;
     grid-template-areas:
-        "header header"
+        "header subheader"
         "sidebar content";
     background-color: #fff;
     color: #888;
@@ -41,7 +91,6 @@ body {
 }
 
 .box {
-    background-color: #BBBB;
     color: #333;
     border-radius: 5px;
     padding: 20px;
@@ -50,8 +99,13 @@ body {
 }
 
 .header {
-    background-color: #999;
+    grid-area: header;
+    padding-top: 5px;
+    padding-left: 20px;
+    background-color: #fff;
     color: #333;
+    text-align: left;
+    font-style: italic;
 }
 
 .headerButton {
@@ -63,11 +117,15 @@ body {
 }
 
 .button {
-    background-color : #999; 
+    background-color : rgb(209, 25, 25); 
     border-radius: 12px;
     font-size: 50%;
     margin-right: 5px;
     margin-left: 5px;
+}
+
+.btn-icon {
+    padding-top: 10px;
 }
 
 input {
@@ -116,11 +174,11 @@ input[type=submit] {
 }
 
 .button {
-    padding: 5px;
+    padding: 10px;
 }
 
 .video-small {
-    border: 2px solid #333; 
+    border: 2px solid #fff; 
     border-radius: 5px; 
     width: 20%; 
     position: relative;
@@ -129,7 +187,7 @@ input[type=submit] {
 }
 
 .video-large {
-    border: 2px solid #333; 
+    border: 2px solid #fff; 
     border-radius: 5px; 
     width: 80%; 
     position: relative;
@@ -139,9 +197,9 @@ input[type=submit] {
 
 .toast {
     visibility: hidden; /* Hidden by default. Visible on click */
-    height: '15vh';
-    max-width: '35vw' !important;
-    min-width: '35vw' !important;
+    height: 15vh;
+    max-width: 35vw !important;
+    min-width: 35vw !important;
     overflow: scroll;
     margin-left: -125px; /* Divide value of min-width by 2 */
     background-color: #333; /* Black background color */
