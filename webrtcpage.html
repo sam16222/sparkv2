@@ -37,20 +37,20 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
 <body>
     <!-- used to create a header, sidebar and main section  -->
     <div class="wrapper">
-        <nav class="header navbar navbar-expand-md navbar-light bg-light">
+        <nav class="header">
             <h1> S p a r k </h1> 
-            <hr className="header-top__seperator"/>
+            <hr class="header-top__seperator"/>
         </nav>
         <section class="subheader">
             <h3>- Videocalls on the go</h3>
-            <hr className="header-top__seperator"/>
+            <hr class="header-top__seperator"/>
         </section>
         
         <div class="box sidebar">
         <!-- use SIDEBAR to specify all comparitive charts, statments, query/export, widgets, etc. -->
             <div id="selectRoom">
-                <span><input id="roomNumber" type="text" placeholder="Enter room number"></input></span>
-                <button id="goRoom" class="btn btn-success btn-sm btn-icon" type="submit">Join Room</button>
+                <span><input id="roomNumber" type="text" placeholder="Enter room number" style="font-size: 15px;"></input></span>
+                <button id="goRoom" class="btn btn-success btn-sm" type="submit">Join Room</button>
             </div>
 
             <hr> 
@@ -70,8 +70,8 @@ this file. If not, please write to: develop.nak@gmail.com, or visit https://gith
                 <button type="submit" class="btn btn-outline-danger btn-sm btn-icon" id="disconnect-call" disabled><i class="material-icons">call_end</i></button>
 
                 <hr> 
-                <label>Disable gesture recognition: </label>
-                <button type="submit" class="btn btn-warning btn-sm btn-icon" id="gestures">Disable Gestures</button>
+                <label>Gesture Control:</label>
+                <button type="submit" class="btn btn-warning btn-sm" id="gestures">Disable Gestures</button>
 
             </div>
 
