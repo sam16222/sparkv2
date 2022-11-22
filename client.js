@@ -86,18 +86,10 @@ class ToastClass {
           this.el.classList.add(state);
       }
 
-      if (longToast) {
-        this.hideTimeout = setTimeout(() => {
-          this.el.classList.remove('show');
-          this.el.classList.remove(state);
-        }, 4000);
-      } else {
-        this.hideTimeout = setTimeout(() => {
-          this.el.classList.remove('show');
-          this.el.classList.remove(state);
-        }, 2000);
-      }
-      
+      this.hideTimeout = setTimeout(() => {
+        this.el.classList.remove('show');
+        this.el.classList.remove(state);
+      }, 3000);
   }
 };
 
