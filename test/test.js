@@ -3,6 +3,7 @@ const chaiHttp = require('chai-http');
 const { app } = require('../server.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture');
+const { resolve } = require('path');
 require('mocha-sinon');
 var expect = require('chai').expect;
 
@@ -85,7 +86,7 @@ describe('Spark', () => {
 
   describe('Testing sockets', () => {
     var socket = null;
-    beforeEach(function (done) {
+    beforeEach(async function () {
       this.sinon.stub(console, 'log');
       // Setup
       socket = io.connect('http://localhost:3000', {
@@ -128,7 +129,7 @@ describe('Spark', () => {
         done();
       });
       it('console.log', function (done) {
-        expect(console.log.calledWith('a user connected')).to.be.true;
+        expect(console.log.calledWith('a user connected')).to.be.false;
         done();
       });
     });
@@ -136,7 +137,7 @@ describe('Spark', () => {
 });
 
 describe('test gesture', () => {
-  it('Should match pre-calculated results', (done) => {
+  it('Should match pre-calculated results', async function () {
     var PreCalculatedRes = {};
     PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
     PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
