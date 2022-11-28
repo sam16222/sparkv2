@@ -3,7 +3,6 @@ const chaiHttp = require('chai-http');
 const { app } = require('../server.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture');
-const { resolve } = require('path');
 require('mocha-sinon');
 var expect = require('chai').expect;
 
