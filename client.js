@@ -20,6 +20,8 @@ var remoteVideo = document.getElementById('remoteVideo');
 var screenVideo = document.getElementById('screen-sharing');
 var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
+var heartEmoji = document.getElementById('heart-emoji');
+var likeEmoji = document.getElementById('like-emoji');
 var toggleGesture = document.getElementById('gestures');
 var toastButton = document.getElementById('toastbtn');
 var screenShare = document.getElementById('screen-share');
@@ -219,6 +221,41 @@ function toggleAudio() {
   }
 }
 
+function addReaction(emoji_id){
+  var new_message = {
+    'room' : roomNumber,
+    'uuid' : localUuid,
+    'dest' : 'all',
+  };
+  var emoji = '';
+  switch(emoji_id){
+    case 1:
+      emoji = 'favorite';
+      break;
+    case 2:
+      emoji = 'thumb_up';
+      break;
+  }
+  new_message['emoji'] = emoji;
+  console.log(new_message)
+  createEmojiContainer('localVideoContainer', emoji);
+  socket.emit('emoji', new_message);
+}
+
+function createEmojiContainer(videoContainer, emoji){
+  parentNode = document.getElementById(videoContainer);
+  childNode = document.getElementById(videoContainer+'-emoji-container');
+  try{
+    console.log(videoContainer);
+    parentNode.removeChild(childNode);
+  } catch (err) {console.log(err);}
+  var emojiContainer = document.createElement('div');
+  emojiContainer.setAttribute('id', videoContainer+'-emoji-container');
+  emojiContainer.setAttribute('class', 'reactionLabel');
+  emojiContainer.innerHTML = '<i class="material-icons">'+emoji+'</i>';
+  document.getElementById(videoContainer).appendChild(emojiContainer);
+}
+
 function toggleGestures() {
   if (gesturesEnabled == true) {
     disable_gestures();
@@ -249,6 +286,10 @@ function toggleScreenShare() {
  * Function is triggered when when the audio mute/unmute button is clicked.
  */
 toggleMic.addEventListener('click', toggleAudio);
+
+heartEmoji.addEventListener('click', function() {addReaction(1);});
+
+likeEmoji.addEventListener('click', function() {addReaction(2);});
 
 toggleGesture.addEventListener('click', toggleGestures);
 
@@ -474,6 +515,10 @@ socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
   Toast.show('You have joined the room', 'success', true);
   setupLocalScream(false)
+});
+
+socket.on('emoji', function (message) {
+  createEmojiContainer('remoteVideo-'+message.uuid, message.emoji);
 });
 
 function setupLocalScream(selfInitiated = false) {
