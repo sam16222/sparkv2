@@ -170,14 +170,14 @@ describe('test gesture', () => {
   });
 });
 
-describe('Closing spark server', () => {
-  it('Should close server socket', (done) => {
-    chai
-      .request(app)
-      .get('/close')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-});
+// describe('Closing spark server', () => {
+//   it('Should close server socket', (done) => {
+//     chai
+//       .request(app)
+//       .get('/close')
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         done();
+//       });
+//   });
+// });
