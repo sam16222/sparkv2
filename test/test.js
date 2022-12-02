@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { app } = require('../server.js');
+// const { app } = require('../server.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture');
 require('mocha-sinon');
