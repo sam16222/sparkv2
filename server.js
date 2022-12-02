@@ -122,6 +122,10 @@ io.on('connection', function (socket) {
     socket.broadcast.to(message.room).emit('ready', message);
   });
 
+  socket.on('emoji', function (message) {
+    socket.broadcast.to(message.room).emit('emoji', message);
+  });
+
   socket.on('screen-shared', function (room) {
     socket.broadcast.to(room).emit('screen-shared');
   });
