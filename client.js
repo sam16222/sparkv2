@@ -251,7 +251,6 @@ function addReaction(emoji_id) {
       break;
   }
   new_message['emoji'] = emoji;
-  console.log(new_message);
   createEmojiContainer('localVideoContainer', emoji);
   socket.emit('emoji', new_message);
 }

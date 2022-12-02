@@ -127,6 +127,10 @@ describe('Spark', () => {
         socket.emit('answer', 100);
         done();
       });
+      it('emoji emit function', function (done) {
+        socket.emit('emoji', 100);
+        done();
+      });
       it('console.log', function (done) {
         expect(console.log.calledWith('a user connected')).to.be.false;
         done();
