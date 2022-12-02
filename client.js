@@ -22,6 +22,10 @@ var toggleButton = document.getElementById('toggle-cam');
 var toggleMic = document.getElementById('toggle-mic');
 var heartEmoji = document.getElementById('heart-emoji');
 var likeEmoji = document.getElementById('like-emoji');
+var happyEmoji = document.getElementById('happy-emoji');
+var askQuestionEmoji = document.getElementById('question-emoji');
+var celebrationEmoji = document.getElementById('celebration-emoji');
+var clearEmoji = document.getElementById('clear-emoji');
 var toggleGesture = document.getElementById('gestures');
 var toastButton = document.getElementById('toastbtn');
 var screenShare = document.getElementById('screen-share');
@@ -33,8 +37,8 @@ var remoteStream;
 var screenStream;
 var rtcPeerConnection;
 
-var origContentHeight = document.getElementsByClassName('content')[0].clientHeight-40;
-var origContentWidth = document.getElementsByClassName('content')[0].clientWidth-40;
+var origContentHeight = document.getElementsByClassName('content')[0].clientHeight - 40;
+var origContentWidth = document.getElementsByClassName('content')[0].clientWidth - 40;
 
 const localUuid = createUUID();
 var localDisplayName;
@@ -43,8 +47,8 @@ var peerConnections = {};
 /** Contains the stun server URL that will be used */
 var iceServers = {
   iceServers: [
-    { urls: 'stun:stun.services.mozilla.com' }, 
-    { urls: 'stun:stun.l.google.com:19302' }
+    { urls: 'stun:stun.services.mozilla.com' },
+    { urls: 'stun:stun.l.google.com:19302' },
     // {
     //   urls: "turn:turnserver.example.org",
     //   username: "webrtc",
@@ -53,55 +57,53 @@ var iceServers = {
   ],
 };
 
-var streamConstraints = { 
-  audio: true, 
+var streamConstraints = {
+  audio: true,
   video: {
-    width: {max: 320},
-    height: {max: 240},
-    frameRate: {max: 30},
-  }, 
+    width: { max: 320 },
+    height: { max: 240 },
+    frameRate: { max: 30 },
+  },
 };
 var isCaller;
 var startedStream = false;
 const senders = [];
 
 class ToastClass {
-
   constructor() {
-      this.hideTimeout = null;
-      this.el = document.createElement('div');
-      this.el.className = 'toast';
-      document.body.appendChild(this.el);
+    this.hideTimeout = null;
+    this.el = document.createElement('div');
+    this.el.className = 'toast';
+    document.body.appendChild(this.el);
   }
 
   /**
    * @param {string} message - Toast Message
    * @param {string} state   - Toast State (success, error)
    * @param {boolean} longToast   - Keep toast for longer period of time
-  */
-  show(message, state, longToast=false) {
-      clearTimeout(this.hideTimeout);
-      this.el.textContent = message;
-      this.el.classList.add('show');
+   */
+  show(message, state, longToast = false) {
+    clearTimeout(this.hideTimeout);
+    this.el.textContent = message;
+    this.el.classList.add('show');
 
-      if (state) {
-          this.el.classList.add(state);
-      }
+    if (state) {
+      this.el.classList.add(state);
+    }
 
-      if (longToast) {
-        this.hideTimeout = setTimeout(() => {
-          this.el.classList.remove('show');
-          this.el.classList.remove(state);
-        }, 4000);
-      } else {
-        this.hideTimeout = setTimeout(() => {
-          this.el.classList.remove('show');
-          this.el.classList.remove(state);
-        }, 2000);
-      }
-      
+    if (longToast) {
+      this.hideTimeout = setTimeout(() => {
+        this.el.classList.remove('show');
+        this.el.classList.remove(state);
+      }, 4000);
+    } else {
+      this.hideTimeout = setTimeout(() => {
+        this.el.classList.remove('show');
+        this.el.classList.remove(state);
+      }, 2000);
+    }
   }
-};
+}
 
 var Toast = new ToastClass();
 document.addEventListener('DOMContentLoaded', () => Toast);
@@ -130,7 +132,7 @@ var socket = io();
  * Function is triggered when a gesture is recognized.
  */
 function onGestureAction(results) {
-  if(!gesturesEnabled) return;
+  if (!gesturesEnabled) return;
   var gesture = onResults(results);
   switch (gesture) {
     case Gesture.RightSwipe:
@@ -202,14 +204,14 @@ function onGestureAction(results) {
 }
 
 function toggleVideo(disable = false) {
-    const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
-    if (videoTrack.enabled || disable === true) {
-      videoTrack.enabled = false;
-      toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
-    } else {
-      videoTrack.enabled = true;
-      toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
-    }
+  const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
+  if (videoTrack.enabled || disable === true) {
+    videoTrack.enabled = false;
+    toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
+  } else {
+    videoTrack.enabled = true;
+    toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
+  }
 }
 
 function toggleAudio() {
@@ -221,38 +223,55 @@ function toggleAudio() {
   }
 }
 
-function addReaction(emoji_id){
+function addReaction(emoji_id) {
   var new_message = {
-    'room' : roomNumber,
-    'uuid' : localUuid,
-    'dest' : 'all',
+    room: roomNumber,
+    uuid: localUuid,
+    dest: 'all',
   };
   var emoji = '';
-  switch(emoji_id){
+  switch (emoji_id) {
     case 1:
       emoji = 'favorite';
       break;
     case 2:
       emoji = 'thumb_up';
       break;
+    case 3:
+      emoji = 'sentiment_very_satisfied';
+      break;
+    case 4:
+      emoji = 'celebration';
+      break;
+    case 5:
+      emoji = 'question_mark';
+      break;
+    case 6:
+      emoji = 'remove';
+      break;
   }
   new_message['emoji'] = emoji;
-  console.log(new_message)
+  console.log(new_message);
   createEmojiContainer('localVideoContainer', emoji);
   socket.emit('emoji', new_message);
 }
 
-function createEmojiContainer(videoContainer, emoji){
-  parentNode = document.getElementById(videoContainer);
-  childNode = document.getElementById(videoContainer+'-emoji-container');
-  try{
+function createEmojiContainer(videoContainer, emoji) {
+  var parentNode = document.getElementById(videoContainer);
+  var childNode = document.getElementById(videoContainer + '-emoji-container');
+  try {
     console.log(videoContainer);
     parentNode.removeChild(childNode);
-  } catch (err) {console.log(err);}
+  } catch (err) {
+    console.log(err);
+  }
+  if (emoji == 'remove') {
+    return;
+  }
   var emojiContainer = document.createElement('div');
-  emojiContainer.setAttribute('id', videoContainer+'-emoji-container');
+  emojiContainer.setAttribute('id', videoContainer + '-emoji-container');
   emojiContainer.setAttribute('class', 'reactionLabel');
-  emojiContainer.innerHTML = '<i class="material-icons">'+emoji+'</i>';
+  emojiContainer.innerHTML = '<i class="material-icons">' + emoji + '</i>';
   document.getElementById(videoContainer).appendChild(emojiContainer);
 }
 
@@ -280,16 +299,36 @@ function toggleScreenShare() {
 /**
  * Function is triggered when the video on/off button is clicked.
  */
- toggleButton.addEventListener('click', toggleVideo);
+toggleButton.addEventListener('click', toggleVideo);
 
 /**
  * Function is triggered when when the audio mute/unmute button is clicked.
  */
 toggleMic.addEventListener('click', toggleAudio);
 
-heartEmoji.addEventListener('click', function() {addReaction(1);});
+heartEmoji.addEventListener('click', function () {
+  addReaction(1);
+});
 
-likeEmoji.addEventListener('click', function() {addReaction(2);});
+likeEmoji.addEventListener('click', function () {
+  addReaction(2);
+});
+
+happyEmoji.addEventListener('click', function () {
+  addReaction(3);
+});
+
+celebrationEmoji.addEventListener('click', function () {
+  addReaction(4);
+});
+
+askQuestionEmoji.addEventListener('click', function () {
+  addReaction(5);
+});
+
+clearEmoji.addEventListener('click', function () {
+  addReaction(6);
+});
 
 toggleGesture.addEventListener('click', toggleGestures);
 
@@ -383,16 +422,18 @@ function enable_gestures() {
 
 function createMessage(dest = 'all') {
   return {
-    'room' : roomNumber,
-    'uuid' : localUuid,
-    'dest' : dest,
-    'displayName' : localDisplayName,
-  }
+    room: roomNumber,
+    uuid: localUuid,
+    dest: dest,
+    displayName: localDisplayName,
+  };
 }
 
 function createUUID() {
   function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
 
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
@@ -446,14 +487,13 @@ btnGoRoom.onclick = function () {
  */
 socket.on('connect', function () {
   console.log('Connection acheived.');
-  if(sessionStorage.getItem('sparkName')){
+  if (sessionStorage.getItem('sparkName')) {
     localDisplayName = sessionStorage.getItem('sparkName');
-  }
-  else{
-    localDisplayName = prompt('Enter your name', 'Guest')
+  } else {
+    localDisplayName = prompt('Enter your name', 'Guest');
     sessionStorage.setItem('sparkName', localDisplayName);
   }
-  document.getElementById('hello-text').innerHTML = 'Hello ' + localDisplayName+'!';
+  document.getElementById('hello-text').innerHTML = 'Hello ' + localDisplayName + '!';
   // divSelectRoom.style = "display: none;";
   divConsultingRoom.style = 'display: block;';
   divConsultingControls.style = 'display: block;';
@@ -474,17 +514,19 @@ function updateLayout() {
   var gridCount = 1;
   var numVideos = Object.keys(peerConnections).length + 1; // add one to include local video
 
-  if (numVideos > 1 && numVideos <= 4) { // 2x2 grid
-    contentHeight = origContentHeight/2;
-    contentWidth = origContentWidth/2;
-    gridCount = Math.ceil(numVideos/2);
-  } else if (numVideos > 4) { // 3x3 grid
-    contentHeight = origContentHeight/3;
-    contentWidth = origContentWidth/3;
-    gridCount = Math.ceil(numVideos/3);
+  if (numVideos > 1 && numVideos <= 4) {
+    // 2x2 grid
+    contentHeight = origContentHeight / 2;
+    contentWidth = origContentWidth / 2;
+    gridCount = Math.ceil(numVideos / 2);
+  } else if (numVideos > 4) {
+    // 3x3 grid
+    contentHeight = origContentHeight / 3;
+    contentWidth = origContentWidth / 3;
+    gridCount = Math.ceil(numVideos / 3);
   }
-  var rowHeight = contentHeight+'px';
-  var colWidth = contentWidth+'px';
+  var rowHeight = contentHeight + 'px';
+  var colWidth = contentWidth + 'px';
   console.log(document.documentElement.style);
   document.documentElement.style.setProperty(`--rowHeight`, rowHeight);
   document.documentElement.style.setProperty(`--colWidth`, colWidth);
@@ -501,7 +543,7 @@ function updateLayout() {
 socket.on('created', function (room) {
   console.log('You are the first one in the room. Room created.');
   Toast.show('Room created. You are the first participant.', 'success', true);
-  setupLocalScream(true)
+  setupLocalScream(true);
 });
 
 /**
@@ -514,11 +556,11 @@ socket.on('created', function (room) {
 socket.on('joined', function (room) {
   console.log('You are joining an existing room. Room joined.');
   Toast.show('You have joined the room', 'success', true);
-  setupLocalScream(false)
+  setupLocalScream(false);
 });
 
 socket.on('emoji', function (message) {
-  createEmojiContainer('remoteVideo-'+message.uuid, message.emoji);
+  createEmojiContainer('remoteVideo-' + message.uuid, message.emoji);
 });
 
 function setupLocalScream(selfInitiated = false) {
@@ -528,42 +570,42 @@ function setupLocalScream(selfInitiated = false) {
       localStream = stream;
       localVideo.srcObject = stream;
       document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
-      selfInitiated ? isCaller = true : socket.emit('ready', createMessage());
+      selfInitiated ? (isCaller = true) : socket.emit('ready', createMessage());
       updateLayout();
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
       Toast.show('Oops, An error ocurred when accessing media devices', 'error', true);
-  });
+    });
 }
 
-function setUpPeer(peerUuid, displayName, initCall = false){
-  if(peerConnections[peerUuid]){
+function setUpPeer(peerUuid, displayName, initCall = false) {
+  if (peerConnections[peerUuid]) {
     console.log('Peer already exists');
     return;
   }
   console.log(`Setting up peer connection for ${displayName} with uuid: ${peerUuid}`);
   const peerConnection = new RTCPeerConnection(iceServers);
   peerConnections[peerUuid] = peerConnection;
-  peerConnection.onicecandidate = event => onIceCandidate(event, peerUuid);
-  peerConnection.ontrack = event => onAddStream(event, peerUuid, displayName);
-  peerConnection.oniceconnectionstatechange = event => onIceStateChange(event, peerUuid);
+  peerConnection.onicecandidate = (event) => onIceCandidate(event, peerUuid);
+  peerConnection.ontrack = (event) => onAddStream(event, peerUuid, displayName);
+  peerConnection.oniceconnectionstatechange = (event) => onIceStateChange(event, peerUuid);
   localStream.getTracks().forEach((track) => senders.push(peerConnection.addTrack(track, localStream)));
   // peerConnection.addStream(localStream);
   if (initCall) {
     peerConnection
       .createOffer()
-      .then(sessionDescription => 
-        {
-          peerConnection.setLocalDescription(sessionDescription);
-          socket.emit('offer', {
-            type: 'offer',
-            sdp: sessionDescription,
-            room: roomNumber,
-            uuid: localUuid,
-            dest: peerUuid,
-          });
-        }).catch(errorHandler);
+      .then((sessionDescription) => {
+        peerConnection.setLocalDescription(sessionDescription);
+        socket.emit('offer', {
+          type: 'offer',
+          sdp: sessionDescription,
+          room: roomNumber,
+          uuid: localUuid,
+          dest: peerUuid,
+        });
+      })
+      .catch(errorHandler);
   }
 }
 
@@ -573,20 +615,20 @@ function handleReadyOfferAnswer(message) {
   if (message.displayName && message.dest == 'all') {
     // set up peer connection object for a newcomer peer
     setUpPeer(peerUuid, message.displayName);
-    socket.emit('ready', createMessage(peerUuid))
-
+    socket.emit('ready', createMessage(peerUuid));
   } else if (message.displayName && message.dest == localUuid) {
     // initiate call if we are the newcomer peer
     setUpPeer(peerUuid, message.displayName, true);
-  } else if(message.sdp) {
+  } else if (message.sdp) {
     // handle offer
-    peerConnections[peerUuid].setRemoteDescription(new RTCSessionDescription(message.sdp)).then(function () {
-      // Only create answers in response to offers
-      if (message.type == 'offer') {
-        peerConnections[peerUuid]
-          .createAnswer()
-          .then(sessionDescription => 
-            {
+    peerConnections[peerUuid]
+      .setRemoteDescription(new RTCSessionDescription(message.sdp))
+      .then(function () {
+        // Only create answers in response to offers
+        if (message.type == 'offer') {
+          peerConnections[peerUuid]
+            .createAnswer()
+            .then((sessionDescription) => {
               peerConnections[peerUuid].setLocalDescription(sessionDescription);
               socket.emit('answer', {
                 type: 'answer',
@@ -595,9 +637,11 @@ function handleReadyOfferAnswer(message) {
                 uuid: localUuid,
                 dest: peerUuid,
               });
-            }).catch(errorHandler);
-      }
-    }).catch(errorHandler);
+            })
+            .catch(errorHandler);
+        }
+      })
+      .catch(errorHandler);
   }
 }
 
@@ -643,7 +687,7 @@ socket.on('full', function () {
  */
 socket.on('disconnect-call', function (message) {
   console.log('disconnected', message);
-  if(message.uuid == localUuid) return;
+  if (message.uuid == localUuid) return;
   console.log(peerConnections);
   peerConnections[message.uuid].close();
   onIceStateChange(null, message.uuid);
@@ -657,7 +701,7 @@ socket.on('disconnect-call', function (message) {
  * @event socket#candidate
  * @param {*} event event
  */
- socket.on('candidate', function (event) {
+socket.on('candidate', function (event) {
   var peerUuid = event.uuid;
   if (peerUuid == localUuid) return;
   var candidate = new RTCIceCandidate({
@@ -694,16 +738,16 @@ function onIceStateChange(event, peerUuid) {
   if (peerConnections[peerUuid]) {
     var state = peerConnections[peerUuid].iceConnectionState;
     console.log(`connection with peer ${peerUuid} ${state}`);
-    if (state === "failed" || state === "closed" || state === "disconnected") {
+    if (state === 'failed' || state === 'closed' || state === 'disconnected') {
       delete peerConnections[peerUuid];
       document.getElementById('video-grid').removeChild(document.getElementById('remoteVideo-' + peerUuid));
       updateLayout();
-      if(Object.keys(peerConnections).length == 0){
+      if (Object.keys(peerConnections).length == 0) {
         inputRoomNumber.value = '';
         //TODO: create a leave room function to disable buttons and stuff
       }
     }
-    console.log('remaining connections ',peerConnections);
+    console.log('remaining connections ', peerConnections);
   }
 }
 
@@ -714,8 +758,8 @@ function onIceStateChange(event, peerUuid) {
 function onAddStream(event, peerUuid, displayName) {
   console.log(`got remote stream, peer ${peerUuid}`);
 
-  var ele = document.getElementById('remoteVideo-'+peerUuid);
-  if(ele == null){
+  var ele = document.getElementById('remoteVideo-' + peerUuid);
+  if (ele == null) {
     //assign stream to new HTML video element
     // var vidElement = document.createElement('video');
     // vidElement.setAttribute('autoplay', '');

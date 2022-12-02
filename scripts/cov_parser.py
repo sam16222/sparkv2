@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 filename = sys.argv[1]
 with open(filename, "r") as fin:
