@@ -62,26 +62,26 @@ function json_to_obj(json_arr) {
 }
 
 describe('Spark', () => {
-  describe('HTTP request', () => {
-    it('Should send client page', (done) => {
-      chai
-        .request(app)
-        .get('/')
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
-    });
-    it('Should receive client.js file', (done) => {
-      chai
-        .request(app)
-        .get('/client.js')
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
-    });
-  });
+  // describe('HTTP request', () => {
+  //   it('Should send client page', (done) => {
+  //     chai
+  //       .request(app)
+  //       .get('/')
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         done();
+  //       });
+  //   });
+  //   it('Should receive client.js file', (done) => {
+  //     chai
+  //       .request(app)
+  //       .get('/client.js')
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         done();
+  //       });
+  //   });
+  // });
 
   describe('Testing sockets', () => {
     var socket = null;
