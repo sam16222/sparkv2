@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-// const { app } = require('../server.js');
+const { app } = require('../server_http.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture');
 require('mocha-sinon');
@@ -62,30 +62,30 @@ function json_to_obj(json_arr) {
 }
 
 describe('Spark', () => {
-  // describe('HTTP request', () => {
-  //   it('Should send client page', (done) => {
-  //     chai
-  //       .request(app)
-  //       .get('/')
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         done();
-  //       });
-  //   });
-  //   it('Should receive client.js file', (done) => {
-  //     chai
-  //       .request(app)
-  //       .get('/client.js')
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('HTTP request', () => {
+    it('Should send client page', (done) => {
+      chai
+        .request(app)
+        .get('/')
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+    it('Should receive client.js file', (done) => {
+      chai
+        .request(app)
+        .get('/client.js')
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
 
   describe('Testing sockets', () => {
     var socket = null;
-    beforeEach(async function () {
+    beforeEach(function (done) {
       this.sinon.stub(console, 'log');
       // Setup
       socket = io.connect('http://localhost:3000', {
@@ -94,8 +94,9 @@ describe('Spark', () => {
         'force new connection': true,
       });
       socket.on('connect', function () {
-        done();
+        done(); 
       });
+      // done();
     });
 
     afterEach(function (done) {
@@ -108,37 +109,39 @@ describe('Spark', () => {
 
     describe('Socket emit methods ', function () {
       it('create or join emit function', function (done) {
-        socket.emit('create or join', 100);
+        socket.emit('create or join', 
+        {
+          room: 1,
+          uuid: '1',
+          dest: 'all',
+          displayName: 'test',
+        });
         done();
       });
-      // it('ready emit function', function (done) {
-      //   socket.emit('ready', 100);
-      //   done();
-      // });
-      // it('candidate emit function', function (done) {
-      //   socket.emit('candidate', 100);
-      //   done();
-      // });
-      // it('offer emit function', function (done) {
-      //   socket.emit('offer', 100);
-      //   done();
-      // });
-      // it('answer emit function', function (done) {
-      //   socket.emit('answer', 100);
-      //   done();
-      // });
-      // it('emoji emit function', function (done) {
-      //   socket.emit('emoji', 100);
-      //   done();
-      // });
-      // it('console.log', function (done) {
-      //   if(expect(console.log.calledWith('a user connected')).to.be.false) {
-      //     done();
-      //   } else {
-      //     done();
-      //   }
-        
-      // });
+      it('ready emit function', function (done) {
+        socket.emit('ready', 100);
+        done();
+      });
+      it('candidate emit function', function (done) {
+        socket.emit('candidate', 100);
+        done();
+      });
+      it('offer emit function', function (done) {
+        socket.emit('offer', 100);
+        done();
+      });
+      it('answer emit function', function (done) {
+        socket.emit('answer', 100);
+        done();
+      });
+      it('emoji emit function', function (done) {
+        socket.emit('emoji', 100);
+        done();
+      });
+      it('console.log', function (done) {
+        expect(console.log.calledWith('a user connected')).to.be.true;
+        done();
+      });
     });
   });
 });
@@ -174,14 +177,14 @@ describe('test gesture', () => {
   });
 });
 
-// describe('Closing spark server', () => {
-//   it('Should close server socket', (done) => {
-//     chai
-//       .request(app)
-//       .get('/close')
-//       .end((err, res) => {
-//         res.should.have.status(200);
-//         done();
-//       });
-//   });
-// });
+describe('Closing spark server', () => {
+  it('Should close server socket', (done) => {
+    chai
+      .request(app)
+      .get('/close')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
