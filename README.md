@@ -30,11 +30,11 @@ We have the best hands free solution to your presentation needs! Have you ever p
 </h1>
 
 - Provides capability for a user to react during a video call.
-  - Agree
   - Favorite
-  - Question?
+  - Agree
   - Happy
   - Celebration
+  - Question?
   - Remove
 
 <h1 align="center">
