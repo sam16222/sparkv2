@@ -107,71 +107,71 @@ describe('Spark', () => {
     });
 
     describe('Socket emit methods ', function () {
-      it('create or join emit function', function (done) {
-        socket.emit('create or join', 100);
-        done();
-      });
-      it('ready emit function', function (done) {
-        socket.emit('ready', 100);
-        done();
-      });
-      it('candidate emit function', function (done) {
-        socket.emit('candidate', 100);
-        done();
-      });
-      it('offer emit function', function (done) {
-        socket.emit('offer', 100);
-        done();
-      });
-      it('answer emit function', function (done) {
-        socket.emit('answer', 100);
-        done();
-      });
-      it('emoji emit function', function (done) {
-        socket.emit('emoji', 100);
-        done();
-      });
-      it('console.log', function (done) {
-        if(expect(console.log.calledWith('a user connected')).to.be.false) {
-          done();
-        } else {
-          done();
-        }
+      // it('create or join emit function', function (done) {
+      //   socket.emit('create or join', 100);
+      //   done();
+      // });
+      // it('ready emit function', function (done) {
+      //   socket.emit('ready', 100);
+      //   done();
+      // });
+      // it('candidate emit function', function (done) {
+      //   socket.emit('candidate', 100);
+      //   done();
+      // });
+      // it('offer emit function', function (done) {
+      //   socket.emit('offer', 100);
+      //   done();
+      // });
+      // it('answer emit function', function (done) {
+      //   socket.emit('answer', 100);
+      //   done();
+      // });
+      // it('emoji emit function', function (done) {
+      //   socket.emit('emoji', 100);
+      //   done();
+      // });
+      // it('console.log', function (done) {
+      //   if(expect(console.log.calledWith('a user connected')).to.be.false) {
+      //     done();
+      //   } else {
+      //     done();
+      //   }
         
-      });
+      // });
     });
   });
 });
 
 describe('test gesture', () => {
-  it('Should match pre-calculated results', async function () {
-    var PreCalculatedRes = {};
-    PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
-    PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
-    PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
-    PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
+  // it('Should match pre-calculated results', async function () {
+  //   var PreCalculatedRes = {};
+  //   PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
+  //   PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
+  //   PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
+  //   PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
 
-    var fs = require('fs');
-    var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
-    var TestResults = json_to_obj(obj);
-    var res = {};
-    for (var idx in TestResults) {
-      var key = hand_gesture.onResults(TestResults[idx]);
-      if (res[key] === undefined) {
-        res[key] = 0;
-      }
-      res[key]++;
-    }
+  //   var fs = require('fs');
+  //   var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
+  //   var TestResults = json_to_obj(obj);
+  //   var res = {};
+  //   for (var idx in TestResults) {
+  //     var key = hand_gesture.onResults(TestResults[idx]);
+  //     if (res[key] === undefined) {
+  //       res[key] = 0;
+  //     }
+  //     res[key]++;
+  //   }
 
-    if (
-      PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers] &&
-      PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection] &&
-      PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp] &&
-      PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown]
-    ) {
-      done();
-    }
-  });
+  //   if (
+  //     PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers] &&
+  //     PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection] &&
+  //     PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp] &&
+  //     PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown]
+  //   ) {
+  //     done();
+  //   }
+  // });
 });
 
 // describe('Closing spark server', () => {
