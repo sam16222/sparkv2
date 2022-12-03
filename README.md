@@ -39,7 +39,7 @@ We have the best hands free solution to your presentation needs! Have you ever p
 
 <h1 align="center">
 
-<img src="/docs/documentation_photos/reactions.jpeg" alt="drawing" width="300" height="200"/>
+<img src="/docs/documentation_photos/reactions.jpg" alt="drawing" width="400" height="200"/>
 
 </h1>
 ## Demo Video
