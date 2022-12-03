@@ -132,8 +132,12 @@ describe('Spark', () => {
         done();
       });
       it('console.log', function (done) {
-        expect(console.log.calledWith('a user connected')).to.be.false;
-        done();
+        if(expect(console.log.calledWith('a user connected')).to.be.false) {
+          done();
+        } else {
+          done();
+        }
+        
       });
     });
   });
