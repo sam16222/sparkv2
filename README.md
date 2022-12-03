@@ -30,16 +30,16 @@ We have the best hands free solution to your presentation needs! Have you ever p
 </h1>
 
 - Provides capability for a user to react during a video call.
-  - Agree
   - Favorite
-  - Question?
+  - Agree
   - Happy
   - Celebration
+  - Question?
   - Remove
 
 <h1 align="center">
 
-<img src="/docs/documentation_photos/reactions.jpeg" alt="drawing" width="300" height="200"/>
+<img src="/docs/documentation_photos/reactions.jpg" alt="drawing" width="600" height="100"/>
 
 </h1>
 ## Demo Video
