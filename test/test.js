@@ -144,34 +144,34 @@ describe('Spark', () => {
 });
 
 describe('test gesture', () => {
-  // it('Should match pre-calculated results', async function () {
-  //   var PreCalculatedRes = {};
-  //   PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
-  //   PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
-  //   PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
-  //   PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
+  it('Should match pre-calculated results', async function () {
+    var PreCalculatedRes = {};
+    PreCalculatedRes[hand_gesture.Gesture.All5Fingers] = 228;
+    PreCalculatedRes[hand_gesture.Gesture.NoDetection] = 74;
+    PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] = 180;
+    PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] = 113;
 
-  //   var fs = require('fs');
-  //   var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
-  //   var TestResults = json_to_obj(obj);
-  //   var res = {};
-  //   for (var idx in TestResults) {
-  //     var key = hand_gesture.onResults(TestResults[idx]);
-  //     if (res[key] === undefined) {
-  //       res[key] = 0;
-  //     }
-  //     res[key]++;
-  //   }
+    var fs = require('fs');
+    var obj = JSON.parse(fs.readFileSync('./gestureTestData', 'utf8'));
+    var TestResults = json_to_obj(obj);
+    var res = {};
+    for (var idx in TestResults) {
+      var key = hand_gesture.onResults(TestResults[idx]);
+      if (res[key] === undefined) {
+        res[key] = 0;
+      }
+      res[key]++;
+    }
 
-  //   if (
-  //     PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers] &&
-  //     PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection] &&
-  //     PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp] &&
-  //     PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown]
-  //   ) {
-  //     done();
-  //   }
-  // });
+    if (
+      PreCalculatedRes[hand_gesture.Gesture.All5Fingers] === res[hand_gesture.Gesture.All5Fingers] &&
+      PreCalculatedRes[hand_gesture.Gesture.NoDetection] === res[hand_gesture.Gesture.NoDetection] &&
+      PreCalculatedRes[hand_gesture.Gesture.ThumbsUp] === res[hand_gesture.Gesture.ThumbsUp] &&
+      PreCalculatedRes[hand_gesture.Gesture.ThumbsDown] === res[hand_gesture.Gesture.ThumbsDown]
+    ) {
+      done();
+    }
+  });
 });
 
 // describe('Closing spark server', () => {
