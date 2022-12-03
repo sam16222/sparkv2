@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { app } = require('../server.js');
+const { app } = require('../server_http.js');
 var io = require('socket.io-client');
 const hand_gesture = require('../hand_gesture');
 require('mocha-sinon');
@@ -85,7 +85,7 @@ describe('Spark', () => {
 
   describe('Testing sockets', () => {
     var socket = null;
-    beforeEach(async function () {
+    beforeEach(function (done) {
       this.sinon.stub(console, 'log');
       // Setup
       socket = io.connect('http://localhost:3000', {
@@ -94,8 +94,9 @@ describe('Spark', () => {
         'force new connection': true,
       });
       socket.on('connect', function () {
-        done();
+        done(); 
       });
+      // done();
     });
 
     afterEach(function (done) {
@@ -108,7 +109,13 @@ describe('Spark', () => {
 
     describe('Socket emit methods ', function () {
       it('create or join emit function', function (done) {
-        socket.emit('create or join', 100);
+        socket.emit('create or join', 
+        {
+          room: 1,
+          uuid: '1',
+          dest: 'all',
+          displayName: 'test',
+        });
         done();
       });
       it('ready emit function', function (done) {
@@ -132,7 +139,7 @@ describe('Spark', () => {
         done();
       });
       it('console.log', function (done) {
-        expect(console.log.calledWith('a user connected')).to.be.false;
+        expect(console.log.calledWith('a user connected')).to.be.true;
         done();
       });
     });
