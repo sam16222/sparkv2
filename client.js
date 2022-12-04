@@ -95,12 +95,12 @@ class ToastClass {
       this.hideTimeout = setTimeout(() => {
         this.el.classList.remove('show');
         this.el.classList.remove(state);
-      }, 4000);
+      }, 6000);
     } else {
       this.hideTimeout = setTimeout(() => {
         this.el.classList.remove('show');
         this.el.classList.remove(state);
-      }, 2000);
+      }, 3000);
     }
   }
 }
@@ -360,12 +360,14 @@ function end_share() {
     localVideo.className = 'video-large';
     document.getElementById('video-grid').classList.add('videos');
     document.getElementById('video-grid').classList.remove('videos-linear');
-    senders.filter((sender) => sender.track.kind === 'video').forEach(s => s.replaceTrack(localStream.getTracks()[1]));
+    senders
+      .filter((sender) => sender.track.kind === 'video')
+      .forEach((s) => s.replaceTrack(localStream.getTracks()[1]));
     startedStream = false;
     socket.emit('screen-shared', {
       room: roomNumber,
       uuid: localUuid,
-      enabled: false
+      enabled: false,
     });
     updateLayout();
   } else {
@@ -398,14 +400,17 @@ function start_share() {
       socket.emit('screen-shared', {
         room: roomNumber,
         uuid: localUuid,
-        enabled: true
+        enabled: true,
       });
-      stream.oninactive = () => { console.log('Screen sharing ended'); end_share(); };
+      stream.oninactive = () => {
+        console.log('Screen sharing ended');
+        end_share();
+      };
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
     });
-  
+
   console.log('screen sharing has begun');
 }
 
@@ -528,11 +533,10 @@ function updateLayout(screenShare = false) {
   var contentWidth = origContentWidth;
   var gridCount = 1;
   var numVideos = Object.keys(peerConnections).length + 1; // add one to include local video
-  if(screenShare || startedStream) {
+  if (screenShare || startedStream) {
     contentHeight = origContentHeight / 4;
     contentWidth = origContentWidth / 4;
-  }
-  else if (numVideos > 1 && numVideos <= 4) {
+  } else if (numVideos > 1 && numVideos <= 4) {
     // 2x2 grid
     contentHeight = origContentHeight / 2;
     contentWidth = origContentWidth / 2;
@@ -567,19 +571,18 @@ socket.on('created', function (room) {
 
 socket.on('screen-shared', function (message) {
   console.log('screen shared event received ', message);
-  if(message.uuid === localUuid) {
+  if (message.uuid === localUuid) {
     return;
   }
-  if(message.enabled) {
-    console.log('screen sharing has begun'); 
-    console.log(document.getElementById('remoteVideo-'+message.uuid).children[0])
-    screenVideo.srcObject = document.getElementById('remoteVideo-'+message.uuid).children[0].srcObject
+  if (message.enabled) {
+    console.log('screen sharing has begun');
+    console.log(document.getElementById('remoteVideo-' + message.uuid).children[0]);
+    screenVideo.srcObject = document.getElementById('remoteVideo-' + message.uuid).children[0].srcObject;
     divConsultingRoomwSharing.style = 'display: block;';
     document.getElementById('video-grid').classList.remove('videos');
     document.getElementById('video-grid').classList.add('videos-linear');
     updateLayout(true);
-  }
-  else { 
+  } else {
     console.log('screen sharing has ended');
     divConsultingRoomwSharing.style = 'display: none;';
     document.getElementById('video-grid').classList.add('videos');
@@ -605,7 +608,7 @@ socket.on('joined', function (room) {
  * This function is triggered when a user receives an emoji reaction.
  * @event socket#emoji
  * @param {dictionary} message - UUID & Emoji
- * 
+ *
  */
 socket.on('emoji', function (message) {
   createEmojiContainer('remoteVideo-' + message.uuid, message.emoji);
