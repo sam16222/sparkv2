@@ -362,6 +362,11 @@ function end_share() {
     document.getElementById('video-grid').classList.remove('videos-linear');
     senders.filter((sender) => sender.track.kind === 'video').forEach(s => s.replaceTrack(localStream.getTracks()[1]));
     startedStream = false;
+    socket.emit('screen-shared', {
+      room: roomNumber,
+      uuid: localUuid,
+      enabled: false
+    });
     updateLayout();
   } else {
     console.log('No Stream started yet.');
@@ -378,7 +383,6 @@ function start_share() {
   screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
   console.log('screen sharing chain enabled');
 
-  localVideo.className = 'video-small';
   divConsultingRoomwSharing.style = 'display: block;';
 
   navigator.mediaDevices
@@ -388,13 +392,20 @@ function start_share() {
       screenVideo.srcObject = stream;
       startedStream = true;
       senders.filter((sender) => sender.track.kind === 'video').forEach((s) => s.replaceTrack(screenTrack));
+      document.getElementById('video-grid').classList.remove('videos');
+      document.getElementById('video-grid').classList.add('videos-linear');
+      updateLayout(true);
+      socket.emit('screen-shared', {
+        room: roomNumber,
+        uuid: localUuid,
+        enabled: true
+      });
+      stream.oninactive = () => { console.log('Screen sharing ended'); end_share(); };
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
     });
-  document.getElementById('video-grid').classList.remove('videos');
-  document.getElementById('video-grid').classList.add('videos-linear');
-  updateLayout(true);
+  
   console.log('screen sharing has begun');
 }
 
@@ -552,6 +563,29 @@ socket.on('created', function (room) {
   console.log('You are the first one in the room. Room created.');
   Toast.show('Room created. You are the first participant.', 'success', true);
   setupLocalScream(true);
+});
+
+socket.on('screen-shared', function (message) {
+  console.log('screen shared event received ', message);
+  if(message.uuid === localUuid) {
+    return;
+  }
+  if(message.enabled) {
+    console.log('screen sharing has begun'); 
+    console.log(document.getElementById('remoteVideo-'+message.uuid).children[0])
+    screenVideo.srcObject = document.getElementById('remoteVideo-'+message.uuid).children[0].srcObject
+    divConsultingRoomwSharing.style = 'display: block;';
+    document.getElementById('video-grid').classList.remove('videos');
+    document.getElementById('video-grid').classList.add('videos-linear');
+    updateLayout(true);
+  }
+  else { 
+    console.log('screen sharing has ended');
+    divConsultingRoomwSharing.style = 'display: none;';
+    document.getElementById('video-grid').classList.add('videos');
+    document.getElementById('video-grid').classList.remove('videos-linear');
+    updateLayout(false);
+  }
 });
 
 /**

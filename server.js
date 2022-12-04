@@ -126,8 +126,8 @@ io.on('connection', function (socket) {
     socket.broadcast.to(message.room).emit('emoji', message);
   });
 
-  socket.on('screen-shared', function (room) {
-    socket.broadcast.to(room).emit('screen-shared');
+  socket.on('screen-shared', function (message) {
+    socket.broadcast.to(message.room).emit('screen-shared', message);
   });
 
   /** This function is triggered when server gets a candidate from a person in the room */
