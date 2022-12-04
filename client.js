@@ -358,8 +358,11 @@ function end_share() {
     screenShare.innerHTML = '<i class="material-icons">screen_share</i>';
     divConsultingRoomwSharing.style = 'display: none';
     localVideo.className = 'video-large';
-    senders.find((sender) => sender.track.kind === 'video').replaceTrack(localStream.getTracks()[1]);
+    document.getElementById('video-grid').classList.add('videos');
+    document.getElementById('video-grid').classList.remove('videos-linear');
+    senders.filter((sender) => sender.track.kind === 'video').forEach(s => s.replaceTrack(localStream.getTracks()[1]));
     startedStream = false;
+    updateLayout();
   } else {
     console.log('No Stream started yet.');
   }
@@ -384,12 +387,14 @@ function start_share() {
       const screenTrack = stream.getTracks()[0];
       screenVideo.srcObject = stream;
       startedStream = true;
-      senders.find((sender) => sender.track.kind === 'video').replaceTrack(screenTrack);
+      senders.filter((sender) => sender.track.kind === 'video').forEach((s) => s.replaceTrack(screenTrack));
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
     });
-
+  document.getElementById('video-grid').classList.remove('videos');
+  document.getElementById('video-grid').classList.add('videos-linear');
+  updateLayout(true);
   console.log('screen sharing has begun');
 }
 
@@ -505,15 +510,18 @@ function makeLabel(label) {
   return vidLabel;
 }
 
-function updateLayout() {
+function updateLayout(screenShare = false) {
   // update CSS grid based on number of diplayed videos
 
   var contentHeight = origContentHeight;
   var contentWidth = origContentWidth;
   var gridCount = 1;
   var numVideos = Object.keys(peerConnections).length + 1; // add one to include local video
-
-  if (numVideos > 1 && numVideos <= 4) {
+  if(screenShare || startedStream) {
+    contentHeight = origContentHeight / 4;
+    contentWidth = origContentWidth / 4;
+  }
+  else if (numVideos > 1 && numVideos <= 4) {
     // 2x2 grid
     contentHeight = origContentHeight / 2;
     contentWidth = origContentWidth / 2;
@@ -530,6 +538,7 @@ function updateLayout() {
   document.documentElement.style.setProperty(`--rowHeight`, rowHeight);
   document.documentElement.style.setProperty(`--colWidth`, colWidth);
   document.documentElement.style.setProperty(`--gridCount`, gridCount);
+  document.documentElement.style.setProperty(`--maxWidth`, origContentWidth + 'px');
 }
 
 /**

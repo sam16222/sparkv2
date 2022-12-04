@@ -33,6 +33,14 @@ body {
     grid-template-columns: repeat(var(--gridCount), minmax(var(--colWidth), 1fr)) ;
 }
 
+.videos-linear {
+    display: grid;
+    grid-gap: 5px;
+    grid-auto-flow: column;
+    max-width: var(--maxWidth);
+    overflow-x: auto;
+}
+
 .videoContainer {
     position: relative;
     overflow: hidden;
