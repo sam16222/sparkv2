@@ -4,8 +4,8 @@
 
 <a href="README.md">Overview</a> | <a href="INSTALL.md">Installation</a> | <a href="/docs/project_roadmap.md">Long Term Objectives</a>
 
-[![Build](https://github.com/sam16222/sparkv2/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
-[![Lint](https://github.com/sam16222/sparkv2/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
+[![Build](https://github.com/sam16222/sparkv2/actions/workflows/build.yml/badge.svg)](https://github.com/sam16222/sparkv2/actions/workflows/build.yml)
+[![Lint](https://github.com/sam16222/sparkv2/actions/workflows/lint.yml/badge.svg)](https://github.com/sam16222/sparkv2/actions/workflows/lint.yml)
 [![Test](https://github.com/sam16222/sparkv2/actions/workflows/test.yml/badge.svg)](https://github.com/sam16222/sparkv2/actions/workflows/test.yml)
 [![DOI](https://zenodo.org/badge/540260143.svg)](https://zenodo.org/badge/latestdoi/540260143)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -56,7 +56,7 @@ We have the best hands free solution to your presentation needs! Have you ever p
 
 <h1 align="center">
 
-
+![Spark Demo](https://user-images.githubusercontent.com/99683342/194715093-3fbc1bc9-7690-4edb-b8bb-5594ba029bb7.mp4)
 
 <h1>
 
@@ -78,6 +78,9 @@ We have the best hands free solution to your presentation needs! Have you ever p
 ## Use
 
 Setup and installation instructions can be found in the [user-friendly install guide](INSTALL.md)
+
+## Documentation
+Code Documentation can be found here https://sam16222.github.io/sparkv2/out_proj2/
 
 ## Testing / Coverage
 
@@ -140,6 +143,15 @@ Visit our [results page](/docs/results.md) for more information regarding runnin
 \---test
     |   test.js
 ```
+
+## Scaling Up
+<h1 align="center">
+  <img src="docs/documentation_photos/SEArch.jpg" alt="drawing" width="480" />
+</h1>
+The application relies on WebRTC Protocol and employs the use of TURN servers and WebSockets to enable real-time communication between users through a mesh network created based on the room numbers. The application is built on top of the Express.js framework and uses Socket.io to enable real-time communication between users. The application is currently deployed on a single server and can be scaled up by deploying the application on multiple servers. The application can be scaled up by using a load balancer to distribute the load across multiple servers since it uses rooms for communication and we can configure the LB to distribute load based on the room numbers. The application can also be scaled up by using a cloud service provider such as AWS, Azure, or Google Cloud Platform to distribute the load across multiple servers. You can refer to the diagram to get a better idea of how things work.
+<h1 align="center">
+  <img src="docs/documentation_photos/SEArch.jpg" alt="drawing" width="480" />
+</h1>
 
 ## Contributing
 
