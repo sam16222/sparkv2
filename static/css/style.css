@@ -1,267 +1,297 @@
 #viewDiv {
-    padding: 0; 
-    margin: 0; 
-    height: 100%; 
-    width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
-html, 
+html,
 body {
-    margin: 5px;
-    width: 100%;
-    height: 100%;
-    font-family: 'Roboto', sans-serif;
+  margin: 5px;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 .sidebar {
-    grid-area: sidebar;
-    background-color: rgb(238, 249, 250);
+  grid-area: sidebar;
+  background-color: rgb(238, 249, 250);
 }
 
 .content {
-    grid-area: content;
-    background-color: rgb(2, 40, 43);
-    
+  grid-area: content;
+  background-color: rgb(2, 40, 43);
 }
 
-.videos { 
-  
-    display: grid;
-    grid-gap: 5px;
-    grid-auto-flow: row;
-    
-    grid-template-columns: repeat(var(--gridCount), minmax(var(--colWidth), 1fr)) ;
+.videos {
+  display: grid;
+  grid-gap: 5px;
+  grid-auto-flow: row;
+
+  grid-template-columns: repeat(var(--gridCount), minmax(var(--colWidth), 1fr));
+}
+
+.videos-linear {
+  display: grid;
+  grid-gap: 5px;
+  grid-auto-flow: column;
+  max-width: var(--maxWidth);
+  overflow-x: auto;
 }
 
 .videoContainer {
-    position: relative;
-    overflow: hidden;
-    
-    min-height: var(--rowHeight);
-    min-width: var(--colWidth);
+  position: relative;
+  overflow: hidden;
+
+  min-height: var(--rowHeight);
+  min-width: var(--colWidth);
 }
 
 .videoContainer video {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: auto;
-    width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  width: 100%;
 }
 
 .videoLabel {
-    color: white;
-    font: bold 18px Arial, Sans-Serif;
-    line-height: 20px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.55);
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    padding: 4px 10px;
+  color: white;
+  font: bold 18px Arial, Sans-Serif;
+  line-height: 20px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 4px 10px;
 }
 
 .reactionLabel {
-    color: white;
-    font: bold 18px Arial, Sans-Serif;
-    line-height: 20px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.55);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 4px 10px;
+  color: white;
+  font: bold 18px Arial, Sans-Serif;
+  line-height: 20px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 4px 10px;
 }
 
 .subheader {
-    margin-top: 20px;
-    margin-right: 30px;
-    grid-area: subheader;
-    text-align: right;
+  margin-top: 20px;
+  margin-right: 30px;
+  grid-area: subheader;
+  text-align: right;
 }
 
 .header-top__seperator {
-    width: 100%;
-    border: none;
-    height: 2px;
-    margin-top: 2px;
-    background-color: #f2f4f4;
-  }
+  width: 100%;
+  border: none;
+  height: 2px;
+  margin-top: 2px;
+  background-color: #f2f4f4;
+}
 
 .wrapper {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: 28% auto;
-    grid-template-rows: 72px  auto;
-    grid-template-areas:
-        "header subheader"
-        "sidebar content";
-    background-color: #fff;
-    color: #888;
-    width: 100%;
-    height: 100%; 
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 28% auto;
+  grid-template-rows: 72px auto;
+  grid-template-areas:
+    'header subheader'
+    'sidebar content';
+  background-color: #fff;
+  color: #888;
+  width: 100%;
+  height: 100%;
 }
 
 .box {
-    color: #333;
-    border-radius: 5px;
-    padding: 20px;
-    font-size: 150%;
-    /* position: relative; */
+  color: #333;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+  /* position: relative; */
 }
 
 .header {
-    grid-area: header;
-    padding-top: 5px;
-    padding-left: 20px;
-    background-color: #fff;
-    color: #333;
-    text-align: left;
-    font-style: italic;
+  grid-area: header;
+  padding-top: 5px;
+  padding-left: 20px;
+  background-color: #fff;
+  color: #333;
+  text-align: left;
+  font-style: italic;
 }
 
 .headerButton {
-    background-color : #999; 
-    border-radius: 12px;
-    font-size: 50%;
-    margin-right: 5px;
-    margin-left: 5px;
+  background-color: #999;
+  border-radius: 12px;
+  font-size: 50%;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .button {
-    background-color : rgb(209, 25, 25); 
-    border-radius: 12px;
-    font-size: 50%;
-    margin-right: 5px;
-    margin-left: 5px;
+  background-color: rgb(209, 25, 25);
+  border-radius: 12px;
+  font-size: 50%;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .btn-icon {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 input {
-    display: flex;
-    margin: 0 auto;
-    align-items: left;
-    justify-content: left;
-  }
+  display: flex;
+  margin: 0 auto;
+  align-items: left;
+  justify-content: left;
+}
 
 label {
-    display: flex;
-    align-items: left;
-    justify-content: left;
-    margin: 0 auto;
-    color: #333; 
-    font-size: 75%;
-    padding: 2px;
-  }
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin: 0 auto;
+  color: #333;
+  font-size: 75%;
+  padding: 2px;
+}
 
 select {
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-
-input[type=text] {
-    padding:2px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 10px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    width: 80%;
-    justify-items: left;
-    float: left;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-input[type=text]:focus {
-    border-color:#333;
+input[type='text'] {
+  padding: 2px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 80%;
+  justify-items: left;
+  float: left;
 }
 
-input[type=submit] {
-    padding:10px 10px; 
-    background:#ccc; 
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; 
+input[type='text']:focus {
+  border-color: #333;
+}
+
+input[type='submit'] {
+  padding: 10px 10px;
+  background: #ccc;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .button {
-    padding: 10px;
+  padding: 10px;
 }
 
 .video-small {
-    border: 2px solid #fff; 
-    border-radius: 5px; 
-    width: 20%; 
-    position: relative;
-    top: 8; 
-    left: 8; 
+  border: 2px solid #fff;
+  border-radius: 5px;
+  width: 20%;
+  position: relative;
+  top: 8;
+  left: 8;
 }
 
 .video-large {
-    border: 2px solid #fff; 
-    border-radius: 5px; 
-    width: 80%; 
-    position: relative;
-    top: 3; 
-    left: 8; 
+  border: 2px solid #fff;
+  border-radius: 5px;
+  width: 80%;
+  position: relative;
+  top: 3;
+  left: 8;
 }
 
 .toast {
-    visibility: hidden; /* Hidden by default. Visible on click */
-    height: 15vh;
-    max-width: 35vw !important;
-    min-width: 35vw !important;
-    overflow: scroll;
-    margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: #333; /* Black background color */
-    text-align: center; /* Centered text */
-    border-radius: 20px; 
-    padding: 1.2rem 1rem; /* Padding */
-    position: fixed; /* Sit on top of the screen */
-    z-index: 1; /* Add a z-index if needed */
-    left: 50%; /* Center the snackbar */
-    bottom: 20px; /* 30px from the bottom */
+  visibility: hidden; /* Hidden by default. Visible on click */
+  height: 10vh;
+  max-width: 35vw !important;
+  min-width: 35vw !important;
+  overflow: scroll;
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  text-align: center; /* Centered text */
+  padding: 1.2rem 1rem; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 20px;
+  box-shadow: 10px 2px 2px #0c0909;
 }
 
 .toast.show {
-    visibility: visible; /* Show the snackbar */
-    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
 .toast.success {
-    background-color: white;
-    border: 15px solid #319a48;
-    font-size: 20px !important;
+  background-color: rgba(161, 197, 211, 0.946);
+  /* border: 15px solid #000000; */
+  font-size: 20px !important;
 }
 
 .toast.error {
-    /* background-color: #920427; */
-    border: 15px solid #920427;
-    background-color: white;
-    font-size: 20px !important;
+  /* background-color: #920427; */
+  border: 15px solid #920427;
+  background-color: white;
+  font-size: 20px !important;
 }
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

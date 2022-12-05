@@ -1,4 +1,91 @@
-/* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> client.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="socket.html">socket</a></li></ul><h3>Events</h3><ul><li><a href="socket.html#event:answer">answer</a></li><li><a href="socket.html#event:candidate">candidate</a></li><li><a href="socket.html#event:connect">connect</a></li><li><a href="socket.html#event:created">created</a></li><li><a href="socket.html#event:disconnect">disconnect</a></li><li><a href="socket.html#event:emoji">emoji</a></li><li><a href="socket.html#event:joined">joined</a></li><li><a href="socket.html#event:offer">offer</a></li><li><a href="socket.html#event:ready">ready</a></li></ul><h3>Global</h3><ul><li><a href="global.html#iceServers">iceServers</a></li><li><a href="global.html#onAddStream">onAddStream</a></li><li><a href="global.html#onGestureAction">onGestureAction</a></li><li><a href="global.html#onIceCandidate">onIceCandidate</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>client.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the MIT license that can be found in the LICENSE file or
  * at https://opensource.org/licenses/MIT.
@@ -49,26 +136,11 @@ var iceServers = {
   iceServers: [
     { urls: 'stun:stun.services.mozilla.com' },
     { urls: 'stun:stun.l.google.com:19302' },
-    {
-      urls: "turn:turnserver.example.org",
-      username: "webrtc",
-      credential: "turnpassword"
-    },
-    {
-      urls: "turn:openrelay.metered.ca:80",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443?transport=tcp",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    }
+    // {
+    //   urls: "turn:turnserver.example.org",
+    //   username: "webrtc",
+    //   credential: "turnpassword"
+    // }
   ],
 };
 
@@ -110,12 +182,12 @@ class ToastClass {
       this.hideTimeout = setTimeout(() => {
         this.el.classList.remove('show');
         this.el.classList.remove(state);
-      }, 6000);
+      }, 4000);
     } else {
       this.hideTimeout = setTimeout(() => {
         this.el.classList.remove('show');
         this.el.classList.remove(state);
-      }, 3000);
+      }, 2000);
     }
   }
 }
@@ -222,10 +294,10 @@ function toggleVideo(disable = false) {
   const videoTrack = localStream.getTracks().find((track) => track.kind === 'video');
   if (videoTrack.enabled || disable === true) {
     videoTrack.enabled = false;
-    toggleButton.innerHTML = '<i class="material-icons">videocam_off</i>';
+    toggleButton.innerHTML = '&lt;i class="material-icons">videocam_off&lt;/i>';
   } else {
     videoTrack.enabled = true;
-    toggleButton.innerHTML = '<i class="material-icons">videocam</i>';
+    toggleButton.innerHTML = '&lt;i class="material-icons">videocam&lt;/i>';
   }
 }
 
@@ -285,7 +357,7 @@ function createEmojiContainer(videoContainer, emoji) {
   var emojiContainer = document.createElement('div');
   emojiContainer.setAttribute('id', videoContainer + '-emoji-container');
   emojiContainer.setAttribute('class', 'reactionLabel');
-  emojiContainer.innerHTML = '<i class="material-icons">' + emoji + '</i>';
+  emojiContainer.innerHTML = '&lt;i class="material-icons">' + emoji + '&lt;/i>';
   document.getElementById(videoContainer).appendChild(emojiContainer);
 }
 
@@ -354,7 +426,7 @@ function mute() {
   const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
   if (audioTrack.enabled === true) {
     audioTrack.enabled = false;
-    toggleMic.innerHTML = '<i class="material-icons">mic_off</i>';
+    toggleMic.innerHTML = '&lt;i class="material-icons">mic_off&lt;/i>';
   }
 }
 
@@ -362,7 +434,7 @@ function unmute() {
   const audioTrack = localStream.getTracks().find((track) => track.kind === 'audio');
   if (audioTrack.enabled === false) {
     audioTrack.enabled = true;
-    toggleMic.innerHTML = '<i class="material-icons">mic</i>';
+    toggleMic.innerHTML = '&lt;i class="material-icons">mic&lt;/i>';
   }
 }
 
@@ -370,19 +442,17 @@ function end_share() {
   if (startedStream) {
     console.log('Ending screen share.');
     Toast.show('Ending screen share.', 'success');
-    screenShare.innerHTML = '<i class="material-icons">screen_share</i>';
+    screenShare.innerHTML = '&lt;i class="material-icons">screen_share&lt;/i>';
     divConsultingRoomwSharing.style = 'display: none';
     localVideo.className = 'video-large';
     document.getElementById('video-grid').classList.add('videos');
     document.getElementById('video-grid').classList.remove('videos-linear');
-    senders
-      .filter((sender) => sender.track.kind === 'video')
-      .forEach((s) => s.replaceTrack(localStream.getTracks()[1]));
+    senders.filter((sender) => sender.track.kind === 'video').forEach(s => s.replaceTrack(localStream.getTracks()[1]));
     startedStream = false;
     socket.emit('screen-shared', {
       room: roomNumber,
       uuid: localUuid,
-      enabled: false,
+      enabled: false
     });
     updateLayout();
   } else {
@@ -397,7 +467,7 @@ function start_share() {
     return;
   }
   console.log('Beginning screen share.');
-  screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
+  screenShare.innerHTML = '&lt;i class="material-icons">stop_screen_share&lt;/i>';
   console.log('screen sharing chain enabled');
 
   divConsultingRoomwSharing.style = 'display: block;';
@@ -415,17 +485,14 @@ function start_share() {
       socket.emit('screen-shared', {
         room: roomNumber,
         uuid: localUuid,
-        enabled: true,
+        enabled: true
       });
-      stream.oninactive = () => {
-        console.log('Screen sharing ended');
-        end_share();
-      };
+      stream.oninactive = () => { console.log('Screen sharing ended'); end_share(); };
     })
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
     });
-
+  
   console.log('screen sharing has begun');
 }
 
@@ -548,10 +615,11 @@ function updateLayout(screenShare = false) {
   var contentWidth = origContentWidth;
   var gridCount = 1;
   var numVideos = Object.keys(peerConnections).length + 1; // add one to include local video
-  if (screenShare || startedStream) {
+  if(screenShare || startedStream) {
     contentHeight = origContentHeight / 4;
     contentWidth = origContentWidth / 4;
-  } else if (numVideos > 1 && numVideos <= 4) {
+  }
+  else if (numVideos > 1 &amp;&amp; numVideos &lt;= 4) {
     // 2x2 grid
     contentHeight = origContentHeight / 2;
     contentWidth = origContentWidth / 2;
@@ -586,18 +654,19 @@ socket.on('created', function (room) {
 
 socket.on('screen-shared', function (message) {
   console.log('screen shared event received ', message);
-  if (message.uuid === localUuid) {
+  if(message.uuid === localUuid) {
     return;
   }
-  if (message.enabled) {
-    console.log('screen sharing has begun');
-    console.log(document.getElementById('remoteVideo-' + message.uuid).children[0]);
-    screenVideo.srcObject = document.getElementById('remoteVideo-' + message.uuid).children[0].srcObject;
+  if(message.enabled) {
+    console.log('screen sharing has begun'); 
+    console.log(document.getElementById('remoteVideo-'+message.uuid).children[0])
+    screenVideo.srcObject = document.getElementById('remoteVideo-'+message.uuid).children[0].srcObject
     divConsultingRoomwSharing.style = 'display: block;';
     document.getElementById('video-grid').classList.remove('videos');
     document.getElementById('video-grid').classList.add('videos-linear');
     updateLayout(true);
-  } else {
+  }
+  else { 
     console.log('screen sharing has ended');
     divConsultingRoomwSharing.style = 'display: none;';
     document.getElementById('video-grid').classList.add('videos');
@@ -622,8 +691,8 @@ socket.on('joined', function (room) {
 /**
  * This function is triggered when a user receives an emoji reaction.
  * @event socket#emoji
- * @param {dictionary} message - UUID & Emoji
- *
+ * @param {dictionary} message - UUID &amp; Emoji
+ * 
  */
 socket.on('emoji', function (message) {
   createEmojiContainer('remoteVideo-' + message.uuid, message.emoji);
@@ -677,12 +746,12 @@ function setUpPeer(peerUuid, displayName, initCall = false) {
 
 function handleReadyOfferAnswer(message) {
   var peerUuid = message.uuid;
-  if (peerUuid == localUuid || (message.dest != localUuid && message.dest != 'all')) return;
-  if (message.displayName && message.dest == 'all') {
+  if (peerUuid == localUuid || (message.dest != localUuid &amp;&amp; message.dest != 'all')) return;
+  if (message.displayName &amp;&amp; message.dest == 'all') {
     // set up peer connection object for a newcomer peer
     setUpPeer(peerUuid, message.displayName);
     socket.emit('ready', createMessage(peerUuid));
-  } else if (message.displayName && message.dest == localUuid) {
+  } else if (message.displayName &amp;&amp; message.dest == localUuid) {
     // initiate call if we are the newcomer peer
     setUpPeer(peerUuid, message.displayName, true);
   } else if (message.sdp) {
@@ -858,3 +927,33 @@ function onAddStream(event, peerUuid, displayName) {
 function errorHandler(error) {
   console.error(error);
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
