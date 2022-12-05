@@ -136,15 +136,14 @@ Visit our [results page](/docs/results.md) for more information regarding runnin
 ## Contributing
 
 Are you interested in contributing to this project? Visit [our contribution](CONTRIBUTING.md) documentation.
-
-Need some ideas on what to contribute? Visit our [project roadmap](/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking.
-
 This project is made possible by the incredible donation of time from NC State Project Contributors and the advice/support of CSC 510 teaching staff. NC State University has made the resources for this project possible, and will continue to support CSC 510 projects for the forseeable future.
 
-## Help
+## Support
 
-View some common issues users have identified in our [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md). We list tips and tricks for identifying where the issue may be coming from. Issue reports may be linked to this guide if you identify a bug that is a software limitation.
+In case of any queries and for additional help, please email us at: help.sparkV2@gmail.com
 
-You can visit our website with full descriptions of our classes and methods by opening `index.html` within your file explorer. Included on the website is user profiles of people who should use the software and success stories!
+## Meet the Team
 
-Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly. You can also email the development email to asked to be added to our subsriber list for updates regarding the project's development.
+<h1 align="center">
+<img src="/docs/documentation_photos/team.png" width="500" height="200"/>
+</h1>
