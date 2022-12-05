@@ -145,5 +145,5 @@ In case of any queries and for additional help, please email us at: help.sparkV2
 ## Meet the Team
 
 <h1 align="center">
-<img src="/docs/documentation_photos/team.png" width="500" height="200"/>
+<img src="/docs/documentation_photos/team.png" width="600" height="400"/>
 </h1>
