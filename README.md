@@ -4,13 +4,19 @@
 
 <a href="README.md">Overview</a> | <a href="INSTALL.md">Installation</a> | <a href="/docs/project_roadmap.md">Long Term Objectives</a>
 
-[![Build](https://github.com/SiddarthR56/spark/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
-[![Lint](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
-[![Test](https://github.com/SiddarthR56/spark/actions/workflows/test.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/test.yml)
-![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/SiddarthR56/c267cc7e00c619b7bd0e64cde19dad7b/raw/coverage.json)
+[![Build](https://github.com/sam16222/sparkv2/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
+[![Lint](https://github.com/sam16222/sparkv2/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
 [![DOI](https://zenodo.org/badge/540260143.svg)](https://zenodo.org/badge/latestdoi/540260143)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+![Github Issues](https://img.shields.io/github/issues/sam16222/sparkv2)
+![Github Issues](https://img.shields.io/github/issues-closed/sam16222/sparkv2)
+![Github Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/sam16222/sparkv2)
+![Github Pull Requests](https://img.shields.io/github/issues-pr-raw/sam16222/sparkv2)
+<br>
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 </h3>
 
 We have the best hands free solution to your presentation needs! Have you ever presented to an audience and not had the ability to interact and change your meeting controls on the go? Spark is a solution to use gestures to change your volume and screen sharing settings while you present. You no longer need to type a value, instead just give your camera a gesture or react on the go during presentations. We guarantee it will _spark_ new conversations and be the most seemless, hands-free presentation you have had!
@@ -44,11 +50,12 @@ We have the best hands free solution to your presentation needs! Have you ever p
 <img src="/docs/documentation_photos/reactions.jpg" alt="drawing" width="600" height="100"/>
 
 </h1>
+
 ## Demo Video
 
 <h1 align="center">
 
-![Spark Demo](https://user-images.githubusercontent.com/99683342/194715093-3fbc1bc9-7690-4edb-b8bb-5594ba029bb7.mp4)
+
 
 <h1>
 
