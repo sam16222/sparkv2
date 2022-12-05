@@ -2,7 +2,7 @@ Total Score: 363
 
 |Notes|Score|Links & Support|
 |-----|---------|---------|
-|Video1 : Very important - A 5min video of new functionality, showing a significant delta from old.| 3 | | 
+|Video1 : Very important - A 5min video of new functionality, showing a significant delta from old.| 3 | https://github.com/sam16222/sparkv2/blob/main/docs/sparkv2-demo.mp4 | 
 |Bonus: Xfold improvement - In some aspect of the code; theoretical complexity, runtime, memory, developer time...| 3 | Scaled the product to support additional participants (3X). Incorporated extra hand gestures. Added feature to react with emojis. | 
 |Workload is spread over the whole team (one team member is often Xtimes more productive than the others, but nevertheless, here is a track record that everyone is contributing a lot)| 3 | From [GH Insights](https://github.com/sam16222/sparkv2/graphs/contributors), team members have equally participated in scaling the original project|
 |Number of commits| 3 | From GH commits. Overall [30+ commits](https://github.com/sam16222/sparkv2/graphs/commit-activity) |
