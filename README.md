@@ -6,6 +6,7 @@
 
 [![Build](https://github.com/sam16222/sparkv2/actions/workflows/build.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/build.yml)
 [![Lint](https://github.com/sam16222/sparkv2/actions/workflows/lint.yml/badge.svg)](https://github.com/SiddarthR56/spark/actions/workflows/lint.yml)
+[![Test](https://github.com/sam16222/sparkv2/actions/workflows/test.yml/badge.svg)](https://github.com/sam16222/sparkv2/actions/workflows/test.yml)
 [![DOI](https://zenodo.org/badge/540260143.svg)](https://zenodo.org/badge/latestdoi/540260143)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Github Issues](https://img.shields.io/github/issues/sam16222/sparkv2)
