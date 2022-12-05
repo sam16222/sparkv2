@@ -13,23 +13,25 @@
 
 </h3>
 
-We have the best hands free solution to your presentation needs! Have you ever presented to an audience and not had the ability to interact and change your meeting controls on the go? Spark is a solution to use gestures to change your volume and screen sharing settings while you present. You no longer need to type a value, instead just give your camera a gesture and keep on presenting. We guarantee it will _spark_ new conversations and be the most seemless, hands-free presentation you have had!
+We have the best hands free solution to your presentation needs! Have you ever presented to an audience and not had the ability to interact and change your meeting controls on the go? Spark is a solution to use gestures to change your volume and screen sharing settings while you present. You no longer need to type a value, instead just give your camera a gesture or react on the go during presentations. We guarantee it will _spark_ new conversations and be the most seemless, hands-free presentation you have had!
 
 ## Capabilities
 
-- Allows two users to join a video conferencing web application
+- Allows multiple users to join a video conferencing web application
 - Provides capabilities for user to be able to use gestures to manipulate the web conferencing interface.
   - Show a thumbs up **to change volume**
   - Swipe left or right to interact with your **screen sharing capabilities**.
+  - Closed fist **to close the camera**
+  - Closed fist with the thumb and little finger out **to disconnect the call**
 
 <h1 align="center">
-
-<img src="/docs/documentation_photos/swipe.jpeg" alt="drawing" width="300" height="200"/>    
 <img src="/docs/documentation_photos/thumbs-up-thumbs-down.gif" width="300" height="200"/>
-
+<img src="/docs/documentation_photos/swipe.jpeg" alt="drawing" width="300" height="200"/>
+<img src="/docs/documentation_photos/ClosedFist.png" alt="drawing" width="300" height="200"/>
+<img src="/docs/documentation_photos/ClosedFistWithPinky.png" alt="drawing" width="300" height="200"/>
 </h1>
 
-- Provides capability for a user to react during a video call.
+- Provides capability for a user to react during a video call. Reactions offered include:
   - Favorite
   - Agree
   - Happy
@@ -53,18 +55,17 @@ We have the best hands free solution to your presentation needs! Have you ever p
 ## Worked Examples
 
 1. User is directed to the homepage where they are asked to enter a room number they would like to join. If the room does not already exist, a new room will be created for the user, for example, Room 2 is created in our case here.
+<h1 align="center">
+  <img src="docs/documentation_photos/JoinRoom.jpg" alt="drawing" width="480" />
+</h1>
 
-<img src="/docs/documentation_photos/ChooseRoomNo.png" alt="drawing" width="480" />
+2. If another person wishes to join the room, they can simply enter the same room number to join the room. Currently, the application supports volume functions for mute/unmute, video on/off, and screen share functionality. Gesture recognition is enabled by default for the mute/unmute and screen sharing functionalities.
+<h1 align="center">
+  <img src="docs/documentation_photos/VideoCall.jpg" alt="drawing" width="480" />
+  <img src="docs/documentation_photos/MultipleParticipantsCall.jpg" alt="drawing" width="480" />
+</h1>
 
-2. If another person wishes to join the room, they can simply enter the same room number to join the room. Currently, the application supports volume functions for mute/ unmute, video on/off, and screen share functionality. Gesture recognition is enabled by default for the mute/unmute and screen sharing functionalities.
-
-<img src="/docs/documentation_photos/RoomWithOne.png" alt="drawing" width="480" />
-
-3. By showing thumbs up/ down action towards the camera, either of the two users will be able to mute/ unmute their microphones. Similarly swipe left/ right action towards the camera will allow the users to share their screens with each other. In addition, users will also be able to disable gesture recognition by clicking the <b>Disable Gestures<b> button.
-
-<img src="/docs/documentation_photos/MeetingWithTwo.png" alt="drawing" width="480" />
-
-<img src="/docs/documentation_photos/ScreenSharing.png" alt="drawing" width="480" />
+3. Users can leverage capabilities such gestures mentioned in the capabilities and react during conversations. In addition, users will also be able to disable gesture recognition by clicking the <b>Disable Gestures<b> button.
 
 ## Use
 
@@ -135,15 +136,14 @@ Visit our [results page](/docs/results.md) for more information regarding runnin
 ## Contributing
 
 Are you interested in contributing to this project? Visit [our contribution](CONTRIBUTING.md) documentation.
-
-Need some ideas on what to contribute? Visit our [project roadmap](/docs/project_roadmap.md) to get some ideas or jump on over to our [development project board](https://github.com/users/SiddarthR56/projects/1) for specific issues we are tracking.
-
 This project is made possible by the incredible donation of time from NC State Project Contributors and the advice/support of CSC 510 teaching staff. NC State University has made the resources for this project possible, and will continue to support CSC 510 projects for the forseeable future.
 
-## Help
+## Support
 
-View some common issues users have identified in our [troubleshooting guide](https://github.com/SiddarthR56/spark/blob/main/docs/troubleshooting_guide.md). We list tips and tricks for identifying where the issue may be coming from. Issue reports may be linked to this guide if you identify a bug that is a software limitation.
+In case of any queries and for additional help, please email us at: help.sparkV2@gmail.com
 
-You can visit our website with full descriptions of our classes and methods by opening `index.html` within your file explorer. Included on the website is user profiles of people who should use the software and success stories!
+## Meet the Team
 
-Need more support? Our primary method for addressing bugs and feature requests should be through submitting an issue ticket in the "Issues" tab. If you need additional support, please reach out to our development email develop.nak@gmail.com and a member of the team will be in contact with you shortly. You can also email the development email to asked to be added to our subsriber list for updates regarding the project's development.
+<h1 align="center">
+<img src="/docs/documentation_photos/team.png" width="600" height="400"/>
+</h1>
