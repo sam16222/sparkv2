@@ -49,26 +49,26 @@ var iceServers = {
   iceServers: [
     { urls: 'stun:stun.services.mozilla.com' },
     { urls: 'stun:stun.l.google.com:19302' },
-    {
-      urls: "turn:turnserver.example.org",
-      username: "webrtc",
-      credential: "turnpassword"
-    },
-    {
-      urls: "turn:openrelay.metered.ca:80",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443?transport=tcp",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    }
+    // {
+    //   urls: "turn:turnserver.example.org",
+    //   username: "webrtc",
+    //   credential: "turnpassword"
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:80",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // }
   ],
 };
 
