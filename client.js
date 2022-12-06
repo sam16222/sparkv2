@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde- All Rights Reserved
+/* Copyright (C) 2022 Kraft, Royapally, Sarthi, Ramaswamy, Maduru, Harde, Mohatta, Kajani, Ambawane, Kuchibhotla, Desai - All Rights Reserved
  * You may use, distribute and modify this code under the
  * terms of the MIT license that can be found in the LICENSE file or
  * at https://opensource.org/licenses/MIT.
@@ -47,28 +47,28 @@ var peerConnections = {};
 /** Contains the stun server URL that will be used */
 var iceServers = {
   iceServers: [
+    {
+      urls: "turn:turnserver.example.org",
+      username: "webrtc",
+      credential: "turnpassword"
+    },
+    {
+      urls: "turn:openrelay.metered.ca:80",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
+    {
+      urls: "turn:openrelay.metered.ca:443",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
+    {
+      urls: "turn:openrelay.metered.ca:443?transport=tcp",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
     { urls: 'stun:stun.services.mozilla.com' },
-    { urls: 'stun:stun.l.google.com:19302' },
-    // {
-    //   urls: "turn:turnserver.example.org",
-    //   username: "webrtc",
-    //   credential: "turnpassword"
-    // },
-    // {
-    //   urls: "turn:openrelay.metered.ca:80",
-    //   username: "openrelayproject",
-    //   credential: "openrelayproject",
-    // },
-    // {
-    //   urls: "turn:openrelay.metered.ca:443",
-    //   username: "openrelayproject",
-    //   credential: "openrelayproject",
-    // },
-    // {
-    //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
-    //   username: "openrelayproject",
-    //   credential: "openrelayproject",
-    // }
+    { urls: 'stun:stun.l.google.com:19302' }
   ],
 };
 
