@@ -145,9 +145,6 @@ Visit our [results page](/docs/results.md) for more information regarding runnin
 ```
 
 ## Scaling Up
-<h1 align="center">
-  <img src="docs/documentation_photos/SEArch.jpg" alt="drawing" width="480" />
-</h1>
 The application relies on WebRTC Protocol and employs the use of TURN servers and WebSockets to enable real-time communication between users through a mesh network created based on the room numbers. The application is built on top of the Express.js framework and uses Socket.io to enable real-time communication between users. The application is currently deployed on a single server and can be scaled up by deploying the application on multiple servers. The application can be scaled up by using a load balancer to distribute the load across multiple servers since it uses rooms for communication and we can configure the LB to distribute load based on the room numbers. The application can also be scaled up by using a cloud service provider such as AWS, Azure, or Google Cloud Platform to distribute the load across multiple servers. You can refer to the diagram to get a better idea of how things work.
 <h1 align="center">
   <img src="docs/documentation_photos/SEArch.jpg" alt="drawing" width="480" />
