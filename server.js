@@ -101,6 +101,7 @@ io.on('connection', function (socket) {
   /** This function is triggered when someone clicks to join the room */
   socket.on('create or join', function (message) {
     var room = message.room
+    console.log(message)
     console.log('create or join to room ', room);
 
     var myRoom = io.of('/').adapter.rooms.get(room);
@@ -109,11 +110,11 @@ io.on('connection', function (socket) {
       console.log(`Room ${room} has been created.`);
       socket.join(room);
       socket.emit('created', room);
-      console.log(io.of('/').adapter.rooms);
-    } else if (myRoom.size <= 5) {
+    } else { 
       console.log(`Participant ${socket.id} has joined room ${room}.`);
       socket.join(room);
       socket.emit('joined', room);
+      console.log(io.of('/').adapter.rooms);
     }
   });
 

@@ -396,15 +396,15 @@ function start_share() {
     Toast.show('Screen share in progress', 'success', true);
     return;
   }
-  console.log('Beginning screen share.');
-  screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
-  console.log('screen sharing chain enabled');
-
-  divConsultingRoomwSharing.style = 'display: block;';
 
   navigator.mediaDevices
     .getDisplayMedia({ video: { cursor: 'always' }, audio: false })
     .then(function (stream) {
+      console.log('Beginning screen share.');
+      screenShare.innerHTML = '<i class="material-icons">stop_screen_share</i>';
+      console.log('screen sharing chain enabled');
+
+      divConsultingRoomwSharing.style = 'display: block;';
       const screenTrack = stream.getTracks()[0];
       screenVideo.srcObject = stream;
       startedStream = true;
@@ -417,6 +417,7 @@ function start_share() {
         uuid: localUuid,
         enabled: true,
       });
+      console.log('screen sharing has begun');
       stream.oninactive = () => {
         console.log('Screen sharing ended');
         end_share();
@@ -425,8 +426,6 @@ function start_share() {
     .catch(function (err) {
       console.log('An error ocurred when accessing media devices', err);
     });
-
-  console.log('screen sharing has begun');
 }
 
 function disable_gestures() {
